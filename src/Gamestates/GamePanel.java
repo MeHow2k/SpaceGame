@@ -42,6 +42,8 @@ public class GamePanel extends JPanel implements KeyListener {
                 int frames = 0;
                 long timer = System.currentTimeMillis();
 
+
+                //główna pętla gry
                 while(true){
 
                     long nowTime = System.nanoTime();
