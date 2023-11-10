@@ -1,3 +1,5 @@
+//klasa reprezentująca gracza
+
 package Entities;
 
 import java.awt.*;
