@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     }
                     try {
-                        Thread.sleep(5);//5ms
+                        Thread.sleep(1);//5ms
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
