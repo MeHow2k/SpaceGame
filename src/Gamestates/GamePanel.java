@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
+    ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
 
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED;
 
@@ -33,12 +34,16 @@ public class GamePanel extends JPanel implements KeyListener {
         setBackground(color);
         addKeyListener(this);
         //deklaracja obiektow
-        player= new Player(200,200);
-        points= new Points(30,0,this);
+        player= new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+
+        //test stworzenie pounktow
+        newPoints(50,50,25,25);
+        newPoints(100,50,25,25);
+        newPoints(150,50,25,25);
         //test rysowania obiektow
-        newEnemy(100,100,50,50);
+        newEnemy(100,50,50,50);
         newEnemy(200,100,50,50);
-        newEnemy(300,100,50,50);
+        newEnemy(300,150,50,50);
         //Odtworzenie głównego motywu gry
         try {
             SoundManager.playBackground();
@@ -141,6 +146,10 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listEnemy.size(); i++) {
                     listEnemy.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
+            if (listPoints != null)            //rysowanie wrogow
+                for (int i = 0; i < listPoints.size(); i++) {
+                    listPoints.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
 
 
         }//gamestate 0
@@ -162,6 +171,11 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
 
+    }
+    public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
+        Points point = new Points(x,y,this);
+        point.start();//start watku
+        listPoints.add(point);//dodanie do listy obiektow enemy
     }
 
     //keylistener do sterowania
@@ -186,7 +200,7 @@ public class GamePanel extends JPanel implements KeyListener {
             UP_PRESSED=true;
         }
     }
-    //////////////////////////////////////testing////////////////////////////////////////////////////////////
+
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode()==37){//s w lewo
