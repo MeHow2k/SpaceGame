@@ -2,12 +2,14 @@
 
 package Entities;
 
+import Constants.C;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Enemy extends Thread{
 
-    private int x=0,y=0,w=50,h=50,speed=1,score_increment=10;
+    private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,score_increment=10;
     JPanel panel;
 
     //konstruktor
@@ -39,16 +41,19 @@ public class Enemy extends Thread{
         return h;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
 
     @Override
     public void run() {
         while (true){
 
-            //y=y+speed;
-            x=x+speed;
+            if(x<0){
+                dirX=1;
+            }
+            if (x> C.FRAME_WIDTH-getW()) {
+                dirX=-1;
+            }
+            //y=y+;
+            x=x+velX*dirX;
 
             try {
                 sleep(10);

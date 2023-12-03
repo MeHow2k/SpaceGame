@@ -16,22 +16,26 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements KeyListener {
 
     Player player;//deklaracja obiektu Gracz
-    Points points;
 
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
+    ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
 
     GamePanel(){
         super(null);
         Color color = new Color(132, 142, 220);
         setBackground(color);
         //deklaracja obiektow
-        player= new Player(200,200);
-        points= new Points(30,0,this);
+        player= new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+
+        //test stworzenie pounktow
+        newPoints(50,50,25,25);
+        newPoints(100,50,25,25);
+        newPoints(150,50,25,25);
         //test rysowania obiektow
-        newEnemy(100,100,50,50);
+        newEnemy(100,50,50,50);
         newEnemy(200,100,50,50);
-        newEnemy(300,100,50,50);
+        newEnemy(300,150,50,50);
 
         new Thread(new Runnable() {
             @Override
@@ -93,12 +97,16 @@ public class GamePanel extends JPanel implements KeyListener {
 
         if(C.GAMESTATE==0){
             player.draw(g2D);//rysowanie gracza
-            points.draw(g2D);
+
 
 //tu będą pętle rysujące obiekty z list zadeklarowanych na początku
             if (listEnemy != null)            //rysowanie wrogow
                 for (int i = 0; i < listEnemy.size(); i++) {
                     listEnemy.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
+            if (listPoints != null)            //rysowanie wrogow
+                for (int i = 0; i < listPoints.size(); i++) {
+                    listPoints.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
 
 
@@ -120,9 +128,12 @@ public class GamePanel extends JPanel implements KeyListener {
         Enemy enemy = new Enemy(x,y,this);
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
-
     }
-
+    public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
+        Points point = new Points(x,y,this);
+        point.start();//start watku
+        listPoints.add(point);//dodanie do listy obiektow enemy
+    }
 
     //keylistener do sterowania
     @Override
