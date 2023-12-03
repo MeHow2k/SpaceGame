@@ -7,14 +7,10 @@ import Entities.Enemy;
 import Entities.Player;
 import Entities.Points;
 import Manager.SoundManager;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements KeyListener {
@@ -25,16 +21,26 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
 
+    //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED;
+    //etykiety
+    JLabel FPSlabel;
 
     GamePanel(){
         super(null);
         Color color = new Color(132, 142, 220);
         setBackground(color);
+        //dodanie nasłuchiwania klawiszy
         addKeyListener(this);
         //deklaracja obiektow
+        //gracz
         player= new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
-
+        //etykieta pokazyjąca FPS
+        FPSlabel = new JLabel("");
+        FPSlabel.setBounds(0, 10, 100, 30);
+        FPSlabel.setForeground(Color.white);
+        FPSlabel.setText("FPS: ");
+        add(FPSlabel);
         //test stworzenie pounktow
         newPoints(50,50,25,25);
         newPoints(100,50,25,25);
@@ -117,7 +123,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
                         timer += 1000;
-                        System.out.println("FPS: " + frames);
+                        //wypisywanie liczby klatek na sekundę w etykiecie
+                        FPSlabel.setText("FPS: " + frames);
                         frames = 0;
                     }
                 }//wh-true
