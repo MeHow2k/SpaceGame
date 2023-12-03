@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements KeyListener {
 
     Player player;//deklaracja obiektu Gracz
-    Points points;
 
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
@@ -139,7 +138,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
         if(C.GAMESTATE==0){
             player.draw(g2D);//rysowanie gracza
-            points.draw(g2D);
 
 //tu będą pętle rysujące obiekty z list zadeklarowanych na początku
             if (listEnemy != null)            //rysowanie wrogow
