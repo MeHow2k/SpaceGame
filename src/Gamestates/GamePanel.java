@@ -139,8 +139,8 @@ public class GamePanel extends JPanel implements KeyListener {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2D =(Graphics2D) g;
-        //Image imgBack = new ImageIcon(getClass().getClassLoader().getResource("background.gif")).getImage();
-        //g.drawImage(imgBack, 0, 0, C.FRAME_WIDTH, C.FRAME_HEIGHT, null);
+        Image imgBack = new ImageIcon(getClass().getClassLoader().getResource("background.gif")).getImage();
+        g.drawImage(imgBack, 0, 0, C.FRAME_WIDTH, C.FRAME_HEIGHT, null);
 
 
         if(C.GAMESTATE==0){
