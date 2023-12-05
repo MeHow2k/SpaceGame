@@ -6,7 +6,7 @@ import Constants.C;
 import Entities.Enemy;
 import Entities.Player;
 import Entities.Points;
-
+import Manager.SoundManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -21,13 +21,26 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
 
+    //zmienne bool zawirajace info czy naciśnięto przycisk
+    boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED;
+    //etykiety
+    JLabel FPSlabel;
+
     GamePanel(){
         super(null);
         Color color = new Color(132, 142, 220);
         setBackground(color);
+        //dodanie nasłuchiwania klawiszy
+        addKeyListener(this);
         //deklaracja obiektow
+        //gracz
         player= new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
-
+        //etykieta pokazyjąca FPS
+        FPSlabel = new JLabel("");
+        FPSlabel.setBounds(0, 10, 100, 30);
+        FPSlabel.setForeground(Color.white);
+        FPSlabel.setText("FPS: ");
+        add(FPSlabel);
         //test stworzenie pounktow
         newPoints(50,50,25,25);
         newPoints(100,50,25,25);
@@ -36,6 +49,12 @@ public class GamePanel extends JPanel implements KeyListener {
         newEnemy(100,50,50,50);
         newEnemy(200,100,50,50);
         newEnemy(300,150,50,50);
+        //Odtworzenie głównego motywu gry
+        try {
+            SoundManager.playBackground();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         new Thread(new Runnable() {
             @Override
@@ -58,8 +77,36 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
-                        player.moveX(1);//test ruchu klasy gracza
-                       // System.out.println("x:"+player.getX()+" y:"+player.getY() );//test up
+                        //obsluga ruchu gracza
+                        if (RIGHT_PRESSED == true) {
+                            if (C.FRAME_WIDTH - 60 >= player.getX()) {
+                                player.moveX(1); //poruszanie się w prawo
+                            }
+                            if (C.FRAME_WIDTH - 60 <= player.getX()) {
+                                player.moveX(-5); //odbijanie się od krawędzi
+                            }
+                        }
+                        if (LEFT_PRESSED == true) {
+                            if (0 <= player.getX()) {
+                                player.moveX(-1); //poruszanie się w lewo
+                            }
+                            if (0 >= player.getX()) {
+                                player.moveX(5); //odbijanie się od krawędzi
+                            }
+                        }
+                        if (DOWN_PRESSED == true) {
+                            if (C.FRAME_HEIGHT - 150 >= player.getY()) {
+                                player.moveY(1); //poruszanie się w dół
+                            }
+                        }
+                        if (UP_PRESSED == true) {
+                            if (0 < player.getY()) {
+                                player.moveY(-1); //poruszanie się w górę
+                            }
+                        }
+
+                        //player.moveX(1);//test ruchu klasy gracza
+                        //System.out.println("x:"+LEFT_PRESSED+" y:"+RIGHT_PRESSED );//test up
 
 
                     }
@@ -76,7 +123,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
                         timer += 1000;
-                        System.out.println("FPS: " + frames);
+                        //wypisywanie liczby klatek na sekundę w etykiecie
+                        FPSlabel.setText("FPS: " + frames);
                         frames = 0;
                     }
                 }//wh-true
@@ -97,7 +145,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
         if(C.GAMESTATE==0){
             player.draw(g2D);//rysowanie gracza
-
 
 //tu będą pętle rysujące obiekty z list zadeklarowanych na początku
             if (listEnemy != null)            //rysowanie wrogow
@@ -128,6 +175,7 @@ public class GamePanel extends JPanel implements KeyListener {
         Enemy enemy = new Enemy(x,y,this);
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
+
     }
     public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
         Points point = new Points(x,y,this);
@@ -143,11 +191,34 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        ////   ruch gracza
+        if (e.getKeyCode()==37){//s w lewo
+            LEFT_PRESSED=true;
+        }
+        if (e.getKeyCode()==39){//s w prawo
+            RIGHT_PRESSED=true;
+        }
+        if (e.getKeyCode()==40){//s w dol
+            DOWN_PRESSED=true;
+        }
+        if (e.getKeyCode()==38){//s w gore
+            UP_PRESSED=true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if (e.getKeyCode()==37){//s w lewo
+            LEFT_PRESSED=false;
+        }
+        if (e.getKeyCode()==39){//s w prawo
+            RIGHT_PRESSED=false;
+        }
+        if (e.getKeyCode()==40){//s w dol
+            DOWN_PRESSED=false;
+        }
+        if (e.getKeyCode()==38){//s w gore
+            UP_PRESSED=false;
+        }
     }
 }
