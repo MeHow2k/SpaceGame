@@ -146,6 +146,84 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 
+///////////////////////////////////kolizja punktow//////////////////////////////////////////////////////////////////////
+                        if (listPoints != null) {
+                            for (int i = 0; i < listPoints.size(); i++) {
+                                Points points = listPoints.get(i);
+//kolizja gracza z Punktem,
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(), 
+                                        points.getX(), points.getY(), points.getW(), points.getH())) {
+                                    try {
+                                        //SoundManager.playPunkt();
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //tutaj wpisz akcja
+                                    listPoints.remove(points);
+                                } else if (points.getY() > C.FRAME_HEIGHT) {
+                                    listPoints.remove(points);
+                                }
+                            }
+                        }
+//kolizja wroga i gracza
+                        if (listEnemy != null) {
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if (enemy.getHP() <= 0) {
+                                    listEnemy.remove(enemy);
+                                }
+                                //kolizja wroga i gracza
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
+                                        listEnemy.remove(enemy);
+                                        //wpisz akcja
+                                }
+                            }
+                        }
+//kolizja strzału gracza z obiektami
+                        if (listPlayerShot != null) {
+                            for (int i = 0; i < listPlayerShot.size(); i++) {
+                                PlayerShot playershot = listPlayerShot.get(i);
+                                ///////////////////// usuwanie wroga i strzału gdy ten ich trafi i dodanie pkt za to ////////////////////////
+                                if (listEnemy != null) {
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        //kolizja wroga i strzału
+                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
+                                            //losowe wypadanie punkt lub ulepszenie broni lub dodatkowe życie lub bateria lub tarcza
+                                            if (enemy.getHP() == 1) {
+                                                listEnemy.remove(enemy);
+                                                try {
+                                                    //SoundManager.playEnemyHit();
+                                                } catch (Exception e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                if (playershot != null)
+                                                    listPlayerShot.remove(playershot);
+                                                //wpisz akcja
+                                            } else {
+                                                if (playershot != null)
+                                                    listPlayerShot.remove(playershot);
+                                                enemy.setHP(enemy.getHP() - 1);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+//kolizja strzału wroga z graczem
+                        if (listEnemyShot != null) {
+                            for (int iw = 0; iw < listEnemyShot.size(); iw++) {
+                                EnemyShot enemyShot = listEnemyShot.get(iw);
+                                //kolizja strzału wroga i gracza
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        enemyShot.getX(), enemyShot.getY(), enemyShot.getW(), enemyShot.getH())) {
+                                    listEnemyShot.remove(enemyShot);
+                                    //wpisz akcja
+                                }
+                            }
+                        }
                     }//Gamestate 0
 
                     if(C.GAMESTATE==1){
@@ -241,9 +319,14 @@ public class GamePanel extends JPanel implements KeyListener {
     //funkcje
 
     //sprawdzanie kolizji
-    public boolean isCollision(){
-        if(true)//TODO warunek kolizji obiektow
-        return true; else return false;
+    public boolean isCollision(int o1x, int o1y, int o1w, int o1h,
+                               int o2x, int o2y, int o2w, int o2h){
+        if(o1x < o2x + o2w
+                && o1x + o1w > o2x
+                && o1y < o2y + o2h
+                && o1y + o1h > o2y
+        )return true;
+        else return false;
     }
     //test nowy wrog
     public void newEnemy(int x,int y,int w,int h){//utworzenie obiektu wroga
