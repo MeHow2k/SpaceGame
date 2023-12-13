@@ -3,26 +3,27 @@
 package Gamestates;
 
 import Constants.C;
-import Entities.Enemy;
-import Entities.Player;
-import Entities.Points;
+import Entities.*;
 import Manager.SoundManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GamePanel extends JPanel implements KeyListener {
 
     Player player;//deklaracja obiektu Gracz
-
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
+    ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
+    ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista punktów
 
     //zmienne bool zawirajace info czy naciśnięto przycisk
-    boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED;
+    boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,isShotOnCooldown=false;
+    int shotCooldown=60;
     //etykiety
     JLabel FPSlabel;
 
@@ -43,8 +44,8 @@ public class GamePanel extends JPanel implements KeyListener {
         add(FPSlabel);
         //test stworzenie pounktow
         newPoints(50,50,25,25);
-        newPoints(100,50,25,25);
-        newPoints(150,50,25,25);
+        //test stworzenie strzalu wroga
+        newEnemyShot(50,50);
         //test rysowania obiektow
         newEnemy(100,50,50,50);
         newEnemy(200,100,50,50);
@@ -77,7 +78,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
-                        //obsluga ruchu gracza
+                        //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
                                 player.moveX(1); //poruszanie się w prawo
@@ -104,14 +105,47 @@ public class GamePanel extends JPanel implements KeyListener {
                                 player.moveY(-1); //poruszanie się w górę
                             }
                         }
-
+                        if (SHOT_PRESSED == true) {
+                            isShotOnCooldown = true;
+                            newPlayerShot();
+                            SHOT_PRESSED = false;
+                            try {
+                               // SoundManager.playStrzal();
+                            } catch (Exception ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
                         //player.moveX(1);//test ruchu klasy gracza
                         //System.out.println("x:"+LEFT_PRESSED+" y:"+RIGHT_PRESSED );//test up
 
+                        // obsługa opóźnienia strzelania gracza
+                        if(isShotOnCooldown){ shotCooldown--; }
+                        if (shotCooldown <= 0) {
+                            shotCooldown = 60;
+                            isShotOnCooldown = false;
+                        }
 
-                    }
+                        //generowanie strzałów wrogów
+                        if (listEnemy != null ) {
+                            for (int i = 0; i < listEnemy.size(); i++) {
+                                Enemy enemy = listEnemy.get(i);
+                                Random random = new Random();
+                                int roll = random.nextInt(300);//w kazdej klatce szansa 1/300
+                                if (roll == 0) {
+                                    newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH());
+                                    try {
+                                        //SoindManager.playEnemysdhot();
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            }
+                        }
+
+                    }//Gamestate 0
+
                     try {
-                        Thread.sleep(1);//5ms
+                        Thread.sleep(3);//5ms
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -124,7 +158,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
                         timer += 1000;
                         //wypisywanie liczby klatek na sekundę w etykiecie
-                        FPSlabel.setText("FPS: " + frames);
+                        FPSlabel.setText("FPS: " + frames + " "+SHOT_PRESSED);
                         frames = 0;
                     }
                 }//wh-true
@@ -155,7 +189,14 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listPoints.size(); i++) {
                     listPoints.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
-
+            if (listEnemyShot != null)            //rysowanie wrogich strzałów
+                for (int i = 0; i < listEnemyShot.size(); i++) {
+                    listEnemyShot.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
+            if (listPlayerShot != null)            //rysowanie strzałów gracza
+                for (int i = 0; i < listPlayerShot.size(); i++) {
+                    listPlayerShot.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
 
         }//gamestate 0
 
@@ -182,7 +223,18 @@ public class GamePanel extends JPanel implements KeyListener {
         point.start();//start watku
         listPoints.add(point);//dodanie do listy obiektow enemy
     }
+    public void newEnemyShot(int x,int y){//utworzenie obiektu wrogiego strzału
+        EnemyShot enemyShot = new EnemyShot(x,y,this);
+        enemyShot.start();//start watku
+        listEnemyShot.add(enemyShot);//dodanie do listy obiektow enemyShot
 
+    }
+    public void newPlayerShot(){//utworzenie obiektu strzału gracza
+        PlayerShot playerShot = new PlayerShot(player.getX()+20,player.getY(),this);
+        playerShot.start();//start watku
+        listPlayerShot.add(playerShot);//dodanie do listy obiektow PlayerShot
+
+    }
     //keylistener do sterowania
     @Override
     public void keyTyped(KeyEvent e) {
@@ -204,6 +256,9 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
         }
+        if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
+            SHOT_PRESSED=true;
+        }
     }
 
     @Override
@@ -219,6 +274,9 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=false;
+        }
+        if (e.getKeyCode()==32){//spacja - strzał
+            SHOT_PRESSED=false;
         }
     }
 }

@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio.">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/PlayerShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
@@ -37,12 +39,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Frame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Gamestates.Frame" />
@@ -121,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701633131593</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Dodanie etykiety z licznikiem FPS">
+      <created>1701634758933</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701634758933</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +150,7 @@
     <MESSAGE value="szkielet" />
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
+    <MESSAGE value="Dodanie etykiety z licznikiem FPS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie etykiety z licznikiem FPS" />
   </component>
 </project>
