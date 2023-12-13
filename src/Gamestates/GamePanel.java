@@ -15,6 +15,9 @@ import java.util.Random;
 public class GamePanel extends JPanel implements KeyListener {
 
     Player player;//deklaracja obiektu Gracz
+
+    // deklaracja elementów menu
+    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
@@ -22,7 +25,8 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista punktów
 
     //zmienne bool zawirajace info czy naciśnięto przycisk
-    boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,isShotOnCooldown=false;
+    boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
+            isShotOnCooldown=false;//czas do ponownego strzału
     int shotCooldown=60;
     //etykiety
     JLabel FPSlabel;
@@ -33,9 +37,9 @@ public class GamePanel extends JPanel implements KeyListener {
         setBackground(color);
         //dodanie nasłuchiwania klawiszy
         addKeyListener(this);
-        //deklaracja obiektow
-        //gracz
+        //inicjalizacja obiektow
         player= new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+        menuCursor = new MenuCursor(C.FRAME_WIDTH / 2 - 180, 310, this);
         //etykieta pokazyjąca FPS
         FPSlabel = new JLabel("");
         FPSlabel.setBounds(0, 10, 100, 30);
@@ -144,6 +148,28 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     }//Gamestate 0
 
+                    if(C.GAMESTATE==1){
+                    //obsługa menu
+                        menuCursor.setX(C.FRAME_WIDTH / 2 - 180);
+                        if (menu != null && C.cursorPosition == 0) {
+                            menuCursor.setY(310);
+                        }
+                        if (menu != null && C.cursorPosition == 1) {
+                            menuCursor.setY(410);
+                        }
+                        if (menu != null && C.cursorPosition == 2) {
+                            menuCursor.setY(510);
+                        }
+                        if (menu != null && C.cursorPosition == 3) {
+                            menuCursor.setY(610);
+                        }
+                        if (menu != null && C.cursorPosition == 4) {
+                            menuCursor.setY(710);
+                        }
+
+                    }//GAMESTATE 1 menu
+
+                    if(C.GAMESTATE==2){}//GAMESTATE 2 menusettings
                     try {
                         Thread.sleep(3);//5ms
                     } catch (InterruptedException e) {
@@ -158,7 +184,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
                         timer += 1000;
                         //wypisywanie liczby klatek na sekundę w etykiecie
-                        FPSlabel.setText("FPS: " + frames + " "+SHOT_PRESSED);
+                        FPSlabel.setText("FPS: " + frames + " ");
                         frames = 0;
                     }
                 }//wh-true
@@ -169,7 +195,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }//GamePanel
 
 
-    ////  Funkcja rysująca obiekty///////////////////////////////////////////////////////
+    ////  Funkcja rysująca obiekty///////////////////////////////////////////////
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2D =(Graphics2D) g;
@@ -200,7 +226,15 @@ public class GamePanel extends JPanel implements KeyListener {
 
         }//gamestate 0
 
+        if(C.GAMESTATE==1){
+            menu = new Menu();
+            menu.draw(g2D);
+            menuCursor.draw(g2D);
+        }//GAMESTATE 1 -menu
 
+        if(C.GAMESTATE==2){
+
+        }//GAMESTATE 2 -menuOpcje
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -252,12 +286,34 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==40){//s w dol
             DOWN_PRESSED=true;
+            if(C.GAMESTATE==1 && C.cursorPosition<4){C.cursorPosition++;}
         }
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
+            if(C.GAMESTATE==1 && C.cursorPosition>0){C.cursorPosition--;}
         }
         if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
             SHOT_PRESSED=true;
+        }
+        if (e.getKeyCode()==10){//enter - zatwierdzanie w menu
+            if (C.cursorPosition == 0) {//start
+                C.GAMESTATE=0;
+            }
+            if (C.cursorPosition == 1) {//jak grac
+
+            }
+            if (C.cursorPosition == 2) {//opcje
+
+            }
+            if (C.cursorPosition == 3) {//autorzy
+
+            }
+            if (C.cursorPosition == 4) {//wyjdz
+                System.exit(1);
+            }
+        }
+        if (e.getKeyCode()==27 ){//esc - powrot do menu
+            C.GAMESTATE=1;
         }
     }
 

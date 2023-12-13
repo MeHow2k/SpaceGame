@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/PlayerShot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/MenuCursor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701634758933</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Obsługa strzelania przez gracza, generowanie strzałów przez wrogów">
+      <created>1702478911591</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1702478911591</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -151,6 +162,7 @@
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
     <MESSAGE value="Dodanie etykiety z licznikiem FPS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie etykiety z licznikiem FPS" />
+    <MESSAGE value="Obsługa strzelania przez gracza, generowanie strzałów przez wrogów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Obsługa strzelania przez gracza, generowanie strzałów przez wrogów" />
   </component>
 </project>
