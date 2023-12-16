@@ -21,7 +21,6 @@ public class Enemy extends Thread{
 
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
-        g.setColor(Color.blue);
         g.drawImage(imgEnemy,x,y,w,h,null);
     }
 

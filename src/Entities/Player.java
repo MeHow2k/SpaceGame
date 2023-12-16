@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Player {
     private int x=0,y=0,w=50,h=50,speed=1;
-    Image imgPlayer = new ImageIcon(getClass().getClassLoader().getResource("gracz.gif")).getImage();
+    Image imgPlayer = new ImageIcon(getClass().getClassLoader().getResource("player.gif")).getImage();
     //konstruktor
     public Player(int x,int y){
         this.x=x;
@@ -16,7 +16,6 @@ public class Player {
 
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
-        g.fillRect(x,y,w,h);
         g.drawImage(imgPlayer,x,y,w,h,null);
     }
 
