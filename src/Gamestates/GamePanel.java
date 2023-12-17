@@ -114,7 +114,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             newPlayerShot();
                             SHOT_PRESSED = false;
                             try {
-                               // SoundManager.playStrzal();
+                               SoundManager.playShot();
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(), 
                                         points.getX(), points.getY(), points.getW(), points.getH())) {
                                     try {
-                                        //SoundManager.playPunkt();
+                                        SoundManager.playPoint();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -195,7 +195,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                             if (enemy.getHP() == 1) {
                                                 listEnemy.remove(enemy);
                                                 try {
-                                                    //SoundManager.playEnemyHit();
+                                                    SoundManager.playEnemyHit();
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }

@@ -10,18 +10,47 @@ import java.io.IOException;
 public class SoundManager {
     static public Clip clipback;
     public static void playBackground() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/MMbackground.wav")); //pobranie pliku ze ścieżki
+        File file = new File(("Sound/backgroundTheme.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
         clipback = AudioSystem.getClip();//utworzenie obiektu clip
         clipback.open(ais);//otworzenie strumienia audio
         FloatControl gainControl = (FloatControl)//kontrola głośności
                 clipback.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue((float) -40.0);//ustawienie wartości głośności | 0 min, -80.0 max |
+        gainControl.setValue((float) -10.0);//ustawienie wartości głośności | 0 min, -80.0 max |
         clipback.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
         clipback.start();//rozpoczęcie odtwarzania dźwieku
     }
     public static void stopBackground(){
         clipback.stop();//zatrzymanie dźwięku
     }
-
+    public static void playEnemyHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/enemyHit.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        clipback = AudioSystem.getClip();//utworzenie obiektu clip
+        clipback.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clipback.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue((float) -10.0);//ustawienie wartości głośności | 0 min, -80.0 max |
+        clipback.start();//rozpoczęcie odtwarzania dźwieku
+    }
+    public static void playPoint() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/point.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        clipback = AudioSystem.getClip();//utworzenie obiektu clip
+        clipback.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clipback.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue((float) -10.0);//ustawienie wartości głośności | 0 min, -80.0 max |
+        clipback.start();//rozpoczęcie odtwarzania dźwieku
+    }
+    public static void playShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/shot.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        clipback = AudioSystem.getClip();//utworzenie obiektu clip
+        clipback.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clipback.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue((float) -10.0);//ustawienie wartości głośności | 0 min, -80.0 max |
+        clipback.start();//rozpoczęcie odtwarzania dźwieku
+    }
 }
