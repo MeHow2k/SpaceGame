@@ -191,11 +191,11 @@ public class GamePanel extends JPanel implements KeyListener {
                                         //kolizja wroga i strzału gracza
                                         if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
                                                 enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
-                                            //losowe wypadanie punkt lub ulepszenie broni lub dodatkowe życie lub bateria lub tarcza
+                                            //usunięcie wroga gdy ma 1 hp
                                             if (enemy.getHP() == 1) {
                                                 listEnemy.remove(enemy);
                                                 try {
-                                                    //SoundManager.playEnemyHit();todo
+                                                    //SoundManager.playEnemyHit(); dzwiek zniszczenia wroga
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }

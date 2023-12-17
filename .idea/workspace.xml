@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_12_2023_18_18__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_12_2023_18_18__Changes_.xml" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Poprawa literówki w nazwie pliku">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1701633131593</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Poprawa literówki w nazwie pliku">
+      <created>1702841514738</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702841514738</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +147,7 @@
     <MESSAGE value="szkielet" />
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
+    <MESSAGE value="Poprawa literówki w nazwie pliku" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawa literówki w nazwie pliku" />
   </component>
 </project>
