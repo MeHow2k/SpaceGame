@@ -46,4 +46,24 @@ public class Player {
     public void moveY(int my) {
         this.y+=my;
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 }

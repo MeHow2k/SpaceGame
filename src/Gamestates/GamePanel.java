@@ -134,11 +134,11 @@ public class GamePanel extends JPanel implements KeyListener {
                             for (int i = 0; i < listEnemy.size(); i++) {
                                 Enemy enemy = listEnemy.get(i);
                                 Random random = new Random();
-                                int roll = random.nextInt(300);//w kazdej klatce szansa 1/300
+                                int roll = random.nextInt(600);//w kazdej klatce szansa 1/300
                                 if (roll == 0) {
                                     newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH());
                                     try {
-                                        //SoindManager.playEnemysdhot();
+                                        SoundManager.playEnemyShot();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -188,14 +188,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (listEnemy != null) {
                                     for (int iw = 0; iw < listEnemy.size(); iw++) {
                                         Enemy enemy = listEnemy.get(iw);
-                                        //kolizja wroga i strzału
+                                        //kolizja wroga i strzału gracza
                                         if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
                                                 enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
                                             //losowe wypadanie punkt lub ulepszenie broni lub dodatkowe życie lub bateria lub tarcza
                                             if (enemy.getHP() == 1) {
                                                 listEnemy.remove(enemy);
                                                 try {
-                                                    SoundManager.playEnemyHit();
+                                                    //SoundManager.playEnemyHit();todo
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -350,6 +350,13 @@ public class GamePanel extends JPanel implements KeyListener {
         PlayerShot playerShot = new PlayerShot(player.getX()+20,player.getY(),this);
         playerShot.start();//start watku
         listPlayerShot.add(playerShot);//dodanie do listy obiektow PlayerShot
+
+    }
+    public void resetVariables(){//przywrócenie zmiennych do stanu pierwotnego
+        LEFT_PRESSED=false;RIGHT_PRESSED=false;UP_PRESSED=false;DOWN_PRESSED=false;SHOT_PRESSED=false;
+        isShotOnCooldown=false;shotCooldown=60;
+        player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
+        //remove lists
 
     }
     //keylistener do sterowania

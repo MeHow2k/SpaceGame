@@ -3,7 +3,6 @@
 package Manager;
 
 import javax.sound.sampled.*;
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,8 +22,8 @@ public class SoundManager {
     public static void stopBackground(){
         clipback.stop();//zatrzymanie dźwięku
     }
-    public static void playEnemyHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/enemyHit.wav")); //pobranie pliku ze ścieżki
+    public static void playEnemyShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/enemyShot.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
         clipback = AudioSystem.getClip();//utworzenie obiektu clip
         clipback.open(ais);//otworzenie strumienia audio
