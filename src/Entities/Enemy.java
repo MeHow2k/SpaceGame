@@ -10,7 +10,7 @@ public class Enemy extends Thread{
     private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10;
     JPanel panel;
 
-    Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("wrog.gif")).getImage();
+    Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){

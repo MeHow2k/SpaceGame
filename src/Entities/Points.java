@@ -6,7 +6,7 @@ import Constants.C;
 public class Points extends Thread {
     private int x,y,w=25,h=25;
     JPanel panel;
-    Image imgPoint = new ImageIcon(getClass().getClassLoader().getResource("punkt.gif")).getImage();
+    Image imgPoint = new ImageIcon(getClass().getClassLoader().getResource("point.gif")).getImage();
     public Points(int x, int y, JPanel panel){
         this.x=x;
         this.y=y;
