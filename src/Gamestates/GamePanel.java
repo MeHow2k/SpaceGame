@@ -5,10 +5,14 @@ package Gamestates;
 import Constants.C;
 import Entities.*;
 import Manager.SoundManager;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -146,7 +150,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 
-///////////////////////////////////kolizja punktow//////////////////////////////////////////////////////////////////////
+///////////////////////////////////kolizje obiektów//////////////////////////////////////////////////////////////////////
                         if (listPoints != null) {
                             for (int i = 0; i < listPoints.size(); i++) {
                                 Points points = listPoints.get(i);
@@ -396,6 +400,7 @@ public class GamePanel extends JPanel implements KeyListener {
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
             LEFT_PRESSED=true;
+            //obsługa dla menu opcje
             if(C.GAMESTATE==2){
                 if(C.cursorSettingsPosition==0){
                     if(C.musicVolume!=0) {
@@ -436,6 +441,7 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==39){//s w prawo
             RIGHT_PRESSED=true;
+            //obsługa dla menu opcje
             if (C.GAMESTATE==2){
                 if(C.cursorSettingsPosition==0){
                     if(C.musicVolume!=9) {
@@ -477,13 +483,43 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==40){//s w dol
             DOWN_PRESSED=true;
-            if(C.GAMESTATE==1 && C.cursorPosition<4){C.cursorPosition++;}
-            if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){C.cursorSettingsPosition++;}
+            //obsługa dla menu i menu opcje
+            if(C.GAMESTATE==1 && C.cursorPosition<4){
+                C.cursorPosition++;
+                try {
+                    SoundManager.playShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){
+                C.cursorSettingsPosition++;
+                try {
+                    SoundManager.playShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
-            if(C.GAMESTATE==1 && C.cursorPosition>0){C.cursorPosition--;}
-            if(C.GAMESTATE==2 && C.cursorSettingsPosition>0){C.cursorSettingsPosition--;}
+            //obsługa dla menu i menu opcje
+            if(C.GAMESTATE==1 && C.cursorPosition>0){
+                C.cursorPosition--;
+                try {
+                    SoundManager.playShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition>0){
+                C.cursorSettingsPosition--;
+                try {
+                    SoundManager.playShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
             SHOT_PRESSED=true;

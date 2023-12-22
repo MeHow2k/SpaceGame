@@ -9,6 +9,8 @@ public class C {
 
     public static int GAMESTATE=1;
     public static int totalPoints=0;
+    public static int playerLives=3;
+    public static int weaponUpgrade=0;
     public static int highscorePoints=0;
     public static int highscoreLevel=0;
     public static int cursorPosition=0;
