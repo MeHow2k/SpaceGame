@@ -13,6 +13,13 @@ public class PlayerShot extends Thread {
         this.y = y;
         this.panel = panel;
     }
+    public PlayerShot(int x, int y,int w,int h, JPanel panel) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.panel = panel;
+    }
 
 
     public void draw(Graphics2D g) {
