@@ -247,7 +247,31 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     }//GAMESTATE 1 menu
 
-                    if(C.GAMESTATE==2){}//GAMESTATE 2 menusettings
+                    if(C.GAMESTATE==2){
+                            if (menu != null && C.cursorSettingsPosition == 0) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(100);
+                            }
+                            if (menu != null && C.cursorSettingsPosition == 1) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(250);
+                            }
+                            if (menu != null && C.cursorSettingsPosition == 2) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(400);
+                            }
+                            if (menu != null && C.cursorSettingsPosition == 3) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(550);
+                            }
+                            if (menu != null && C.cursorSettingsPosition == 4) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 150);
+                                menuCursor.setY(700);
+                            }
+
+                        
+                    }//GAMESTATE 2 menusettings
+
                     try {
                         Thread.sleep(3);//5ms
                     } catch (InterruptedException e) {
@@ -311,7 +335,9 @@ public class GamePanel extends JPanel implements KeyListener {
         }//GAMESTATE 1 -menu
 
         if(C.GAMESTATE==2){
-
+            menuSettings = new MenuSettings();
+            menuSettings.draw(g2D);
+            menuCursor.draw(g2D);
         }//GAMESTATE 2 -menuOpcje
     }
     //////////////////////////////////////////////////////////////////////////////
@@ -370,22 +396,100 @@ public class GamePanel extends JPanel implements KeyListener {
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
             LEFT_PRESSED=true;
+            if(C.GAMESTATE==2){
+                if(C.cursorSettingsPosition==0){
+                    if(C.musicVolume!=0) {
+                        C.musicVolume--;
+                        //updateSettings();
+                        try {
+                            SoundManager.playShot();
+                            SoundManager.stopBackground();
+                            SoundManager.playBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+                if(C.cursorSettingsPosition==1){
+                    if(C.soundVolume!=0) {
+                        C.soundVolume--;
+                        //updateSettings();
+                        try {
+                            SoundManager.playShot();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+                if(C.cursorSettingsPosition==2){
+                    if(C.isMuted) {
+                        C.isMuted=false;
+                        //updateSettings();
+                        try {
+                            SoundManager.playBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+            }
         }
         if (e.getKeyCode()==39){//s w prawo
             RIGHT_PRESSED=true;
+            if (C.GAMESTATE==2){
+                if(C.cursorSettingsPosition==0){
+                    if(C.musicVolume!=9) {
+                        C.musicVolume++;
+                        //updateSettings();
+                        try {
+                            SoundManager.playShot();
+                            SoundManager.stopBackground();
+                            SoundManager.playBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+                if(C.cursorSettingsPosition==1){
+                    if(C.soundVolume!=9) {
+                        C.soundVolume++;
+                        //updateSettings();
+                        try {
+                            SoundManager.playShot();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+
+                if(C.cursorSettingsPosition==2){
+                    if(!C.isMuted) {
+                        C.isMuted=true;
+                        //updateSettings();
+                        try {
+                            SoundManager.stopBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
+            }
         }
         if (e.getKeyCode()==40){//s w dol
             DOWN_PRESSED=true;
             if(C.GAMESTATE==1 && C.cursorPosition<4){C.cursorPosition++;}
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){C.cursorSettingsPosition++;}
         }
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
             if(C.GAMESTATE==1 && C.cursorPosition>0){C.cursorPosition--;}
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition>0){C.cursorSettingsPosition--;}
         }
         if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
             SHOT_PRESSED=true;
         }
         if (e.getKeyCode()==10){//enter - zatwierdzanie w menu
+            /*
             if (C.cursorPosition == 0) {//start
                 C.GAMESTATE=0;
             }
@@ -393,15 +497,64 @@ public class GamePanel extends JPanel implements KeyListener {
 
             }
             if (C.cursorPosition == 2) {//opcje
-
+                C.GAMESTATE=2;
             }
             if (C.cursorPosition == 3) {//autorzy
 
             }
             if (C.cursorPosition == 4) {//wyjdz
                 System.exit(1);
+            }*/
+            switch (C.GAMESTATE) {
+                case 1:
+                    if (C.cursorPosition == 0) {
+                        C.GAMESTATE = 0;//gra
+                        ///stopMenuBackground
+                        //playGameBackground
+                    }
+                    if (C.cursorPosition == 1) {C.GAMESTATE = 3;}//jak grac
+                    if (C.cursorPosition == 2) {C.GAMESTATE = 2;}//opcje
+                    if (C.cursorPosition == 3) {C.GAMESTATE = 4;}//autorzy
+                    if (C.cursorPosition == 4) System.exit(0);
+                    break;
+                case 2: /// obsluga entera w podmenu OPCJE
+                    if(C.cursorSettingsPosition==3) {
+                        //reset najlepszego wyniku
+                        int enddialog = JOptionPane.showConfirmDialog
+                                (null, "Czy na pewno chcesz zresetować najlepszy wynik?",
+                                        "?", 0);
+                        //zresetowanie po wybraniu tak
+                        if (enddialog == 0)  return;//_-->resetHighscore();
+                    }
+                    if(C.cursorSettingsPosition==4) C.GAMESTATE = 1;
+                    if(C.cursorSettingsPosition==2){
+                        if (!C.isMuted) {
+                            C.isMuted = true;
+                            //stopAllMusic
+                            //updateSettings
+                        } else if (C.isMuted) {
+                            C.isMuted = false;
+//                                try {
+//                                    SoundManager.
+//                                } catch (Exception ex) {
+//                                    throw new RuntimeException(ex);
+//                                }
+//                                updateSettings();
+                        }
+                    }
+                    break;
+                case 3:
+                    C.GAMESTATE = 1;//wyjscie z podmenu
+                    break;
+                case 4:
+                    C.GAMESTATE = 1;//wyjscie z podmenu
+                    break;
+
             }
+
         }
+
+
         if (e.getKeyCode()==27 ){//esc - powrot do menu
             C.GAMESTATE=1;
         }
