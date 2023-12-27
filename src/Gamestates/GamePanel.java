@@ -6,10 +6,13 @@ import Constants.C;
 import Entities.*;
 import Manager.SoundManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -228,6 +231,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 if (playershot != null)
                                                     listPlayerShot.remove(playershot);
                                                 //wpisz akcja
+                                                newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
                                                 C.totalPoints+=50;
                                             } else {
                                                 if (playershot != null)
@@ -484,8 +488,12 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     public void playerHit(){
         //if(tarcza==false){
-                //SoundManager.playPlayerHit();
-            C.playerLives--;
+        try {
+            SoundManager.playPlayerHit();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        C.playerLives--;
             updateLabels();
             //updrage--
             //tarcza =true;

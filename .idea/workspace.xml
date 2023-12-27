@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entities/Life.java" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie dźwięku trafienia w gracza,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,28 +129,7 @@
       <option name="project" value="LOCAL" />
       <updated>1702841514738</updated>
     </task>
-    <task id="LOCAL-00009" summary="Poprawa literówki w nazwie pliku">
-      <created>1702844980543</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1702844980543</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Dodanie obsługi menu opcje wraz z przygotowaniem do wprowadzenia resetu najlepszego wyniku i kontroli głośności dzwięku i muzyki">
-      <created>1703242270882</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1703242270882</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Dodanie dźwięku przy zmianie pozycji kursora w menu">
-      <created>1703243859842</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1703243859842</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -171,8 +149,7 @@
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
     <MESSAGE value="Poprawa literówki w nazwie pliku" />
-    <MESSAGE value="Dodanie obsługi menu opcje wraz z przygotowaniem do wprowadzenia resetu najlepszego wyniku i kontroli głośności dzwięku i muzyki" />
-    <MESSAGE value="Dodanie dźwięku przy zmianie pozycji kursora w menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie dźwięku przy zmianie pozycji kursora w menu" />
+    <MESSAGE value="Dodanie dźwięku trafienia w gracza," />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie dźwięku trafienia w gracza," />
   </component>
 </project>
