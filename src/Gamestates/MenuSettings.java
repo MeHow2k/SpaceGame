@@ -11,11 +11,10 @@ public class MenuSettings {
     Image option_block = new ImageIcon(getClass().getClassLoader().getResource("option_block.gif")).getImage();
     Font customFont;
     MenuSettings() {
+        //import czcionki
         try {
-            //create the font to use. Specify the size!
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
             ge.registerFont(customFont);
         } catch (IOException e) {
             e.printStackTrace();

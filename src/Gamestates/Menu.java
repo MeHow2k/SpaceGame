@@ -12,10 +12,9 @@ public class Menu {
     Image logo = new ImageIcon(getClass().getClassLoader().getResource("logo.gif")).getImage();
     public Menu() {
         try {
-            //create the font to use. Specify the size!
+            //import czcionki
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
             ge.registerFont(customFont);
         } catch (IOException e) {
             e.printStackTrace();

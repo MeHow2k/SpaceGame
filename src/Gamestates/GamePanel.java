@@ -109,13 +109,15 @@ public class GamePanel extends JPanel implements KeyListener {
                     delta += (nowTime - lastTime) / ns;
                     lastTime = nowTime;
 
-                    ///////////////////////////////////////////// etykieta pauzy
-                    if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
-                    else labelPause.setText("");
+
 
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
+                        ///////////////////////////////////////////// etykieta pauzy
+                        if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
+                        else labelPause.setText("");
+
                         //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
@@ -484,6 +486,7 @@ public class GamePanel extends JPanel implements KeyListener {
         level_temp1=0;level_temp2=0;
         player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
         removeObjects();
+        C.PAUSE= false;
     }
     public void removeObjects(){//wyczyszczenie zawartosci list obiektów
         //remove lists

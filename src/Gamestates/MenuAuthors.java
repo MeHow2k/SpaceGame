@@ -8,10 +8,8 @@ public class MenuAuthors {
     Font customFont;
     public MenuAuthors() {
         try {
-            //create the font to use. Specify the size!
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //register the font
             ge.registerFont(customFont);
         } catch (IOException e) {
             e.printStackTrace();
