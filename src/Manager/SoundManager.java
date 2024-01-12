@@ -32,10 +32,10 @@ public class SoundManager {
         clipbackmenu.start();//rozpoczęcie odtwarzania dźwieku
     }
     public static void stopBackground(){
-        clipback.stop();//zatrzymanie dźwięku
+        if(clipback!=null)clipback.stop();//zatrzymanie dźwięku
     }
     public static void stopMenuBackground(){
-        clipbackmenu.stop();//zatrzymanie dźwięku
+        if(clipbackmenu!=null)clipbackmenu.stop();//zatrzymanie dźwięku
     }
     public static void stopAllMusic(){clipback.stop();clipbackmenu.stop();}
     public static void playDefeat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {

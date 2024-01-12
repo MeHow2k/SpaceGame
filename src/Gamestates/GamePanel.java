@@ -491,7 +491,7 @@ public class GamePanel extends JPanel implements KeyListener {
             labelWeaponUpgrade.setText("");
     }
     public void playerHit(){
-        //if(tarcza==false){
+        //if(tarcza==false){ todo
         try {
             SoundManager.playPlayerHit();
         } catch (Exception e) {
@@ -522,8 +522,8 @@ public class GamePanel extends JPanel implements KeyListener {
                         //updateSettings();
                         try {
                             SoundManager.playPlayerShot();
-                            SoundManager.stopBackground();
-                            SoundManager.playBackground();
+                            SoundManager.stopMenuBackground();
+                            SoundManager.playMenuBackground();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -563,8 +563,8 @@ public class GamePanel extends JPanel implements KeyListener {
                         //updateSettings();
                         try {
                             SoundManager.playPlayerShot();
-                            SoundManager.stopBackground();
-                            SoundManager.playBackground();
+                            SoundManager.stopMenuBackground();
+                            SoundManager.playMenuBackground();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
