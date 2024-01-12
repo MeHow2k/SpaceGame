@@ -36,7 +36,6 @@ public class MenuSettings {
         for(int i=0;i<C.musicVolume;i++){
             g.drawImage(option_block,C.FRAME_WIDTH/2-200+i*60,150,50,50,null);
         }
-        g.setColor(Color.white);
 
         g.drawString("Głośność dźwięków:",C.FRAME_WIDTH/2-200,280);
         g.drawString(""+C.soundVolume,C.FRAME_WIDTH/2,280);

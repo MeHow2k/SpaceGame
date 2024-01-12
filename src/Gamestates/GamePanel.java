@@ -435,10 +435,10 @@ public class GamePanel extends JPanel implements KeyListener {
             menuCursor.draw(g2D);
         }//GAMESTATE 2 -menuOpcje
 
-        if (C.GAMESTATE == 4) {//GAMESTATE 3 - autorzy
+        if (C.GAMESTATE == 4) {//GAMESTATE 4 - autorzy
             menuAuthors = new MenuAuthors();
             menuAuthors.draw(g2D);
-        } //GAMESTATE 3 - autorzy
+        } //GAMESTATE 4 - autorzy
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -532,7 +532,7 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //////////////////////////////////////////////////////////////////
-        if (e.getKeyCode()==27 && C.GAMESTATE==1){  //esc
+        if (e.getKeyCode()==27 && C.GAMESTATE==0){  //esc
             C.PAUSE=true;
             LEFT_PRESSED=false;
             RIGHT_PRESSED=false;
@@ -545,15 +545,18 @@ public class GamePanel extends JPanel implements KeyListener {
 
             //powrót do menu po wybraniu tak
             if (enddialog == 0) {
-                C.GAMESTATE=0;
+                C.GAMESTATE=1;
                 removeObjects();
                 resetVariables();
-                //updatePunktacja();
+                updateLabels();
                 resetLabels();
-                //gracz = new Gracz(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
                 C.PAUSE = false;
-                //stopAllMusic();
-                //playMenuBackground();
+                SoundManager.stopAllMusic();
+                try {
+                    SoundManager.playMenuBackground();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             //wznowienie po kliknieciu nie
             if (enddialog == 1) {
@@ -753,12 +756,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
         }
 
-
-        if (e.getKeyCode()==27 ){//esc - powrot do menu
-            C.GAMESTATE=1;
-            resetVariables();
-            resetLabels();
-        }
     }
 
     @Override
