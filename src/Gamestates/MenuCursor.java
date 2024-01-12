@@ -14,9 +14,7 @@ public class MenuCursor {
         this.panel=panel;
     }
     public void draw (Graphics2D g){
-        g.setColor(Color.blue);
-        g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
-        //img
+        g.drawImage(img,x,y,w,h,null);
     }
 
     public int getX() {
