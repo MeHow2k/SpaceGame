@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie dźwięku trafienia w gracza, &quot;Przy wleceniu we wroga, przeciwnik ulega zniszczeniu a gracz traci życie, przy kontakcie z wrogim strzałem gracz traci życie&quot;, Przy kontakcie wroga ze strzałem gracza, przeciwnik zostaje zniszczony, w jego miejscu pojawia się punkt do zebrania przez gracza.&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_12_2023_16_57_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27_12_2023_16_57__Changes_.xml" beforeDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie dźwięku przy zmianie pozycji kursora w menu">
+      <change afterPath="$PROJECT_DIR$/Graphics/cursor.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sound/!Linki.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Sound/!Linki.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sound/backgroundTheme.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Sound/backgroundTheme.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sound/playerHit.wav" beforeDir="false" afterPath="$PROJECT_DIR$/Sound/playerHit.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sound/shot.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuCursor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuCursor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +39,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame/Graphics"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Frame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Gamestates.Frame" />
@@ -135,21 +136,28 @@
       <option name="project" value="LOCAL" />
       <updated>1702841514738</updated>
     </task>
-    <task id="LOCAL-00009" summary="Dodanie dźwięku trafienia w gracza, &quot;Przy wleceniu we wroga, przeciwnik ulega zniszczeniu a gracz traci życie, przy kontakcie z wrogim strzałem gracz traci życie&quot;, Przy kontakcie wroga ze strzałem gracza, przeciwnik zostaje zniszczony, w jego miejscu pojawia się punkt do zebrania przez gracza.&quot;">
-      <created>1703706202238</created>
+    <task id="LOCAL-00009" summary="Poprawa literówki w nazwie pliku">
+      <created>1702844980543</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1703706202238</updated>
+      <updated>1702844980543</updated>
     </task>
-    <task id="LOCAL-00010" summary="Dodanie dźwięku trafienia w gracza, &quot;Przy wleceniu we wroga, przeciwnik ulega zniszczeniu a gracz traci życie, przy kontakcie z wrogim strzałem gracz traci życie&quot;, Przy kontakcie wroga ze strzałem gracza, przeciwnik zostaje zniszczony, w jego miejscu pojawia się punkt do zebrania przez gracza.&quot;">
-      <created>1703706224348</created>
+    <task id="LOCAL-00010" summary="Dodanie obsługi menu opcje wraz z przygotowaniem do wprowadzenia resetu najlepszego wyniku i kontroli głośności dzwięku i muzyki">
+      <created>1703242270882</created>
       <option name="number" value="00010" />
       <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1703706224348</updated>
+      <updated>1703242270882</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Dodanie dźwięku przy zmianie pozycji kursora w menu">
+      <created>1703243859842</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703243859842</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -169,8 +177,8 @@
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
     <MESSAGE value="Poprawa literówki w nazwie pliku" />
-    <MESSAGE value="Dodanie dźwięku trafienia w gracza," />
-    <MESSAGE value="Dodanie dźwięku trafienia w gracza, &quot;Przy wleceniu we wroga, przeciwnik ulega zniszczeniu a gracz traci życie, przy kontakcie z wrogim strzałem gracz traci życie&quot;, Przy kontakcie wroga ze strzałem gracza, przeciwnik zostaje zniszczony, w jego miejscu pojawia się punkt do zebrania przez gracza.&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie dźwięku trafienia w gracza, &quot;Przy wleceniu we wroga, przeciwnik ulega zniszczeniu a gracz traci życie, przy kontakcie z wrogim strzałem gracz traci życie&quot;, Przy kontakcie wroga ze strzałem gracza, przeciwnik zostaje zniszczony, w jego miejscu pojawia się punkt do zebrania przez gracza.&quot;" />
+    <MESSAGE value="Dodanie obsługi menu opcje wraz z przygotowaniem do wprowadzenia resetu najlepszego wyniku i kontroli głośności dzwięku i muzyki" />
+    <MESSAGE value="Dodanie dźwięku przy zmianie pozycji kursora w menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie dźwięku przy zmianie pozycji kursora w menu" />
   </component>
 </project>

@@ -7,7 +7,7 @@ public class Menu {
 
     public Menu() {}
     public void draw (Graphics2D g){
-        Font title = new Font("arial",Font.BOLD,60);
+        Font title = new Font("Times New Roman",Font.BOLD,60);
         g.setFont(title);
         g.setColor(Color.white);
 
