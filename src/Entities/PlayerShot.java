@@ -1,5 +1,7 @@
 package Entities;
 
+import Constants.C;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -66,8 +68,10 @@ public class PlayerShot extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (y < -10) break;
-            y = y - 4;
+            if(C.PAUSE != true) {
+                if (y < -10) break;
+                y = y - 4;
+            }
             try {
                 sleep(10);
             } catch (InterruptedException e) {

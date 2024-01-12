@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements KeyListener {
     int level_temp1 =0; int level_temp2 =0;
     int shotCooldown=60;
     //etykiety
-    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade;
+    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause;
 
     GamePanel(){
         super(null);
@@ -71,6 +71,10 @@ public class GamePanel extends JPanel implements KeyListener {
         labelWeaponUpgrade.setForeground(Color.white);
         labelWeaponUpgrade.setText("");
         add(labelWeaponUpgrade);
+        labelPause = new JLabel("");
+        labelPause.setBounds(C.FRAME_WIDTH / 2 - 130, C.FRAME_HEIGHT / 2 - 50, 300, 30);
+        labelPause.setForeground(Color.white);
+        add(labelPause);
         //test stworzenie pounktow
         newPoints(50,50,25,25);
         //test stworzenie strzalu wroga
@@ -105,10 +109,15 @@ public class GamePanel extends JPanel implements KeyListener {
                     delta += (nowTime - lastTime) / ns;
                     lastTime = nowTime;
 
+                    ///////////////////////////////////////////// etykieta pauzy
+                    if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
+                    else labelPause.setText("");
+
+
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
                         //obsluga ruchu gracza STEROWANIE
-                        if (RIGHT_PRESSED == true) {
+                        if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
                                 player.moveX(1); //poruszanie się w prawo
                             }
@@ -116,7 +125,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 player.moveX(-5); //odbijanie się od krawędzi
                             }
                         }
-                        if (LEFT_PRESSED == true) {
+                        if (LEFT_PRESSED == true && C.PAUSE!=true) {
                             if (0 <= player.getX()) {
                                 player.moveX(-1); //poruszanie się w lewo
                             }
@@ -124,17 +133,17 @@ public class GamePanel extends JPanel implements KeyListener {
                                 player.moveX(5); //odbijanie się od krawędzi
                             }
                         }
-                        if (DOWN_PRESSED == true) {
+                        if (DOWN_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_HEIGHT - 150 >= player.getY()) {
                                 player.moveY(1); //poruszanie się w dół
                             }
                         }
-                        if (UP_PRESSED == true) {
+                        if (UP_PRESSED == true && C.PAUSE!=true) {
                             if (0 < player.getY()) {
                                 player.moveY(-1); //poruszanie się w górę
                             }
                         }
-                        if (SHOT_PRESSED == true) {
+                        if (SHOT_PRESSED == true && C.PAUSE!=true) {
                             isShotOnCooldown = true;
                             newPlayerShot();
                             SHOT_PRESSED = false;
@@ -155,7 +164,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
 
                         //generowanie strzałów wrogów
-                        if (listEnemy != null ) {
+                        if (listEnemy != null && C.PAUSE!=true) {
                             for (int i = 0; i < listEnemy.size(); i++) {
                                 Enemy enemy = listEnemy.get(i);
                                 Random random = new Random();
@@ -297,11 +306,11 @@ public class GamePanel extends JPanel implements KeyListener {
 /////////////////////////////////////////////////////////  Levele   ///////////////////////////////////////////./////////////////
                         if(C.LEVEL==0){
 
-                                if (level_temp1 == 500 && level_temp2<=10) {
+                                if ((level_temp1 == 500 && level_temp2<=10)) {
                                     newEnemy(-30, 70, 50, 50);
                                     level_temp1 = 0;
-                                    level_temp2++;
-                                } else level_temp1++;
+                                    if(C.PAUSE!=true)level_temp2++;
+                                } else if(C.PAUSE!=true)level_temp1++;
 
                         }
 
@@ -312,19 +321,19 @@ public class GamePanel extends JPanel implements KeyListener {
                     //obsługa menu
                         menuCursor.setX(C.FRAME_WIDTH / 2 - 180);
                         if (menu != null && C.cursorPosition == 0) {
-                            menuCursor.setY(310);
+                            menuCursor.setY(285);
                         }
                         if (menu != null && C.cursorPosition == 1) {
-                            menuCursor.setY(410);
+                            menuCursor.setY(385);
                         }
                         if (menu != null && C.cursorPosition == 2) {
-                            menuCursor.setY(510);
+                            menuCursor.setY(485);
                         }
                         if (menu != null && C.cursorPosition == 3) {
-                            menuCursor.setY(610);
+                            menuCursor.setY(585);
                         }
                         if (menu != null && C.cursorPosition == 4) {
-                            menuCursor.setY(710);
+                            menuCursor.setY(685);
                         }
 
                     }//GAMESTATE 1 menu
@@ -353,6 +362,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                         
                     }//GAMESTATE 2 menusettings
+
 
                     try {
                         Thread.sleep(3);//5ms
@@ -422,6 +432,11 @@ public class GamePanel extends JPanel implements KeyListener {
             menuSettings.draw(g2D);
             menuCursor.draw(g2D);
         }//GAMESTATE 2 -menuOpcje
+
+        if (C.GAMESTATE == 4) {//GAMESTATE 3 - autorzy
+            menuAuthors = new MenuAuthors();
+            menuAuthors.draw(g2D);
+        } //GAMESTATE 3 - autorzy
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -438,6 +453,7 @@ public class GamePanel extends JPanel implements KeyListener {
         else return false;
     }
     //test nowy wrog
+
     public void newEnemy(int x,int y,int w,int h){//utworzenie obiektu wroga
         Enemy enemy = new Enemy(x,y,this);
         enemy.start();//start watku
@@ -486,6 +502,7 @@ public class GamePanel extends JPanel implements KeyListener {
         }
     }
     public void resetLabels(){
+            labelPause.setText("");
             labelTotalPoints.setText("");
             labelPlayerLives.setText("");
             labelWeaponUpgrade.setText("");
@@ -511,6 +528,47 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        //////////////////////////////////////////////////////////////////
+        if (e.getKeyCode()==27 && C.GAMESTATE==1){  //esc
+            C.PAUSE=true;
+            LEFT_PRESSED=false;
+            RIGHT_PRESSED=false;
+            UP_PRESSED=false;
+            DOWN_PRESSED=false;
+            SHOT_PRESSED=false;
+            int enddialog = JOptionPane.showConfirmDialog
+                    (null, "Czy chcesz powrócić do menu?",
+                            "Pauza", 0);
+
+            //powrót do menu po wybraniu tak
+            if (enddialog == 0) {
+                C.GAMESTATE=0;
+                removeObjects();
+                resetVariables();
+                //updatePunktacja();
+                resetLabels();
+                //gracz = new Gracz(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+                C.PAUSE = false;
+                //stopAllMusic();
+                //playMenuBackground();
+            }
+            //wznowienie po kliknieciu nie
+            if (enddialog == 1) {
+                C.PAUSE = false;
+            }
+        }
+        if (e.getKeyCode()==80) {//p przycisk pauza
+            if (C.PAUSE == true) {
+                C.PAUSE = false;
+            } else {
+                C.PAUSE = true;
+                RIGHT_PRESSED = false;
+                LEFT_PRESSED = false;
+                DOWN_PRESSED = false;
+                UP_PRESSED = false;
+                SHOT_PRESSED = false;
+            }
+        }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
             LEFT_PRESSED=true;
@@ -702,19 +760,19 @@ public class GamePanel extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode()==37){//s w lewo
+        if (e.getKeyCode()==37 && C.PAUSE!=true){//s w lewo
             LEFT_PRESSED=false;
         }
-        if (e.getKeyCode()==39){//s w prawo
+        if (e.getKeyCode()==39 && C.PAUSE!=true){//s w prawo
             RIGHT_PRESSED=false;
         }
-        if (e.getKeyCode()==40){//s w dol
+        if (e.getKeyCode()==40 && C.PAUSE!=true){//s w dol
             DOWN_PRESSED=false;
         }
-        if (e.getKeyCode()==38){//s w gore
+        if (e.getKeyCode()==38 && C.PAUSE!=true){//s w gore
             UP_PRESSED=false;
         }
-        if (e.getKeyCode()==32){//spacja - strzał
+        if (e.getKeyCode()==32 && C.PAUSE!=true){//spacja - strzał
             SHOT_PRESSED=false;
         }
     }

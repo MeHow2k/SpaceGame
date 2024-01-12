@@ -51,15 +51,16 @@ public class Enemy extends Thread{
     @Override
     public void run() {
         while (true){
-            if(x<0){
-                dirX=1;
+            if(C.PAUSE != true) {
+                if (x < 0) {
+                    dirX = 1;
+                }
+                if (x > C.FRAME_WIDTH - getW()) {
+                    dirX = -1;
+                }
+                //y=y+;
+                x = x + velX * dirX;
             }
-            if (x> C.FRAME_WIDTH-getW()) {
-                dirX=-1;
-            }
-            //y=y+;
-            x=x+velX*dirX;
-
             try {
                 sleep(10);
             } catch (InterruptedException e) {

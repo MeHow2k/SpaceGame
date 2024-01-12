@@ -5,7 +5,7 @@ import Constants.C;
 import javax.swing.*;
 import java.awt.*;
 
-public class EnemyShot extends Thread{
+public class EnemyShot extends Thread {
     private int x, y, w = 10, h = 10;
     JPanel panel;
     Image imgEnemyShot = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot.gif")).getImage();
@@ -18,9 +18,9 @@ public class EnemyShot extends Thread{
 
 
     public void draw(Graphics2D g) {
-        if (imgEnemyShot != null){
+        if (imgEnemyShot != null) {
             g.drawImage(imgEnemyShot, this.getX(), this.getY(), this.getW(), this.getH(), null);
-        }else{
+        } else {
             g.setColor(Color.red);
             g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
         }
@@ -61,8 +61,10 @@ public class EnemyShot extends Thread{
     @Override
     public void run() {
         while (true) {
-            if(y> C.FRAME_HEIGHT || y<-40) break;
-            y = y + 2;
+            if (C.PAUSE != true) {
+                if (y > C.FRAME_HEIGHT || y < -40) break;
+                y = y + 2;
+            }
             try {
                 sleep(15);
             } catch (InterruptedException e) {
@@ -70,6 +72,4 @@ public class EnemyShot extends Thread{
             }
         }
     }
-
-
 }

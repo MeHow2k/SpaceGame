@@ -19,5 +19,5 @@ public class C {
     public static int musicVolume=0;
     public static int soundVolume=0;
     public static boolean isMuted=false;
-
+    public static boolean PAUSE;
 }

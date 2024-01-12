@@ -56,7 +56,7 @@ public class Points extends Thread {
     public void run() {
         while (true){
             if (y>C.FRAME_HEIGHT) break;
-            if (C.GAMESTATE==0)
+            if (C.GAMESTATE==0 && C.PAUSE != true)
                 y=y+2;
             try {
                 sleep(10);
