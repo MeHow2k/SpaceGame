@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements KeyListener {
         newEnemy(300,150,50,50);
         //Odtworzenie głównego motywu gry
         try {
-            SoundManager.playBackground();
+            SoundManager.playMenuBackground();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -139,7 +139,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             newPlayerShot();
                             SHOT_PRESSED = false;
                             try {
-                               SoundManager.playShot();
+                               SoundManager.playPlayerShot();
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -224,7 +224,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                             if (enemy.getHP() == 1) {
                                                 listEnemy.remove(enemy);
                                                 try {
-                                                    //SoundManager.playEnemyHit(); dzwiek zniszczenia wroga
+                                                    SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
@@ -261,8 +261,8 @@ public class GamePanel extends JPanel implements KeyListener {
                         if (C.playerLives <= 0) {
 
                             try {
-                                //soundmanage.playPrzegrana();
-                                ///stopAllMusic();
+                                SoundManager.playDefeat();
+                                SoundManager.stopAllMusic();
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -274,7 +274,11 @@ public class GamePanel extends JPanel implements KeyListener {
                                 removeObjects();
                                 resetVariables();
                                 updateLabels();
-                                //soundmanager.playback
+                                try {
+                                    SoundManager.playBackground();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
                             //koniec gry po kliknieciu nie, przejscie do menu glownego
                             if (enddialog == 1) {
@@ -283,7 +287,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 updateLabels();
                                 C.GAMESTATE=1;
                                 try {
-                                    //Playbackground
+                                    SoundManager.playMenuBackground();
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
@@ -517,7 +521,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         C.musicVolume--;
                         //updateSettings();
                         try {
-                            SoundManager.playShot();
+                            SoundManager.playPlayerShot();
                             SoundManager.stopBackground();
                             SoundManager.playBackground();
                         } catch (Exception ex) {
@@ -530,7 +534,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         C.soundVolume--;
                         //updateSettings();
                         try {
-                            SoundManager.playShot();
+                            SoundManager.playPlayerShot();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -558,7 +562,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         C.musicVolume++;
                         //updateSettings();
                         try {
-                            SoundManager.playShot();
+                            SoundManager.playPlayerShot();
                             SoundManager.stopBackground();
                             SoundManager.playBackground();
                         } catch (Exception ex) {
@@ -571,7 +575,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         C.soundVolume++;
                         //updateSettings();
                         try {
-                            SoundManager.playShot();
+                            SoundManager.playPlayerShot();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -597,7 +601,7 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==1 && C.cursorPosition<4){
                 C.cursorPosition++;
                 try {
-                    SoundManager.playShot();
+                    SoundManager.playPlayerShot();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -605,7 +609,7 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){
                 C.cursorSettingsPosition++;
                 try {
-                    SoundManager.playShot();
+                    SoundManager.playPlayerShot();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -617,7 +621,7 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==1 && C.cursorPosition>0){
                 C.cursorPosition--;
                 try {
-                    SoundManager.playShot();
+                    SoundManager.playPlayerShot();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -625,7 +629,7 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==2 && C.cursorSettingsPosition>0){
                 C.cursorSettingsPosition--;
                 try {
-                    SoundManager.playShot();
+                    SoundManager.playPlayerShot();
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
@@ -639,8 +643,12 @@ public class GamePanel extends JPanel implements KeyListener {
                 case 1:
                     if (C.cursorPosition == 0) {
                         C.GAMESTATE = 0;//gra
-                        ///stopMenuBackground
-                        //playGameBackground
+                        SoundManager.stopMenuBackground();
+                        try {
+                            SoundManager.playBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
                     if (C.cursorPosition == 1) {C.GAMESTATE = 3;}//jak grac
                     if (C.cursorPosition == 2) {C.GAMESTATE = 2;}//opcje
