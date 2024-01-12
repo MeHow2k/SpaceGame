@@ -5,6 +5,8 @@ import Constants.C;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Frame extends JFrame {
     Frame(){
@@ -21,7 +23,22 @@ public class Frame extends JFrame {
         gamePanel.setFocusable(true);
         setVisible(true);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FontFormatException {
+        //create the font
+
+        try {
+            //create the font to use. Specify the size!
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("/VT323-Regular.ttf")).deriveFont(12f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(customFont);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+
+
 
         new Frame();
     }
