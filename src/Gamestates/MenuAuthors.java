@@ -7,6 +7,7 @@ import java.io.IOException;
 public class MenuAuthors {
     Font customFont;
     public MenuAuthors() {
+        //import czcionki
         try {
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -19,8 +20,6 @@ public class MenuAuthors {
 
     }
     public void draw (Graphics2D g){
-
-        Font title = new Font("Arial",Font.BOLD,60);
         g.setFont(customFont.deriveFont(20f));
         g.setColor(Color.white);
         g.drawString("O Programie",C.FRAME_WIDTH/2-200,50);
