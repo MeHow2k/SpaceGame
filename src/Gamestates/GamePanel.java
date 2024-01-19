@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements KeyListener {
         labelPause.setForeground(Color.white);
         add(labelPause);
         labelRecord = new JLabel("");
-        labelRecord.setBounds(C.FRAME_WIDTH - 120, C.FRAME_HEIGHT - 110, 100, 30);
+        labelRecord.setBounds(C.FRAME_WIDTH - 100, 40, 100, 30);
         labelRecord.setForeground(Color.white);
         add(labelRecord);
         //test stworzenie pounktow
