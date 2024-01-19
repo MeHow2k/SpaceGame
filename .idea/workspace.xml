@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Poprawa czcionki w ustawieniach">
+      <change afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Frame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705101345719</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Poprawa czcionki w ustawieniach">
+      <created>1705345997961</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1705345997961</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -216,6 +226,7 @@
     <MESSAGE value="Kursor prottyp grafiki" />
     <MESSAGE value="Naprawa usterki przy ponownym odtwarzaniu dźwięku przy zmianie głośności (literówka)" />
     <MESSAGE value="Dopisanie komentarzy" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dopisanie komentarzy" />
+    <MESSAGE value="Poprawa czcionki w ustawieniach" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawa czcionki w ustawieniach" />
   </component>
 </project>

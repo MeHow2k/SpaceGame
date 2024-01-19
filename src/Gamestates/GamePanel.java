@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -37,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener {
     int level_temp1 =0; int level_temp2 =0;
     int shotCooldown=60;
     //etykiety
-    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause;
+    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord;
 
     GamePanel(){
         super(null);
@@ -75,6 +77,10 @@ public class GamePanel extends JPanel implements KeyListener {
         labelPause.setBounds(C.FRAME_WIDTH / 2 - 130, C.FRAME_HEIGHT / 2 - 50, 300, 30);
         labelPause.setForeground(Color.white);
         add(labelPause);
+        labelRecord = new JLabel("");
+        labelRecord.setBounds(C.FRAME_WIDTH - 120, C.FRAME_HEIGHT - 110, 100, 30);
+        labelRecord.setForeground(Color.white);
+        add(labelRecord);
         //test stworzenie pounktow
         newPoints(50,50,25,25);
         //test stworzenie strzalu wroga
@@ -217,6 +223,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                         listEnemy.remove(enemy);
                                         //wpisz akcja
                                         playerHit();
+
                                 }
                             }
                         }
@@ -244,6 +251,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 //wpisz akcja
                                                 newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
                                                 C.totalPoints+=50;
+                                                updateLabels();
                                             } else {
                                                 if (playershot != null)
                                                     listPlayerShot.remove(playershot);
@@ -268,6 +276,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 
+                        ////////////////////////////najlepszy wynik///////////////////////////////////////////////////////////////////////////
+                        if(C.totalPoints>C.highscorePoints){
+                            updateHighscore();
+                            labelRecord.setText("Nowy rekord!");
+                        }
+                        updateLabels();
                         //////////////////////////////////warunek końca gry//////////////////////////////////////////////
                         if (C.playerLives <= 0) {
 
@@ -523,6 +537,48 @@ public class GamePanel extends JPanel implements KeyListener {
             //tarcza =true;
 
     }
+    ////////akutualizacja pliku ustawien
+    public void updateSettings(){
+        try {
+            //otwarcie pliku ustawień
+            File config = new File("config.txt");
+            FileWriter out = new FileWriter(config);
+            //wpisanie aktualnych ustawień do pliku ustawień
+            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted);
+            out.close();
+        } catch (IOException ee) {
+            ee.printStackTrace();
+        }
+    }
+    /////////aktualizacja pliku z najlepszym wynikiem
+    public void updateHighscore(){
+        try {
+            C.highscorePoints=C.totalPoints;
+            C.highscoreLevel=C.LEVEL;
+            //otwarcie pliku highscore
+            File config = new File("highscore.txt");
+            FileWriter out = new FileWriter(config);
+            //wpisanie aktualnego najlepszego wyniku
+            out.write(C.highscorePoints + "\n" + C.highscoreLevel);
+            out.close();
+        } catch (IOException ee) {
+            ee.printStackTrace();
+        }
+    }
+    public void resetHighscore(){
+        try {
+            C.highscorePoints=0;
+            C.highscoreLevel=0;
+            //otwarcie pliku highscore
+            File config = new File("highscore.txt");
+            FileWriter out = new FileWriter(config);
+            //wpisanie aktualnego najlepszego wyniku
+            out.write(C.highscorePoints + "\n" + C.highscoreLevel);
+            out.close();
+        } catch (IOException ee) {
+            ee.printStackTrace();
+        }
+    }
     //keylistener do sterowania
     @Override
     public void keyTyped(KeyEvent e) {
@@ -583,7 +639,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==0){
                     if(C.musicVolume!=0) {
                         C.musicVolume--;
-                        //updateSettings();
+                        updateSettings();
                         try {
                             SoundManager.playPlayerShot();
                             SoundManager.stopMenuBackground();
@@ -596,7 +652,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==1){
                     if(C.soundVolume!=0) {
                         C.soundVolume--;
-                        //updateSettings();
+                        updateSettings();
                         try {
                             SoundManager.playPlayerShot();
                         } catch (Exception ex) {
@@ -607,9 +663,9 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==2){
                     if(C.isMuted) {
                         C.isMuted=false;
-                        //updateSettings();
+                        updateSettings();
                         try {
-                            SoundManager.playBackground();
+                            SoundManager.playMenuBackground();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -624,7 +680,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==0){
                     if(C.musicVolume!=9) {
                         C.musicVolume++;
-                        //updateSettings();
+                        updateSettings();
                         try {
                             SoundManager.playPlayerShot();
                             SoundManager.stopMenuBackground();
@@ -637,7 +693,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==1){
                     if(C.soundVolume!=9) {
                         C.soundVolume++;
-                        //updateSettings();
+                        updateSettings();
                         try {
                             SoundManager.playPlayerShot();
                         } catch (Exception ex) {
@@ -649,9 +705,9 @@ public class GamePanel extends JPanel implements KeyListener {
                 if(C.cursorSettingsPosition==2){
                     if(!C.isMuted) {
                         C.isMuted=true;
-                        //updateSettings();
+                        updateSettings();
                         try {
-                            SoundManager.stopBackground();
+                            SoundManager.stopAllMusic();
                         } catch (Exception ex) {
                             throw new RuntimeException(ex);
                         }
@@ -726,22 +782,22 @@ public class GamePanel extends JPanel implements KeyListener {
                                 (null, "Czy na pewno chcesz zresetować najlepszy wynik?",
                                         "?", 0);
                         //zresetowanie po wybraniu tak
-                        if (enddialog == 0)  return;//_-->resetHighscore();
+                        if (enddialog == 0) resetHighscore();
                     }
                     if(C.cursorSettingsPosition==4) C.GAMESTATE = 1;
                     if(C.cursorSettingsPosition==2){
                         if (!C.isMuted) {
                             C.isMuted = true;
-                            //stopAllMusic
-                            //updateSettings
+                            SoundManager.stopAllMusic();
+                            updateSettings();
                         } else if (C.isMuted) {
                             C.isMuted = false;
-//                                try {
-//                                    SoundManager.
-//                                } catch (Exception ex) {
-//                                    throw new RuntimeException(ex);
-//                                }
-//                                updateSettings();
+                                try {
+                                    SoundManager.playMenuBackground();
+                                } catch (Exception ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                                updateSettings();
                         }
                     }
                     break;
@@ -757,6 +813,7 @@ public class GamePanel extends JPanel implements KeyListener {
         }
 
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
