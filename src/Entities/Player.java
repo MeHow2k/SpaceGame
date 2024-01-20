@@ -2,6 +2,9 @@
 
 package Entities;
 
+import Constants.C;
+import Gamestates.GamePanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +20,10 @@ public class Player {
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
         g.drawImage(imgPlayer,x,y,w,h,null);
+        if(C.shieldActivated && (C.shieldCooldown>=100 || (C.shieldCooldown<100 && C.shieldCooldown%2==0))){
+            g.setColor(Color.green);
+            g.drawOval(x-5,y-5,w+10,h+10);
+        }
     }
 
     public int getX() {

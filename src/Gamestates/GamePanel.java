@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements KeyListener {
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
+    ArrayList<Life> listLife= new ArrayList(20);//lista punktów
     ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
     ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista punktów
 
@@ -161,14 +162,21 @@ public class GamePanel extends JPanel implements KeyListener {
                                 throw new RuntimeException(ex);
                             }
                         }
-                        //player.moveX(1);//test ruchu klasy gracza
-                        //System.out.println("x:"+LEFT_PRESSED+" y:"+RIGHT_PRESSED );//test up
 
                         // obsługa opóźnienia strzelania gracza
                         if(isShotOnCooldown){ shotCooldown--; }
                         if (shotCooldown <= 0) {
                             shotCooldown = 60;
                             isShotOnCooldown = false;
+                        }
+
+                        //opóźnienie wygaszenia tarczy
+                        if (C.shieldActivated == true) {
+                            C.shieldCooldown--;
+                        }
+                        if (C.shieldCooldown <= 0) {
+                            C.shieldCooldown = C.SHIELD_COOLDOWN_TIME;
+                            C.shieldActivated = false;
                         }
 
                         //generowanie strzałów wrogów
@@ -209,8 +217,29 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+//kolizja gracza z DODADKOWYM ŻYCIEM,
+                        if (listLife != null) {
+                            for (int i = 0; i < listLife.size(); i++) {
+                                Life life = listLife.get(i);
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        life.getX(), life.getY(), life.getW(), life.getH())) {
+                                    try {
+                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //tutaj wpisz akcja
+                                    C.playerLives++;
+                                    C.totalPoints+=10;
+                                    updateLabels();
+                                    listLife.remove(life);
+                                } else if (life.getY() > C.FRAME_HEIGHT) {
+                                    listLife.remove(life);
+                                }
+                            }
+                        }
 //kolizja wroga i gracza
-                        if (listEnemy != null) {
+                        if (listEnemy != null && !C.shieldActivated) {
                             for (int iw = 0; iw < listEnemy.size(); iw++) {
                                 Enemy enemy = listEnemy.get(iw);
                                 //usun wrogow ktorych hp jest rowne lub mniejsze 0
@@ -263,7 +292,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 //kolizja strzału wroga z graczem
-                        if (listEnemyShot != null) {
+                        if (listEnemyShot != null && !C.shieldActivated) {
                             for (int iw = 0; iw < listEnemyShot.size(); iw++) {
                                 EnemyShot enemyShot = listEnemyShot.get(iw);
                                 //kolizja strzału wroga i gracza
@@ -284,7 +313,6 @@ public class GamePanel extends JPanel implements KeyListener {
                         updateLabels();
                         //////////////////////////////////warunek końca gry//////////////////////////////////////////////
                         if (C.playerLives <= 0) {
-
                             try {
                                 SoundManager.playDefeat();
                                 SoundManager.stopAllMusic();
@@ -324,6 +352,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                                 if ((level_temp1 == 500 && level_temp2<=10)) {
                                     newEnemy(-30, 70, 50, 50);
+                                    newLife(500,-10);
                                     level_temp1 = 0;
                                     if(C.PAUSE!=true)level_temp2++;
                                 } else if(C.PAUSE!=true)level_temp1++;
@@ -422,17 +451,21 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listEnemy.size(); i++) {
                     listEnemy.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
-            if (listPoints != null)            //rysowanie wrogow
+            if (listPoints != null)            //rysowanie punktow
                 for (int i = 0; i < listPoints.size(); i++) {
-                    listPoints.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                    listPoints.get(i).draw(g2D);
+                }
+            if (listLife != null)            //rysowanie dodadkowych zyc
+                for (int i = 0; i < listLife.size(); i++) {
+                    listLife.get(i).draw(g2D);
                 }
             if (listEnemyShot != null)            //rysowanie wrogich strzałów
                 for (int i = 0; i < listEnemyShot.size(); i++) {
-                    listEnemyShot.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                    listEnemyShot.get(i).draw(g2D);
                 }
             if (listPlayerShot != null)            //rysowanie strzałów gracza
                 for (int i = 0; i < listPlayerShot.size(); i++) {
-                    listPlayerShot.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                    listPlayerShot.get(i).draw(g2D);
                 }
 
         }//gamestate 0
@@ -481,6 +514,11 @@ public class GamePanel extends JPanel implements KeyListener {
         point.start();//start watku
         listPoints.add(point);//dodanie do listy obiektow enemy
     }
+    public void newLife(int x,int y){//utworzenie obiektu wroga
+        Life life = new Life(x,y,25,25,this);
+        life.start();//start watku
+        listLife.add(life);//dodanie do listy obiektow enemy
+    }
     public void newEnemyShot(int x,int y){//utworzenie obiektu wrogiego strzału
         EnemyShot enemyShot = new EnemyShot(x,y,this);
         enemyShot.start();//start watku
@@ -495,8 +533,8 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     public void resetVariables(){//przywrócenie zmiennych do stanu pierwotnego
         LEFT_PRESSED=false;RIGHT_PRESSED=false;UP_PRESSED=false;DOWN_PRESSED=false;SHOT_PRESSED=false;
-        isShotOnCooldown=false;shotCooldown=60;
-        C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=0;
+        isShotOnCooldown=false;shotCooldown=60;C.shieldCooldown=C.SHIELD_COOLDOWN_TIME;
+        C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=0;C.shieldActivated=false;
         level_temp1=0;level_temp2=0;
         player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
         removeObjects();
@@ -508,7 +546,7 @@ public class GamePanel extends JPanel implements KeyListener {
         listEnemyShot.clear();
         listPoints.clear();
         listPlayerShot.clear();
-
+        listLife.clear();
     }
     public void updateLabels(){
         if(C.GAMESTATE==0){
@@ -523,18 +561,20 @@ public class GamePanel extends JPanel implements KeyListener {
             labelTotalPoints.setText("");
             labelPlayerLives.setText("");
             labelWeaponUpgrade.setText("");
+            labelRecord.setText("");
     }
     public void playerHit(){
-        //if(tarcza==false){ todo
-        try {
-            SoundManager.playPlayerHit();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        C.playerLives--;
+        if(C.shieldActivated==false) {
+            try {
+                SoundManager.playPlayerHit();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            C.playerLives--;
             updateLabels();
+        }
             //updrage--
-            //tarcza =true;
+            C.shieldActivated =true;
 
     }
     ////////akutualizacja pliku ustawien

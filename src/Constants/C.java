@@ -12,6 +12,10 @@ public class C {
     public static int totalPoints=0;
     public static int playerLives=3;
     public static int weaponUpgrade=0;
+    public static boolean shieldActivated=false;
+    public static int SHIELD_COOLDOWN_TIME=300;
+
+    public static int shieldCooldown=SHIELD_COOLDOWN_TIME;
     public static int highscorePoints=0;
     public static int highscoreLevel=0;
     public static int cursorPosition=0;
