@@ -1,11 +1,14 @@
 package Gamestates;
 import Constants.C;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
 public class MenuAuthors {
     Font customFont;
+    Image logo = new ImageIcon(getClass().getClassLoader().getResource("logo.gif")).getImage();
     public MenuAuthors() {
         //import czcionki
         try {
@@ -20,15 +23,15 @@ public class MenuAuthors {
 
     }
     public void draw (Graphics2D g){
-        g.setFont(customFont.deriveFont(20f));
+        g.setFont(customFont.deriveFont(30f));
         g.setColor(Color.white);
         g.drawString("O Programie",C.FRAME_WIDTH/2-200,50);
 
-        Font txt = new Font("Arial",Font.BOLD,18);
-        g.setFont(customFont.deriveFont(20f));
-        g.drawString("Autorzy projektu: Michał Pasieka, Daniel Prorok, Paweł Sanocki",C.FRAME_WIDTH/2-200,100);
-        g.drawString("Studenci III roku Informatyki w PANS w Krośnie",C.FRAME_WIDTH/2-200,130);
+        g.setFont(customFont.deriveFont(25f));
+        g.drawString("Autorzy projektu: Michał Pasieka, Daniel Prorok, Paweł Sanocki",C.FRAME_WIDTH/2-370,100);
+        g.drawString("Studenci III roku Informatyki w PANS w Krośnie",C.FRAME_WIDTH/2-370,130);
 
+        g.drawImage(logo,C.FRAME_WIDTH/2-260,70,480,280,null);
 
         g.drawString("Gra została napisana jako projekt zaliczeniowy przedmiotu:",30,330);
         g.drawString("Projekt zespołowy",30,360);

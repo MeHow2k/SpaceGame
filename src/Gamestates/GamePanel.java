@@ -6,8 +6,6 @@ import Constants.C;
 import Entities.*;
 import Manager.SoundManager;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -23,6 +21,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Player player;//deklaracja obiektu Gracz
     PlayerShot playerShotUI;
     Life lifeUI;
+    Font customFont;
 
     // deklaracja elementów menu
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
@@ -36,16 +35,26 @@ public class GamePanel extends JPanel implements KeyListener {
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
-    //boolean islevelCreated=false;
-    int level_temp1 =0; int level_temp2 =0;
+    boolean isMusicPlayed=false;
+    int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0;
     int shotCooldown=60;
     //etykiety
-    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord;
+    JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
 
     GamePanel(){
         super(null);
         Color color = new Color(132, 142, 220);
         setBackground(color);
+        //import czcionki
+        try{
+        customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(customFont);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch(FontFormatException e) {
+                e.printStackTrace();
+        }
         //dodanie nasłuchiwania klawiszy
         addKeyListener(this);
         //inicjalizacja obiektow
@@ -82,14 +91,11 @@ public class GamePanel extends JPanel implements KeyListener {
         labelRecord.setBounds(C.FRAME_WIDTH - 100, 40, 100, 30);
         labelRecord.setForeground(Color.white);
         add(labelRecord);
-        //test stworzenie pounktow
-        newPoints(50,50,25,25);
-        //test stworzenie strzalu wroga
-        newEnemyShot(50,50);
-        //test rysowania obiektow
-        newEnemy(100,50,50,50);
-        newEnemy(200,100,50,50);
-        newEnemy(300,150,50,50);
+        labelLevel = new JLabel("");
+        labelLevel.setBounds(C.FRAME_WIDTH - 100, C.FRAME_HEIGHT-100, 100, 30);
+        labelLevel.setForeground(Color.white);
+        add(labelLevel);
+
         //Odtworzenie głównego motywu gry
         try {
             SoundManager.playMenuBackground();
@@ -124,7 +130,8 @@ public class GamePanel extends JPanel implements KeyListener {
                         ///////////////////////////////////////////// etykieta pauzy
                         if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
                         else labelPause.setText("");
-
+                        ///etykieta poziomu
+                        labelLevel.setText("Poziom: " + C.LEVEL);
                         //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
@@ -348,16 +355,312 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 /////////////////////////////////////////////////////////  Levele   ///////////////////////////////////////////./////////////////
-                        if(C.LEVEL==0){
+//                        if(C.LEVEL==0){
+//
+//                                if ((level_temp1 == 500 && level_temp2<=10)) {
+//                                    newEnemy(-30, 70, 50, 50);
+//                                    newLife(500,-10);
+//                                    level_temp1 = 0;
+//                                    if(C.PAUSE!=true)level_temp2++;
+//                                } else if(C.PAUSE!=true)level_temp1++;
+//
+//                        }
 
-                                if ((level_temp1 == 500 && level_temp2<=10)) {
-                                    newEnemy(-30, 70, 50, 50);
+                        if (C.LEVEL == 0) {
+                            if (level_temp2 < 501) level_temp2++; //opóźnienie startu poziomu
+                            if (level_temp2 > 500) {//po opóźnieniu
+                                if (C.isLevelCreated == false) newEnemy(0, 50, 50, 50);//stworz przeciwnika jesli lvl nie stworzony
+                                C.isLevelCreated = true;//lvl stworzony
+                                if (listEnemy.isEmpty()) {//gdzy nie ma wrogow na ekranie
+                                    C.LEVEL++;
+                                    System.out.println("LEVEL: " + C.LEVEL);
+                                    C.isLevelCreated = false;
                                     newLife(500,-10);
                                     level_temp1 = 0;
-                                    if(C.PAUSE!=true)level_temp2++;
-                                } else if(C.PAUSE!=true)level_temp1++;
-
+                                    level_temp2 = 0;
+                                }
+                            }
                         }
+
+//                        if (C.LEVEL == 99) {//////////testowe/////////
+//                            if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {
+//                                nowyStatekBonus(-100, 50, 200, 50);
+//                                tick = 0;
+//                                enemyCreated++;
+//                                if (enemyCreated == 1) C.isLevelCreated = true;
+//
+//                            } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
+//
+//                            if (listStatekBonus.isEmpty() && C.isLevelCreated == true) {
+//                                C.LEVEL++;
+//                                System.out.println("LEVEL: " + C.LEVEL);
+//                                C.isLevelCreated = false;
+//                                enemyCreated = 0;
+//                                level_temp1 = 0;
+//
+//                            }
+//                        }
+
+                        if (C.LEVEL == 1 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 1 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 2 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 2 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 3 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 3 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 4 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 4 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 5 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 5 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 6 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 6 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 7 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 7 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 8 ) {
+                            if(level_temp3<301)level_temp3++;//opoznienie start poziomu
+                            if(level_temp3>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 8 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+                        if (C.LEVEL == 9 ) {
+                            if(level_temp3<301)level_temp3++;
+                            if(level_temp3>300)
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {
+                                    newEnemy(0, 50, 50, 50);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 9 && enemyCreated == 5) C.isLevelCreated = true;
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                //playedMusic = false;?
+                                level_temp3=0;
+                                tick=0;
+                            }
+                        }
+
+                        if (C.LEVEL == 10) {//poziom bossa!
+                            SoundManager.stopBackground();
+//                            if (isMusicPlayed == false) {
+//                                try {
+//                                    SoundManager.playBoss();
+//                                } catch (Exception e) {
+//                                    throw new RuntimeException(e);
+//                                }
+//                            }
+                                isMusicPlayed = true;
+                                if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
+                                    //newBoss1(-100, 50, 100, 100, 50);
+                                    newEnemy(0, 50, 100, 100);
+                                    enemyCreated++;
+                                    if (enemyCreated == 1) C.isLevelCreated = true;
+
+                                } else if (C.PAUSE != true && !C.isLevelCreated) tick++;
+
+                                if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                    C.LEVEL++;
+                                    C.totalPoints += 500;
+                                    System.out.println("LEVEL: " + C.LEVEL);
+                                    C.isLevelCreated = false;
+                                    enemyCreated = 0;
+                                    level_temp1 = 0;
+                                    level_temp2 = 0;
+                                    isMusicPlayed = false;
+                                }
+                            }
+                        }
+                        if (C.LEVEL == 11) { /// ostatni poziom koniec gry
+                            removeEnemyObjects();
+                            if(tick==2000){
+                                //okno dialogowe konca gry
+                                int eenddialog = JOptionPane.showConfirmDialog
+                                        (null, "Uzyskałeś " + C.totalPoints + " punktów!\nGratulacje! Czy chcesz zagrać ponownie?",
+                                                "Ukończyłeś grę!", 0);
+                                //zresetowanie gry po wybraniu tak
+                                if (eenddialog == 0) {
+                                    removeObjects();
+                                    resetVariables();
+                                    updateLabels();
+                                    player = new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+                                    C.PAUSE = false;
+                                    try {
+                                        SoundManager.playBackground();
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                                //koniec gry po kliknieciu nie, przejscie do menu glownego
+                                if (eenddialog == 1) {
+                                    C.PAUSE = false;
+                                    removeObjects();
+                                    resetVariables();
+                                    updateLabels();
+                                    player = new Player(C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT - 150);
+                                    C.GAMESTATE=1;
+                                    try {
+                                        SoundManager.playMenuBackground();
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    resetLabels();
+                                }
+                            }
+                            else {
+                                SoundManager.stopAllMusic();
+                                if(isMusicPlayed==false){
+                                    try {
+                                        SoundManager.playWin();
+                                        isMusicPlayed=true;
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                                tick++;
+                            }
+
 
                         updateLabels();
                     }//Gamestate 0 -gra
@@ -468,6 +771,13 @@ public class GamePanel extends JPanel implements KeyListener {
                     listPlayerShot.get(i).draw(g2D);
                 }
 
+            if(C.LEVEL==11){
+                g.setColor(Color.white);
+                g.setFont(customFont.deriveFont(40f));
+                g.drawString("Gratulacje! Ukończyłeś grę!", C.FRAME_WIDTH/2 - 200, 200);
+                g.drawString("Wynik końcowy: "+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
+            }
+
         }//gamestate 0
 
         if(C.GAMESTATE==1){
@@ -535,7 +845,7 @@ public class GamePanel extends JPanel implements KeyListener {
         LEFT_PRESSED=false;RIGHT_PRESSED=false;UP_PRESSED=false;DOWN_PRESSED=false;SHOT_PRESSED=false;
         isShotOnCooldown=false;shotCooldown=60;C.shieldCooldown=C.SHIELD_COOLDOWN_TIME;
         C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=0;C.shieldActivated=false;
-        level_temp1=0;level_temp2=0;
+        level_temp1=0;level_temp2=0;level_temp3=0;tick=0;
         player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
         removeObjects();
         C.PAUSE= false;
@@ -547,6 +857,14 @@ public class GamePanel extends JPanel implements KeyListener {
         listPoints.clear();
         listPlayerShot.clear();
         listLife.clear();
+    }
+    //usuwanie wrogich obiektow
+    public void removeEnemyObjects() {
+        if (listEnemy != null)
+            for (int i = 0; i < listEnemy.size(); i++) {
+                Enemy e = listEnemy.get(i);
+                e.setHP(e.getHP()-10);
+            }
     }
     public void updateLabels(){
         if(C.GAMESTATE==0){
@@ -562,6 +880,7 @@ public class GamePanel extends JPanel implements KeyListener {
             labelPlayerLives.setText("");
             labelWeaponUpgrade.setText("");
             labelRecord.setText("");
+            labelLevel.setText("");
     }
     public void playerHit(){
         if(C.shieldActivated==false) {

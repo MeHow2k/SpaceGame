@@ -3,6 +3,7 @@ package Constants;
 /// PLIK ZE ZMIENNYMI GLOBALNYMI
 
 public class C {
+
     public static int FRAME_HEIGHT=850;
 
     public static int FRAME_WIDTH=800;
@@ -14,7 +15,7 @@ public class C {
     public static int weaponUpgrade=0;
     public static boolean shieldActivated=false;
     public static int SHIELD_COOLDOWN_TIME=300;
-
+    public static boolean isLevelCreated = false;
     public static int shieldCooldown=SHIELD_COOLDOWN_TIME;
     public static int highscorePoints=0;
     public static int highscoreLevel=0;
