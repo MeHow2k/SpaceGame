@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Grafika dla elementów menu.">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_03_12_2023_19_49_[Changes]/background.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/enemy.gif" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/enemy.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/gracz.gif" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/player.gif" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/player.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
