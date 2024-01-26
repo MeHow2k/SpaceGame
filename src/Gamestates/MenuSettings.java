@@ -54,8 +54,8 @@ public class MenuSettings {
         g.setFont(customFont.deriveFont(25f));
         g.drawString("Zresetuj najlepszy wynik:",C.FRAME_WIDTH/2-200,580);
         if(C.highscorePoints==0) g.drawString("Nie ma zapisanego najlepszego wyniku.",C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
-        if(C.highscorePoints!=0 && C.highscoreLevel!=9999)g.drawString("Aktualny: "+C.highscorePoints+" punktów, ? lvl",C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
-        if(C.highscoreLevel==9999) g.drawString("Aktualny: "+C.highscorePoints+" punktów, ? lvl",C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
+        if(C.highscorePoints!=0 && C.highscoreLevel!=9999)g.drawString("Aktualny: "+C.highscorePoints+" punktów, "+C.highscoreLevel+" lvl",C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
+        if(C.highscoreLevel==9999) g.drawString("Aktualny: "+C.highscorePoints+" punktów, "+C.highscoreLevel+ " lvl",C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
 
         g.setFont(customFont.deriveFont(20f));
         g.drawString("Aby zatwierdzić naciśnij ENTER.",C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
