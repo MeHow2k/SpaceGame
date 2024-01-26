@@ -792,6 +792,11 @@ public class GamePanel extends JPanel implements KeyListener {
             menuCursor.draw(g2D);
         }//GAMESTATE 2 -menuOpcje
 
+        if(C.GAMESTATE==3){
+            menuHowToPlay = new MenuHowToPlay();
+            menuHowToPlay.draw(g2D);
+        }
+
         if (C.GAMESTATE == 4) {//GAMESTATE 4 - autorzy
             menuAuthors = new MenuAuthors();
             menuAuthors.draw(g2D);

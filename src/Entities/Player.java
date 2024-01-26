@@ -11,6 +11,7 @@ import java.awt.*;
 public class Player {
     private int x=0,y=0,w=50,h=50,speed=1;
     Image imgPlayer = new ImageIcon(getClass().getClassLoader().getResource("player.gif")).getImage();
+    Image imgShield = new ImageIcon(getClass().getClassLoader().getResource("shield.gif")).getImage();
     //konstruktor
     public Player(int x,int y){
         this.x=x;
@@ -21,8 +22,8 @@ public class Player {
     public void draw(Graphics2D g){
         g.drawImage(imgPlayer,x,y,w,h,null);
         if(C.shieldActivated && (C.shieldCooldown>=100 || (C.shieldCooldown<100 && C.shieldCooldown%2==0))){
-            g.setColor(Color.green);
-            g.drawOval(x-5,y-5,w+10,h+10);
+            g.drawImage(imgShield,x-5,y-5,
+                    60,60,null);
         }
     }
 

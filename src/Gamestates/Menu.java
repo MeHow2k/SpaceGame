@@ -24,11 +24,8 @@ public class Menu {
     }
     public void draw (Graphics2D g){
         g.drawImage(logo,C.FRAME_WIDTH/2-260,50,480,280,null);
-        Font title = new Font("Arial",Font.BOLD,60);
         g.setFont(customFont.deriveFont(15f));
         g.setColor(Color.white);
-
-        Font buttons = new Font("Arial",Font.BOLD,40);
         g.setFont(customFont.deriveFont(35f));
         g.drawString("Start", C.FRAME_WIDTH/2-100,325);
         g.drawString("Jak grać?",C.FRAME_WIDTH/2-100,425);
