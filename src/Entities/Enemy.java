@@ -11,6 +11,7 @@ public class Enemy extends Thread{
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
+    Image imgBoss = new ImageIcon(getClass().getClassLoader().getResource("boss.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
@@ -21,8 +22,11 @@ public class Enemy extends Thread{
 
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
-        g.drawImage(imgEnemy,x,y,w,h,null);
+        if (isBoss==1)
+        g.drawImage(imgBoss,x,y,w,h,null);
+        else g.drawImage(imgEnemy,x,y,w,h,null);
     }
+
 
     public int getX() {
         return x;
@@ -83,6 +87,14 @@ public class Enemy extends Thread{
 
     public int getVelY() {
         return velY;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public void setH(int h) {
+        this.h = h;
     }
 
     public void setVelY(int velY) {

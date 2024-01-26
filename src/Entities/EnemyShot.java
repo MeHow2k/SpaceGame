@@ -6,7 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EnemyShot extends Thread {
-    private int x, y, w = 10, h = 10;
+    private int x, y, w = 10, h = 10, movingType = 0;
+
+    public int getMovingType() {
+        return movingType;
+    }
+
+    public void setMovingType(int movingType) {
+        this.movingType = movingType;
+    }
+
     JPanel panel;
     Image imgEnemyShot = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot.gif")).getImage();
 
@@ -61,12 +70,31 @@ public class EnemyShot extends Thread {
     @Override
     public void run() {
         while (true) {
-            if (C.PAUSE != true) {
-                if (y > C.FRAME_HEIGHT || y < -40) break;
-                y = y + 2;
+            if(y>C.FRAME_HEIGHT || y<-40) break;
+            if (C.PAUSE!=true && movingType==0)//w dol
+                y=y+2;
+            else if (C.PAUSE!=true && movingType==1){//prawo dol
+                y=y+2;
+                x=x+2;
+            }else if (C.PAUSE!=true && movingType==2){//lewo dol
+                y=y+2;
+                x=x-2;
+            }else if (C.PAUSE!=true && movingType==3){//lewo gora
+                y=y-2;
+                x=x-2;
+            }else if (C.PAUSE!=true && movingType==4){//prawo gora
+                y=y-2;
+                x=x+2;
+            }else if (C.PAUSE!=true && movingType==5){//prawo
+                x=x+2;
+            }else if (C.PAUSE!=true && movingType==6){//lewo
+                x=x-2;
+            }else if (C.PAUSE!=true && movingType==7){//gora
+                y=y-2;
             }
+
             try {
-                sleep(15);
+                sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

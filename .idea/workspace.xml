@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Grafika dla elementów menu.">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Wrogowie poruszają się po różnych torach.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graphics/boss.gif" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/boss.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/EnemyShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -226,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1705756052878</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Wrogowie poruszają się po różnych torach.">
+      <created>1706299628033</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706299628033</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +261,7 @@
     <MESSAGE value="Poprawa czcionki w ustawieniach" />
     <MESSAGE value="Zapisywanie ustawień i najwyższego wyniku do pliku, oraz obsługa ustawień" />
     <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
+    <MESSAGE value="Wrogowie poruszają się po różnych torach." />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrogowie poruszają się po różnych torach." />
   </component>
 </project>
