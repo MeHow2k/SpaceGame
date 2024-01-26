@@ -11,7 +11,7 @@ public class C {
     public static int GAMESTATE=1;
     public static int LEVEL=0;
     public static int totalPoints=0;
-    public static int playerLives=3;
+    public static int playerLives=3000;
     public static int weaponUpgrade=0;
     public static boolean shieldActivated=false;
     public static int SHIELD_COOLDOWN_TIME=300;

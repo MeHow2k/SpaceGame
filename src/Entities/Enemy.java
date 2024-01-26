@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Enemy extends Thread{
 
-    private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10;
+    private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10, movingType=0, angle=270, circleCenterX=C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2, radius=300;
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
@@ -48,6 +48,47 @@ public class Enemy extends Thread{
         this.hp = hp;
     }
 
+    public void setMovingType(int movingType) {
+        this.movingType = movingType;
+    }
+
+    public void setCircleCenterX(int circleCenterX) {
+        this.circleCenterX = circleCenterX;
+    }
+
+    public void setCircleCenterY(int circleCenterY) {
+        this.circleCenterY = circleCenterY;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+    int isBoss = 0;
+
+    public int getIsBoss() {
+        return isBoss;
+    }
+
+    public void setIsBoss(int isBoss) {
+        this.isBoss = isBoss;
+    }
+
+    public int getVelX() {
+        return velX;
+    }
+
+    public void setVelX(int velX) {
+        this.velX = velX;
+    }
+
+    public int getVelY() {
+        return velY;
+    }
+
+    public void setVelY(int velY) {
+        this.velY = velY;
+    }
+
     @Override
     public void run() {
         while (true){
@@ -58,8 +99,79 @@ public class Enemy extends Thread{
                 if (x > C.FRAME_WIDTH - getW()) {
                     dirX = -1;
                 }
+                if (y<0) {
+                    dirY = 1;
+                }
+                if (y>C.FRAME_HEIGHT-150) {
+                    dirY = -1;
+                }
                 //y=y+;
-                x = x + velX * dirX;
+                //x = x + velX * dirX;
+
+                if(movingType==0)//norrmal x+
+                    x = x + velX * dirX;
+                if(movingType==1) {//x+y+ odbijanie od krawedzi
+                    x = x + velX * dirX;
+                    y = y + velY * dirY;
+                }
+                if(movingType==2) {//po torze kola
+                    x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==3) {//lewo prawo gibanie
+                    x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==4) {//gora dol gibanie
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==5) {//poruszanie po torze sinusoidalnym po X
+                    x = x + velX * dirX;
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==6) {//poruszanie po torze sinusoidalnym po Y
+                    x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                    y = y + velY * dirY;
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==7) {//poruszanie po torze 8 po X
+                    x = (int) (circleCenterX + radius * Math.sin(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(2*angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==8) {//poruszanie po torze 8 po Y
+                    x = (int) (circleCenterX + radius * Math.sin(Math.toRadians(2*angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==9) {//poruszanie po torze elipsy po X
+                    x = (int) (circleCenterX + radius * 2 * Math.cos(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==10) {//poruszanie skosie z lewo gora na prawy dol w granicach
+                    x = (int) (circleCenterX + radius * Math.sin(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==11) {//poruszanie skosie z lewo gora na prawy dol
+                    x = (int) (circleCenterX + radius * Math.tan(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.tan(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==12) {//poruszanie skosie z prawo gora na lewy dol
+                    x = (int) (circleCenterX + -radius * Math.tan(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.tan(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==13) {// ?
+                    x = (int) (circleCenterX + radius * Math.sin(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
             }
             try {
                 sleep(10);

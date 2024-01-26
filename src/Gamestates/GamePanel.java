@@ -405,7 +405,8 @@ public class GamePanel extends JPanel implements KeyListener {
                             if(level_temp3<301)level_temp3++;//opoznienie start poziomu
                             if(level_temp3>300)//po opoznieniu
                                 if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
-                                    newEnemy(0, 50, 50, 50);
+                                    //newEnemy(0, 50, 50, 50, 13);
+                                    newEnemy(50, 50, 0, 0, 8, 100, 100, 250, 2);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 1 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
@@ -425,7 +426,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             if(level_temp3<301)level_temp3++;//opoznienie start poziomu
                             if(level_temp3>300)//po opoznieniu
                                 if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
-                                    newEnemy(0, 50, 50, 50);
+                                    newEnemy(50, 50, 50, 50, 8);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 2 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
@@ -822,7 +823,25 @@ public class GamePanel extends JPanel implements KeyListener {
         Enemy enemy = new Enemy(x,y,this);
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
-
+    }
+    public void newEnemy(int x,int y,int w,int h, int movingType){//utworzenie obiektu wroga
+        Enemy enemy = new Enemy(x,y,this);
+        enemy.setMovingType(movingType);
+        enemy.start();//start watku
+        listEnemy.add(enemy);//dodanie do listy obiektow enemy
+    }
+    //utworzenie obiektu wroga wraz z wszystkimi jego parametrami
+    public void newEnemy(int x,int y,int velX,int velY,int movingType,int centerX,int centerY,int radius,int hp){
+        Enemy enemy = new Enemy(x, y,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHP(hp);
+        enemy.setMovingType(movingType);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.start();
+        listEnemy.add(enemy);
     }
     public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
         Points point = new Points(x,y,this);
