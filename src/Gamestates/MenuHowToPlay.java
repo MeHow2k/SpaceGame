@@ -31,11 +31,11 @@ public class MenuHowToPlay {
     }
 
     public void draw (Graphics2D g){
-        g.setFont(customFont.deriveFont(25f));
+        g.setFont(customFont.deriveFont(60f));
         g.setColor(Color.white);
         g.drawString("Jak grać?", C.FRAME_WIDTH/2-200,50);
 
-
+        g.setFont(customFont.deriveFont(25f));
         g.drawString("Poruszasz się za pomocą STRZAŁEK. Strzelasz za pomocą SPACJI.",30,100);
 
         g.drawString("Podczas gry musisz niszczyć statki wrogów, unikając ich strzałów.",30,170);
