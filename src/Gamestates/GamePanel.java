@@ -37,9 +37,11 @@ public class GamePanel extends JPanel implements KeyListener {
             isShotOnCooldown=false;//czas do ponownego strzału
     boolean isMusicPlayed=false;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0;
+    boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false;
     int shotCooldown=60;
     //etykiety
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
+    Thread gameThread;
 
     GamePanel(){
         super(null);
@@ -103,7 +105,7 @@ public class GamePanel extends JPanel implements KeyListener {
             throw new RuntimeException(e);
         }
 
-        new Thread(new Runnable() {
+        gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -378,16 +380,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 /////////////////////////////////////////////////////////  Levele   ///////////////////////////////////////////./////////////////
-//                        if(C.LEVEL==0){
-//
-//                                if ((level_temp1 == 500 && level_temp2<=10)) {
-//                                    newEnemy(-30, 70, 50, 50);
-//                                    newLife(500,-10);
-//                                    level_temp1 = 0;
-//                                    if(C.PAUSE!=true)level_temp2++;
-//                                } else if(C.PAUSE!=true)level_temp1++;
-//
-//                        }
+
 
                         if (C.LEVEL == 0) {
                             if (level_delay > 500) {//po opóźnieniu
@@ -396,58 +389,32 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (listEnemy.isEmpty()) {//gdzy nie ma wrogow na ekranie
                                     C.LEVEL++;
                                     System.out.println("LEVEL: " + C.LEVEL);
-                                    C.isLevelCreated = false;
                                     newLife(500,-10);
-                                    level_temp1 = 0;
-                                    level_temp2 = 0;
-                                    level_delay=0;
+                                    resetLevel();
                                 }
                             }
                         }
 
-//                        if (C.LEVEL == 99) {//////////testowe/////////
-//                            if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {
-//                                nowyStatekBonus(-100, 50, 200, 50);
-//                                tick = 0;
-//                                enemyCreated++;
-//                                if (enemyCreated == 1) C.isLevelCreated = true;
-//
-//                            } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
-//
-//                            if (listStatekBonus.isEmpty() && C.isLevelCreated == true) {
-//                                C.LEVEL++;
-//                                System.out.println("LEVEL: " + C.LEVEL);
-//                                C.isLevelCreated = false;
-//                                enemyCreated = 0;
-//                                level_temp1 = 0;
-//
-//                            }
-//                        }
-
                         if (C.LEVEL == 1 ) {
                             if(level_delay>300)//po opoznieniu (liczba klatek)
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick >200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
                                     newEnemy(0, 50, 50, 50, 1);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 1 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
-                                } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;//zwiekszaj tick gdy nie ma pauzy
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
                                 //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 2 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
-                                    newEnemy(0, 0, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 350, 2);
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(0, 0, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 350, 1);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 2 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
@@ -456,17 +423,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 3 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(-60, -60, 1, 1, 5, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
                                     tick = 0;
                                     enemyCreated++;
@@ -476,17 +438,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 4 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(0, 0, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 350, 1);
                                     tick = 0;
                                     enemyCreated++;
@@ -496,17 +453,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 5 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(-60, -60, 1, 1, 5, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
                                     tick = 0;
                                     enemyCreated++;
@@ -516,17 +468,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 6 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(-60, -60, 0, 0, 8, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
                                     tick = 0;
                                     enemyCreated++;
@@ -536,17 +483,12 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 7 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(0, 0, 1, 1, 1, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
                                     newEnemy(C.FRAME_WIDTH - 50, 0, 1, 1, 1, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
                                     tick = 0;
@@ -557,18 +499,14 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 8 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(0, 50, 50, 50);
+                                    newEnemy(-30, 100, 50, 50);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 8 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
@@ -577,32 +515,22 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
                         if (C.LEVEL == 9 ) {
                             if(level_delay>300)
-                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {
-                                    newEnemy(0, 50, 50, 50);
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {
+                                    newEnemy(C.FRAME_WIDTH - 50, 0, 1, 1, 2, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
                                     tick = 0;
                                     enemyCreated++;
-                                    if (C.LEVEL == 9 && enemyCreated == 5) C.isLevelCreated = true;
+                                    if (C.LEVEL == 9 && enemyCreated == 10) C.isLevelCreated = true;
                                 } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                C.isLevelCreated = false;
-                                enemyCreated = 0;
-                                //playedMusic = false;?
-                                level_temp3=0;
-                                tick=0;
-                                level_delay=0;
+                                resetLevel();
                             }
                         }
 
@@ -616,8 +544,8 @@ public class GamePanel extends JPanel implements KeyListener {
 //                                }
 //                            }
                                 isMusicPlayed = true;
+                            if(level_delay>500)//opoznienie przed pojawieniem sie bossa
                                 if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
-                                    //newBoss1(-100, 50, 100, 100, 50);
                                     newBoss(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 50);
                                     enemyCreated++;
                                     if (enemyCreated == 1) C.isLevelCreated = true;
@@ -628,18 +556,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                     C.LEVEL++;
                                     C.totalPoints += 500;
                                     System.out.println("LEVEL: " + C.LEVEL);
-                                    C.isLevelCreated = false;
-                                    enemyCreated = 0;
-                                    level_temp1 = 0;
-                                    level_temp2 = 0;
-
+                                    resetLevel();
                                     isMusicPlayed = false;
                                 }
                             }
                         }
                         if (C.LEVEL == 11) { /// ostatni poziom koniec gry
                             removeEnemyObjects();
-                            if(tick==2000){
+                            if(tick==700){
                                 //okno dialogowe konca gry
                                 int eenddialog = JOptionPane.showConfirmDialog
                                         (null, "Uzyskałeś " + C.totalPoints + " punktów!\nGratulacje! Czy chcesz zagrać ponownie?",
@@ -683,7 +607,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                         throw new RuntimeException(e);
                                     }
                                 }
-                                tick++;
+                                tickUp=true;
                             }
 
 
@@ -750,6 +674,10 @@ public class GamePanel extends JPanel implements KeyListener {
 
                         if(!C.PAUSE){
                             level_delay++;
+                            if(tickUp) tick++;
+                            if(level_temp1Up) level_temp1++;
+                            if(level_temp2Up) level_temp2++;
+                            if(level_temp3Up) level_temp3++;
                         }
                     }
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
@@ -761,8 +689,8 @@ public class GamePanel extends JPanel implements KeyListener {
                 }//wh-true
 
             }
-        }).start();
-
+        });
+        gameThread.start();
     }//GamePanel
 
 
@@ -920,10 +848,17 @@ public class GamePanel extends JPanel implements KeyListener {
         LEFT_PRESSED=false;RIGHT_PRESSED=false;UP_PRESSED=false;DOWN_PRESSED=false;SHOT_PRESSED=false;
         isShotOnCooldown=false;shotCooldown=60;C.shieldCooldown=C.SHIELD_COOLDOWN_TIME;
         C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=0;C.shieldActivated=false;
-        level_temp1=0;level_temp2=0;level_temp3=0;tick=0;level_delay=0;
         player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
         removeObjects();
+        resetLevel();
         C.PAUSE= false;
+    }
+    public void resetLevel(){//przywrócenie zmiennych dot opóźnień w poziomach do stanu pierwotnego
+        tick=0; tickUp=false; level_delay=0;
+        level_temp3=0; level_temp3Up=false;
+        level_temp2=0; level_temp2Up=false;
+        level_temp1=0; level_temp1Up=false;
+        enemyCreated=0; C.isLevelCreated=false;
     }
     public void removeObjects(){//wyczyszczenie zawartosci list obiektów
         //remove lists

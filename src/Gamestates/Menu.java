@@ -35,8 +35,8 @@ public class Menu {
 
         g.setFont(customFont.deriveFont(18f));
         g.drawString("Aby zatwerdzić naciśnij ENTER",C.FRAME_WIDTH-250,C.FRAME_HEIGHT-70);
-
-        g.drawString("Team PDM 2023",10,C.FRAME_HEIGHT-70);
+        g.setFont(customFont.deriveFont(22f));
+        g.drawString("Team PDM 2023/24   ver. "+C.VERSION,10,C.FRAME_HEIGHT-70);
     }
 
 }

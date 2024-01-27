@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Wrogowie poruszają się po różnych torach.">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706299628033</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo">
+      <created>1706359879144</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1706359879144</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,6 +266,7 @@
     <MESSAGE value="Zapisywanie ustawień i najwyższego wyniku do pliku, oraz obsługa ustawień" />
     <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
-    <option name="LAST_COMMIT_MESSAGE" value="Wrogowie poruszają się po różnych torach." />
+    <MESSAGE value="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo" />
   </component>
 </project>
