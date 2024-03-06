@@ -28,9 +28,10 @@ public class GamePanel extends JPanel implements KeyListener {
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
-    ArrayList<Life> listLife= new ArrayList(20);//lista punktów
+    ArrayList<Life> listLife= new ArrayList(20);//lista punktów dodatkowe życie
+    ArrayList<WeaponUpgrade> listWeaponUpgrade= new ArrayList(20);//lista punktów ulepszenie broni
     ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
-    ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista punktów
+    ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista strzalow gracza
 
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
@@ -161,9 +162,19 @@ public class GamePanel extends JPanel implements KeyListener {
                                 player.moveY(-1); //poruszanie się w górę
                             }
                         }
+                        //obsługa strzelania gracza
                         if (SHOT_PRESSED == true && C.PAUSE!=true) {
                             isShotOnCooldown = true;
-                            newPlayerShot();
+                            if(C.weaponUpgrade==1) newPlayerShot(player.getX()+20,player.getY());
+                            if(C.weaponUpgrade==2){
+                                newPlayerShot(player.getX()+40,player.getY());
+                                newPlayerShot(player.getX(),player.getY());
+                            }
+                            if(C.weaponUpgrade==3){
+                                newPlayerShot(player.getX()+40,player.getY());
+                                newPlayerShot(player.getX(),player.getY());
+                                newPlayerShot(player.getX()+22,player.getY());
+                            }
                             SHOT_PRESSED = false;
                             try {
                                SoundManager.playPlayerShot();
@@ -267,6 +278,27 @@ public class GamePanel extends JPanel implements KeyListener {
                                     listLife.remove(life);
                                 } else if (life.getY() > C.FRAME_HEIGHT) {
                                     listLife.remove(life);
+                                }
+                            }
+                        }
+//kolizja gracza z ULEPSZENIEM BRONI
+                        if (listWeaponUpgrade != null) {
+                            for (int i = 0; i < listWeaponUpgrade.size(); i++) {
+                                WeaponUpgrade weaponUpgrade = listWeaponUpgrade.get(i);
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        weaponUpgrade.getX(), weaponUpgrade.getY(), weaponUpgrade.getW(), weaponUpgrade.getH())) {
+                                    try {
+                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //tutaj wpisz akcja
+                                    upgradeWeapon();
+                                    C.totalPoints+=10;
+                                    updateLabels();
+                                    listWeaponUpgrade.remove(weaponUpgrade);
+                                } else if (weaponUpgrade.getY() > C.FRAME_HEIGHT) {
+                                    listWeaponUpgrade.remove(weaponUpgrade);
                                 }
                             }
                         }
@@ -720,6 +752,10 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listLife.size(); i++) {
                     listLife.get(i).draw(g2D);
                 }
+            if (listWeaponUpgrade != null)            //rysowanie punktow ulepszenia broni
+                for (int i = 0; i < listWeaponUpgrade.size(); i++) {
+                    listWeaponUpgrade.get(i).draw(g2D);
+                }
             if (listEnemyShot != null)            //rysowanie wrogich strzałów
                 for (int i = 0; i < listEnemyShot.size(); i++) {
                     listEnemyShot.get(i).draw(g2D);
@@ -818,12 +854,17 @@ public class GamePanel extends JPanel implements KeyListener {
     public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
         Points point = new Points(x,y,this);
         point.start();//start watku
-        listPoints.add(point);//dodanie do listy obiektow enemy
+        listPoints.add(point);//dodanie do listy obiektow
     }
-    public void newLife(int x,int y){//utworzenie obiektu wroga
+    public void newLife(int x,int y){//utworzenie obiektu dodatkowego zycia
         Life life = new Life(x,y,25,25,this);
         life.start();//start watku
-        listLife.add(life);//dodanie do listy obiektow enemy
+        listLife.add(life);//dodanie do listy obiektow
+    }
+    public void newWeaponUpgrade(int x,int y){//utworzenie obiektu ulepszenia broni
+        WeaponUpgrade weaponUpgrade = new WeaponUpgrade(x,y,25,25,this);
+        weaponUpgrade.start();//start watku
+        listWeaponUpgrade.add(weaponUpgrade);//dodanie do listy obiektow
     }
     public void newEnemyShot(int x,int y){//utworzenie obiektu wrogiego strzału
         EnemyShot enemyShot = new EnemyShot(x,y,this);
@@ -838,8 +879,8 @@ public class GamePanel extends JPanel implements KeyListener {
         enemyShot.start();//start watku
         listEnemyShot.add(enemyShot);//dodanie do listy obiektow enemyShot
     }
-    public void newPlayerShot(){//utworzenie obiektu strzału gracza
-        PlayerShot playerShot = new PlayerShot(player.getX()+20,player.getY(),this);
+    public void newPlayerShot(int x, int y){//utworzenie obiektu strzału gracza
+        PlayerShot playerShot = new PlayerShot(x,y,this);
         playerShot.start();//start watku
         listPlayerShot.add(playerShot);//dodanie do listy obiektow PlayerShot
 
@@ -847,7 +888,7 @@ public class GamePanel extends JPanel implements KeyListener {
     public void resetVariables(){//przywrócenie zmiennych do stanu pierwotnego
         LEFT_PRESSED=false;RIGHT_PRESSED=false;UP_PRESSED=false;DOWN_PRESSED=false;SHOT_PRESSED=false;
         isShotOnCooldown=false;shotCooldown=60;C.shieldCooldown=C.SHIELD_COOLDOWN_TIME;
-        C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=0;C.shieldActivated=false;
+        C.totalPoints=0;C.playerLives=3;C.LEVEL=0;C.weaponUpgrade=1;C.shieldActivated=false;
         player.setX(C.FRAME_WIDTH / 2 - 25); player.setY(C.FRAME_HEIGHT - 150);
         removeObjects();
         resetLevel();
@@ -901,11 +942,14 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(e);
                 }
                 C.playerLives--;
+                if(C.weaponUpgrade>1) C.weaponUpgrade--;
                 updateLabels();
             }
-            //updrage--
             C.shieldActivated = true;
         }
+    }
+    public void upgradeWeapon(){
+        if(C.weaponUpgrade<=2) C.weaponUpgrade++;
     }
     ////////akutualizacja pliku ustawien
     public void updateSettings(){
@@ -1007,6 +1051,9 @@ public class GamePanel extends JPanel implements KeyListener {
             } else {
                 C.GODMODE=true;
             }
+        }
+        if (e.getKeyCode()==84) {//T przycisk do testów
+            newWeaponUpgrade(100,100);
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
