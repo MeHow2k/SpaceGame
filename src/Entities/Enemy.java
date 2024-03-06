@@ -27,6 +27,21 @@ public class Enemy extends Thread{
         else g.drawImage(imgEnemy,x,y,w,h,null);
     }
 
+    public int getDirX() {
+        return dirX;
+    }
+
+    public void setDirX(int dirX) {
+        this.dirX = dirX;
+    }
+
+    public int getDirY() {
+        return dirY;
+    }
+
+    public void setDirY(int dirY) {
+        this.dirY = dirY;
+    }
 
     public int getX() {
         return x;

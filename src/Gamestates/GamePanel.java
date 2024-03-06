@@ -244,7 +244,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             for (int i = 0; i < listPoints.size(); i++) {
                                 Points points = listPoints.get(i);
 //kolizja gracza z Punktem,
-                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(), 
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         points.getX(), points.getY(), points.getW(), points.getH())) {
                                     try {
                                         SoundManager.playPoint();
@@ -592,8 +592,200 @@ public class GamePanel extends JPanel implements KeyListener {
                                     isMusicPlayed = false;
                                 }
                             }
+                        if (C.LEVEL == 11 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 - 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 1);
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 + 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 2);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 11 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
                         }
-                        if (C.LEVEL == 11) { /// ostatni poziom koniec gry
+                        if (C.LEVEL == 12 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 + 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 - 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 12 && enemyCreated == 6) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 13 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(C.FRAME_WIDTH + 60, C.FRAME_HEIGHT / 2 - 25 - 100, 1, 1, 5, C.FRAME_WIDTH / 2 - 55, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 13 && enemyCreated == 5) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 14 ) {
+                            //warunek dodatkowy: jeśli hp wroga <=2 to zmien na movingtype 0
+                            if (listEnemy != null) {
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                    Enemy enemy = listEnemy.get(iw);
+                                    if (enemy.getHP() <= 2) {
+                                        enemy.setMovingType(0);
+                                    }
+                                }
+                            }
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 3);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 14 && enemyCreated == 5) {C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 15 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, 60, 1, 1, 2, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 1);
+                                    tick = 0;
+
+                                    enemyCreated++;
+                                    if (C.LEVEL == 15 && enemyCreated == 10) {
+                                        C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                        if (listEnemy != null) {
+                                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                                Enemy enemy = listEnemy.get(iw);
+                                                enemy.setMovingType(0);
+                                            }
+                                        }
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 16 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 16 && enemyCreated == 16) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 17 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(0, C.FRAME_HEIGHT - 50, 1, 1, 1, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
+                                    newEnemy(C.FRAME_WIDTH - 50, C.FRAME_HEIGHT - 50, 1, 1, 1, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 25 - 100, 230, 1);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 17 && enemyCreated == 7) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 18 ) {
+                            //warunek dodatkowy
+                            if (listEnemy != null) {
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                    Enemy enemy = listEnemy.get(iw);
+                                    if (enemy.getHP() <= 2) {
+                                        enemy.setDirX(enemy.getDirX()*-1);
+                                        enemy.setMovingType(5);
+                                    }
+                                }
+                            }
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 3);
+                                    tick = 0;
+
+                                    enemyCreated++;
+                                    if (C.LEVEL == 18 && enemyCreated == 5) {C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 19 ) {
+                            //warunek dodatkowy
+                            if (listEnemy != null) {
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                    Enemy enemy = listEnemy.get(iw);
+                                    if (enemy.getHP() <= 2) {
+                                        enemy.setMovingType(0);
+                                        enemy.setVelX(2);
+                                    }
+                                }
+                            }
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-20, level_temp1, 1, 1, 0, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 3);
+                                    tick = 0;
+                                    level_temp1+=50;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 19 && enemyCreated == 10) {
+                                        C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                        if (listEnemy != null) {
+                                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                                Enemy enemy = listEnemy.get(iw);
+                                                enemy.setMovingType(0);
+                                            }
+                                        }
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        }
+                        if (C.LEVEL == 20) { /// ostatni poziom koniec gry
                             removeEnemyObjects();
                             if(tick==700){
                                 //okno dialogowe konca gry
@@ -765,7 +957,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     listPlayerShot.get(i).draw(g2D);
                 }
 
-            if(C.LEVEL==11){
+            if(C.LEVEL==20){
                 g.setColor(Color.white);
                 g.setFont(customFont.deriveFont(40f));
                 g.drawString("Gratulacje! Ukończyłeś grę!", C.FRAME_WIDTH/2 - 200, 200);

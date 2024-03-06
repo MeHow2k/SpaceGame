@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Graphics/weaponupgrade.gif" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Utworzenie bossa, ustawienie toru przeciwników dla danych poziomów.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,20 +32,25 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Frame.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Daniel/IntelliJ projekty/Java/SpaceGame/Graphics"
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/pawel/Desktop/Nauka/Projekt zespołowy/SpaceGame",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -80,6 +81,13 @@
         <item itemvalue="Application.Frame" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-19.0.2-corretto-19.0.2-4caba194b151-48ba4555" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -237,35 +245,7 @@
       <option name="project" value="LOCAL" />
       <updated>1706299628033</updated>
     </task>
-    <task id="LOCAL-00022" summary="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo">
-      <created>1706359879144</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1706359879144</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo">
-      <created>1706367082939</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1706367082939</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Poprawienie wartości opoźnień przy pojawianiu się przeciwników">
-      <created>1706367907939</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1706367907939</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia">
-      <created>1709738835643</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1709738835643</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -280,7 +260,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="test" />
     <MESSAGE value="szkielet" />
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
@@ -295,9 +274,6 @@
     <MESSAGE value="Zapisywanie ustawień i najwyższego wyniku do pliku, oraz obsługa ustawień" />
     <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
-    <MESSAGE value="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo" />
-    <MESSAGE value="Poprawienie wartości opoźnień przy pojawianiu się przeciwników" />
-    <MESSAGE value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrogowie poruszają się po różnych torach." />
   </component>
 </project>
