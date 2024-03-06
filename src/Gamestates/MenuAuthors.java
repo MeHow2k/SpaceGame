@@ -9,6 +9,7 @@ import java.io.IOException;
 public class MenuAuthors {
     Font customFont;
     Image logo = new ImageIcon(getClass().getClassLoader().getResource("logo.gif")).getImage();
+    Color selectedColor = new Color(255, 233, 12);
     public MenuAuthors() {
         //import czcionki
         try {
@@ -41,7 +42,8 @@ public class MenuAuthors {
         g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co ,pobrane ze stron (no copyright)",30,490);
         g.drawString("Obróbka dźwięków/muzyki: Audacity",30,520);
 
-        g.setFont(customFont.deriveFont(20f));
+        g.setColor(selectedColor);
+        g.setFont(customFont.deriveFont(18f));
         g.drawString("Aby powrócić do menu naciśnij ENTER",C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
     }
 

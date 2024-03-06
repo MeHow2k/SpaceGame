@@ -5,12 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entities/WeaponUpgrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Graphics/weaponupgrade.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/test" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuAuthors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuHowToPlay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuSettings.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706367907939</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia">
+      <created>1709738835643</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1709738835643</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -289,6 +297,7 @@
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo" />
     <MESSAGE value="Poprawienie wartości opoźnień przy pojawianiu się przeciwników" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawienie wartości opoźnień przy pojawianiu się przeciwników" />
+    <MESSAGE value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
   </component>
 </project>

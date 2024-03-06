@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 public class MenuHowToPlay {
-
+    Color selectedColor = new Color(255, 233, 12);
     Image imgPunkt = new ImageIcon(getClass().getClassLoader().getResource("point.gif")).getImage();
     Image imgWrog = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
     Image imgStrzalWrog = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot.gif")).getImage();
@@ -53,7 +53,8 @@ public class MenuHowToPlay {
         g.setFont(customFont.deriveFont(25f));
         g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".",30,700);
 
-        g.setFont(customFont.deriveFont(15f));
+        g.setColor(selectedColor);
+        g.setFont(customFont.deriveFont(18f));
         g.drawString("Aby powrócić do menu naciśnij ENTER",C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
 
     }
