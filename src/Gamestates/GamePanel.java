@@ -1341,10 +1341,10 @@ public class GamePanel extends JPanel implements KeyListener {
             }
         }
         if (e.getKeyCode()==84) {//T przycisk do testów
-            newMeteor(100,0,50,0);
+            //newMeteor(100,0,50,0);
            // newMeteor(300,0,150,1);
-           // newMeteor(500,0,350,2);
-            newBonusShield(250,0);
+            newMeteor(500,0,350,2);
+            newBonusShield(150,0);
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
