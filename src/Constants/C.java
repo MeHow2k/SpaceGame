@@ -10,7 +10,7 @@ public class C {
     public static int FRAME_WIDTH=800;
 
     public static int GAMESTATE=1;
-    public static int LEVEL=99;
+    public static int LEVEL=20;
     public static boolean GODMODE=false;
     public static int totalPoints=0;
     public static int playerLives=3;

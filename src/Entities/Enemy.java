@@ -199,6 +199,18 @@ public class Enemy extends Thread{
                     y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
                     if(angle==360) angle=0; else angle++;
                 }
+                if(movingType==20) {// dla bossa 2
+                    if(getHP()>100){
+                        x=x+1* dirX *velX;
+                        y=y+1* dirY *velY;
+                    }
+                    else{
+                        if(getHP()>50) x=x+2* dirX *velX;
+                        else x=x+5* dirX *velX;
+                        y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                        if(angle==360) angle=0; else angle++;
+                    }
+                }
             }
             try {
                 sleep(10);
