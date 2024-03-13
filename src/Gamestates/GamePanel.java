@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
+    ArrayList<Meteor> listMeteor = new ArrayList(20);//lista meteorów
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
     ArrayList<Life> listLife= new ArrayList(20);//lista punktów dodatkowe życie
     ArrayList<WeaponUpgrade> listWeaponUpgrade= new ArrayList(20);//lista punktów ulepszenie broni
@@ -320,6 +321,23 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+                        //kolizja meteora i gracza
+                        if (listMeteor != null) {
+                            for (int iw = 0; iw < listMeteor.size(); iw++) {
+                                Meteor meteor = listMeteor.get(iw);
+                                //kolizja z graczem
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        meteor.getX(), meteor.getY(), meteor.getW(), meteor.getH()) && !C.shieldActivated) {
+                                    //wpisz akcja
+                                    playerHit();
+                                    if(meteor.getW()>=50) {
+                                        newMeteor(meteor.getX(),meteor.getY(),meteor.getW()/2,meteor.getMovingType());
+                                        newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY()+meteor.getH()/2,meteor.getW()/2,meteor.getMovingType());
+                                    }
+                                    listMeteor.remove(meteor);
+                                }
+                            }
+                        }
 //kolizja strzału gracza z obiektami
                         if (listPlayerShot != null) {
                             for (int i = 0; i < listPlayerShot.size(); i++) {
@@ -352,7 +370,31 @@ public class GamePanel extends JPanel implements KeyListener {
                                             }
                                         }
                                     }
-                                }
+                                }//listenemy
+                                if (listMeteor != null) {
+                                    for (int iw = 0; iw < listMeteor.size(); iw++) {
+                                        Meteor meteor = listMeteor.get(iw);
+                                        //kolizja z graczem
+                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                meteor.getX(), meteor.getY(), meteor.getW(), meteor.getH())) {
+                                            try {
+                                                SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga todo
+                                            } catch (Exception e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                            if (playershot != null)
+                                                listPlayerShot.remove(playershot);
+                                            //wpisz akcja
+                                            C.totalPoints+=5;
+                                            //dropsystem
+                                            if(meteor.getW()>=50) {
+                                                newMeteor(meteor.getX(),meteor.getY(),meteor.getW()/2,meteor.getMovingType());
+                                                newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY()+meteor.getH()/2,meteor.getW()/2,meteor.getMovingType());
+                                            }
+                                            listMeteor.remove(meteor);
+                                        }
+                                    }
+                                }//listmeteor
                             }
                         }
 //kolizja strzału wroga z graczem
@@ -413,6 +455,11 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
 /////////////////////////////////////////////////////////  Levele   ///////////////////////////////////////////./////////////////
 
+                        if (C.LEVEL == 99) { //do testowania
+                            if (level_delay > 500) {//po opóźnieniu
+
+                            }
+                        }
 
                         if (C.LEVEL == 0) {
                             if (level_delay > 500) {//po opóźnieniu
@@ -936,6 +983,10 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listEnemy.size(); i++) {
                     listEnemy.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
+            if (listMeteor != null)            //rysowanie meteorów
+                for (int i = 0; i < listMeteor.size(); i++) {
+                    listMeteor.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
             if (listPoints != null)            //rysowanie punktow
                 for (int i = 0; i < listPoints.size(); i++) {
                     listPoints.get(i).draw(g2D);
@@ -1014,6 +1065,17 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setMovingType(movingType);
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
+    }
+    public void newMeteor(int x,int y,int size){//utworzenie obiektu meteoru
+        Meteor meteor = new Meteor(x,y,size,size,this);
+        meteor.start();
+        listMeteor.add(meteor);
+    }
+    public void newMeteor(int x,int y,int size,int movingtype){//utworzenie obiektu meteoru
+        Meteor meteor = new Meteor(x,y,size,size,this);
+        meteor.setMovingType(movingtype);
+        meteor.start();
+        listMeteor.add(meteor);
     }
     //utworzenie obiektu wroga wraz z wszystkimi jego parametrami
     public void newEnemy(int x,int y,int velX,int velY,int movingType,int centerX,int centerY,int radius,int hp){
@@ -1100,6 +1162,8 @@ public class GamePanel extends JPanel implements KeyListener {
         listPoints.clear();
         listPlayerShot.clear();
         listLife.clear();
+        listWeaponUpgrade.clear();
+        listMeteor.clear();
     }
     //usuwanie wrogich obiektow
     public void removeEnemyObjects() {
@@ -1245,7 +1309,9 @@ public class GamePanel extends JPanel implements KeyListener {
             }
         }
         if (e.getKeyCode()==84) {//T przycisk do testów
-            newWeaponUpgrade(100,100);
+            newMeteor(100,0,50,0);
+            newMeteor(300,0,150,1);
+            newMeteor(500,0,350,2);
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
