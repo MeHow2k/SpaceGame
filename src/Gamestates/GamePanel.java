@@ -241,6 +241,31 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+                        //generowanie wystrzalow potrojnych dla bossow 2 (isBoss==2)
+                        if (listEnemy != null && C.PAUSE != true) {
+                            for (int i = 0; i < listEnemy.size(); i++) {
+                                Enemy enemy = listEnemy.get(i);
+                                if (enemy.getIsBoss() == 2) {
+                                    Random random = new Random();
+                                    int roll = random.nextInt(200);
+                                    if (roll == 0 || (enemy.getHP()<=50 && roll<3)) {
+                                        newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 1);//prawo dol
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 2);//lewo dol
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 3);//lewo gora
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 4);//prawo gora
+                                        newEnemyShot(enemy.getX() + (enemy.getW()), enemy.getY() + enemy.getH()/2, 20, 20, 5);//prawo
+                                        newEnemyShot(enemy.getX(), enemy.getY() + enemy.getH()/2, 20, 20, 6);//lewo
+                                        newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY(), 20, 20, 7);//gora
+                                        try {
+                                            SoundManager.playEnemyShot();
+                                        } catch (Exception e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
 ///////////////////////////////////kolizje obiektów//////////////////////////////////////////////////////////////////////
                         if (listPoints != null) {

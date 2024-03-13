@@ -12,6 +12,8 @@ public class Enemy extends Thread{
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
     Image imgBoss = new ImageIcon(getClass().getClassLoader().getResource("boss.gif")).getImage();
+    Image imgBoss2 = new ImageIcon(getClass().getClassLoader().getResource("boss2.gif")).getImage();
+    Image imgBoss2rage = new ImageIcon(getClass().getClassLoader().getResource("boss2_rage.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
@@ -24,7 +26,10 @@ public class Enemy extends Thread{
     public void draw(Graphics2D g){
         if (isBoss==1)
         g.drawImage(imgBoss,x,y,w,h,null);
-        else g.drawImage(imgEnemy,x,y,w,h,null);
+        else if (isBoss==2 && imgBoss2!=null) {
+            if (hp <= 100) g.drawImage(imgBoss2rage, x, y, w, h, null);
+            else g.drawImage(imgBoss2, x, y, w, h, null);
+        }else g.drawImage(imgEnemy,x,y,w,h,null);
     }
 
     public int getDirX() {
