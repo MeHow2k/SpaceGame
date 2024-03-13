@@ -248,7 +248,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (enemy.getIsBoss() == 2) {
                                     Random random = new Random();
                                     int roll = random.nextInt(200);
-                                    if (roll == 0 || (enemy.getHP()<=50 && roll<3)) {
+                                    if (roll == 0 || (enemy.getHP()<=50 && roll<2)) {
                                         newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
                                         newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 1);//prawo dol
                                         newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 2);//lewo dol
@@ -1197,7 +1197,7 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setVelX(velX);
         enemy.setVelY(velY);
         enemy.setW(180);
-        enemy.setH(90);
+        enemy.setH(180);
         enemy.start();
         listEnemy.add(enemy);
     }
@@ -1265,6 +1265,7 @@ public class GamePanel extends JPanel implements KeyListener {
         listLife.clear();
         listWeaponUpgrade.clear();
         listMeteor.clear();
+        listBonusShield.clear();
     }
     //usuwanie wrogich obiektow
     public void removeEnemyObjects() {
@@ -1411,9 +1412,19 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==84) {//T przycisk do testów
             //newMeteor(100,0,50,0);
-           // newMeteor(300,0,150,1);
-            newMeteor(500,0,350,2);
-            newBonusShield(150,0);
+            //newMeteor(300,0,150,1);
+            //newMeteor(500,-50,350,2);
+            //newBonusShield(150,0);
+
+            if (listEnemy != null) {
+                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                    Enemy enemy = listEnemy.get(iw);
+                    //usun wrogow ktorych hp jest rowne lub mniejsze 0
+                    if (enemy.getHP() <= 0) {
+                        listEnemy.remove(enemy);
+                    } else enemy.setHP(enemy.getHP() - 10);
+                }
+            }
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
