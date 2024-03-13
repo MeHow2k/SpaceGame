@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
     ArrayList<Life> listLife= new ArrayList(20);//lista punktów dodatkowe życie
     ArrayList<WeaponUpgrade> listWeaponUpgrade= new ArrayList(20);//lista punktów ulepszenie broni
+    ArrayList<BonusShield> listBonusShield= new ArrayList(20);//lista punktów dodatkowa tarcza
     ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
     ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista strzalow gracza
 
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel implements KeyListener {
             isShotOnCooldown=false;//czas do ponownego strzału
     boolean isMusicPlayed=false;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0;
-    boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false;
+    boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
     int shotCooldown=60;
     //etykiety
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
@@ -193,9 +194,10 @@ public class GamePanel extends JPanel implements KeyListener {
 
                         //opóźnienie wygaszenia tarczy
                         if (C.shieldActivated == true) {
-                            C.shieldCooldown--;
+                            shieldCooldownDrop=true;
                         }
                         if (C.shieldCooldown <= 0) {
+                            shieldCooldownDrop=false;
                             C.shieldCooldown = C.SHIELD_COOLDOWN_TIME;
                             C.shieldActivated = false;
                         }
@@ -300,6 +302,28 @@ public class GamePanel extends JPanel implements KeyListener {
                                     listWeaponUpgrade.remove(weaponUpgrade);
                                 } else if (weaponUpgrade.getY() > C.FRAME_HEIGHT) {
                                     listWeaponUpgrade.remove(weaponUpgrade);
+                                }
+                            }
+                        }
+//kolizja gracza z dodatkowa tarcza
+                        if (listBonusShield != null) {
+                            for (int i = 0; i < listBonusShield.size(); i++) {
+                                BonusShield bonusShield = listBonusShield.get(i);
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        bonusShield.getX(), bonusShield.getY(), bonusShield.getW(), bonusShield.getH())) {
+                                    try {
+                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //tutaj wpisz akcja
+                                    C.shieldActivated=true;
+                                    C.shieldCooldown=500;
+                                    C.totalPoints+=10;
+                                    updateLabels();
+                                    listBonusShield.remove(bonusShield);
+                                } else if (bonusShield.getY() > C.FRAME_HEIGHT) {
+                                    listBonusShield.remove(bonusShield);
                                 }
                             }
                         }
@@ -944,6 +968,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         frames++;
 
                         if(!C.PAUSE){
+                            if(shieldCooldownDrop) C.shieldCooldown--;
                             level_delay++;
                             if(tickUp) tick++;
                             if(level_temp1Up) level_temp1++;
@@ -999,6 +1024,10 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listWeaponUpgrade.size(); i++) {
                     listWeaponUpgrade.get(i).draw(g2D);
                 }
+            if (listBonusShield != null)            //rysowanie punktow dodatkowej tarczy
+                for (int i = 0; i < listBonusShield.size(); i++) {
+                    listBonusShield.get(i).draw(g2D);
+                }
             if (listEnemyShot != null)            //rysowanie wrogich strzałów
                 for (int i = 0; i < listEnemyShot.size(); i++) {
                     listEnemyShot.get(i).draw(g2D);
@@ -1053,8 +1082,6 @@ public class GamePanel extends JPanel implements KeyListener {
         )return true;
         else return false;
     }
-    //test nowy wrog
-
     public void newEnemy(int x,int y,int w,int h){//utworzenie obiektu wroga
         Enemy enemy = new Enemy(x,y,this);
         enemy.start();//start watku
@@ -1114,6 +1141,11 @@ public class GamePanel extends JPanel implements KeyListener {
         Life life = new Life(x,y,25,25,this);
         life.start();//start watku
         listLife.add(life);//dodanie do listy obiektow
+    }
+    public void newBonusShield(int x,int y){//utworzenie obiektu dodatkowego zycia
+        BonusShield bonusShield = new BonusShield(x,y,this);
+        bonusShield.start();//start watku
+        listBonusShield.add(bonusShield);//dodanie do listy obiektow
     }
     public void newWeaponUpgrade(int x,int y){//utworzenie obiektu ulepszenia broni
         WeaponUpgrade weaponUpgrade = new WeaponUpgrade(x,y,25,25,this);
@@ -1310,8 +1342,9 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==84) {//T przycisk do testów
             newMeteor(100,0,50,0);
-            newMeteor(300,0,150,1);
-            newMeteor(500,0,350,2);
+           // newMeteor(300,0,150,1);
+           // newMeteor(500,0,350,2);
+            newBonusShield(250,0);
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo

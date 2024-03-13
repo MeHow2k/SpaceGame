@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Graphics/meteor.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Graphics/meteorLeft.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Graphics/meteorRight.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/Meteor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/BonusShield.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -265,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709738835643</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Dodanie nowego wroga: meteoru, który rozbija się na mniejsze przy strzale">
+      <created>1710343090172</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1710343090172</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -298,6 +301,7 @@
     <MESSAGE value="Opoźnienia poziomów na bazie klatek, by na każdym PC działało tak samo" />
     <MESSAGE value="Poprawienie wartości opoźnień przy pojawianiu się przeciwników" />
     <MESSAGE value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie bonusu: ulepszenie broni i system ulepszenia broni po zebraniu i utraty przy stracie zycia" />
+    <MESSAGE value="Dodanie nowego wroga: meteoru, który rozbija się na mniejsze przy strzale" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie nowego wroga: meteoru, który rozbija się na mniejsze przy strzale" />
   </component>
 </project>
