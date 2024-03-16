@@ -535,7 +535,6 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -664,14 +663,14 @@ public class GamePanel extends JPanel implements KeyListener {
 
                         if (C.LEVEL == 10) {//poziom bossa!
                             SoundManager.stopBackground();
-//                            if (isMusicPlayed == false) {
-//                                try {
-//                                    SoundManager.playBoss();
-//                                } catch (Exception e) {
-//                                    throw new RuntimeException(e);
-//                                }
-//                            }
-                                isMusicPlayed = true;
+                            if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBoss();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                           }
+                            isMusicPlayed = true;
                             if(level_delay>500)//opoznienie przed pojawieniem sie bossa
                                 if (tick > 180 && C.PAUSE != true && C.isLevelCreated == false) {
                                     newBoss(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 50);
@@ -689,6 +688,15 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         if (C.LEVEL == 11 ) {
+                            SoundManager.stopBoss();
+                            if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBackground();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            isMusicPlayed = true;
                             if(level_delay>300)//po opoznieniu
                                 if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 - 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 1);
@@ -882,14 +890,14 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                         if (C.LEVEL == 20) {
                             if(SoundManager.clipback!=null)SoundManager.stopBackground();
-//                              if (isMusicPlayed == false) {
-//                                try {
-//                                    SoundManager.playBoss();
-//                                } catch (Exception e) {
-//                                    throw new RuntimeException(e);
-//                                }
-//                            }
-//                            playedMusic = true;
+                              if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBoss();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            isMusicPlayed = true;
                             if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
                                 newBoss20(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 200);
                                 enemyCreated++;
@@ -907,10 +915,19 @@ public class GamePanel extends JPanel implements KeyListener {
                                 C.isLevelCreated = false;
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
+                                resetLevel();
                             }
                         }
                         }
                         if (C.LEVEL == 21) { /// ostatni poziom koniec gry
+                            SoundManager.stopBoss();
+                            if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBackground();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
                             removeEnemyObjects();
                             if(tick==700){
                                 //okno dialogowe konca gry

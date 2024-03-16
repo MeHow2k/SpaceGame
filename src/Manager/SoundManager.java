@@ -11,6 +11,7 @@ import java.io.IOException;
 public class SoundManager {
     static public Clip clipback;
     static public Clip clipbackmenu;
+    static public Clip clipboss;
     static float checkSoundVolume() {
         if (C.isMuted==false) {
             if (C.soundVolume == 0) {
@@ -84,12 +85,24 @@ public class SoundManager {
         clipbackmenu.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
         clipbackmenu.start();//rozpoczęcie odtwarzania dźwieku
     }
+    public static void playBoss() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/backgroundBoss.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        clipboss = AudioSystem.getClip();//utworzenie obiektu clip
+        clipboss.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clipboss.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+        clipboss.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
+        clipboss.start();//rozpoczęcie odtwarzania dźwieku
+    }
     public static void stopBackground(){
         if(clipback!=null)clipback.stop();//zatrzymanie dźwięku
     }
     public static void stopMenuBackground(){
         if(clipbackmenu!=null)clipbackmenu.stop();//zatrzymanie dźwięku
     }
+    public static void stopBoss(){if(clipboss!=null)clipboss.stop();}//zatrzymanie muzyki bossa
     public static void stopAllMusic(){stopBackground();stopMenuBackground();}
     public static void playDefeat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/defeat.wav")); //pobranie pliku ze ścieżki
