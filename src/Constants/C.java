@@ -6,15 +6,14 @@ public class C {
     public static final String VERSION= "1.0.0";
 
     public static int FRAME_HEIGHT=850;
-
     public static int FRAME_WIDTH=800;
-
     public static int GAMESTATE=1;
     public static int LEVEL=99;
     public static boolean GODMODE=false;
     public static int totalPoints=0;
     public static int playerLives=3;
     public static int weaponUpgrade=1;
+    public static boolean isFirerateUpgrade=false;
     public static boolean shieldActivated=false;
     public static int SHIELD_COOLDOWN_TIME=200;
     public static boolean isLevelCreated = false;

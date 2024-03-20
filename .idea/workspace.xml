@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Sprite dla bossa i strzelanko">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie leveli od 11-19">
+      <change afterPath="$PROJECT_DIR$/Graphics/weaponFirerateBoost.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/FirerateUpgrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graphics/weaponupgrade.gif" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +39,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -62,6 +65,9 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Entities" />
     </key>
   </component>
   <component name="RunManager">
@@ -255,23 +261,7 @@
       <option name="project" value="LOCAL" />
       <updated>1709751240071</updated>
     </task>
-    <task id="LOCAL-00023" summary="Dodanie levelu 20 - boss">
-      <option name="closed" value="true" />
-      <created>1710358590930</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1710358590930</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Sprite dla bossa i strzelanko">
-      <option name="closed" value="true" />
-      <created>1710359689978</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1710359689978</updated>
-    </task>
-    <option name="localTasksCounter" value="25" />
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -301,8 +291,6 @@
     <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Dodanie leveli od 11-19" />
-    <MESSAGE value="Dodanie levelu 20 - boss" />
-    <MESSAGE value="Sprite dla bossa i strzelanko" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sprite dla bossa i strzelanko" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie leveli od 11-19" />
   </component>
 </project>
