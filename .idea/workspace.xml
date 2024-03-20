@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Graphics/laser.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyLaser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyLaserShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
@@ -60,6 +63,7 @@
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -264,7 +268,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710947059851</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza">
+      <created>1710949147245</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1710949147245</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +306,7 @@
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Dodanie leveli od 11-19" />
     <MESSAGE value="Dodano bonus: przyśpieszenie strzelania" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodano bonus: przyśpieszenie strzelania" />
+    <MESSAGE value="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza" />
   </component>
 </project>

@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
+    ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
     ArrayList<Meteor> listMeteor = new ArrayList(20);//lista meteorów
     ArrayList<Points> listPoints = new ArrayList(20);//lista punktów
     ArrayList<Life> listLife= new ArrayList(20);//lista punktów dodatkowe życie
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<FirerateUpgrade> listFirerateUpgrade= new ArrayList(20);//lista punktów przyspieszenia strzelania
     ArrayList<BonusShield> listBonusShield= new ArrayList(20);//lista punktów dodatkowa tarcza
     ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
+    ArrayList<EnemyLaserShot> listEnemyLaserShot = new ArrayList(20);//lista wrogich strzałów laserów
     ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista strzalow gracza
 
     //zmienne bool zawirajace info czy naciśnięto przycisk
@@ -223,6 +225,25 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+                        //generowanie strzałów - laserów wrogów
+                        if (listEnemyLaser != null && C.PAUSE != true) {
+                            for (int i = 0; i < listEnemyLaser.size(); i++) {
+                                EnemyLaser enemyLaser = listEnemyLaser.get(i);
+                                Random random = new Random();
+                                int roll = random.nextInt(300);
+                                if (roll == 0) {
+                                    if (enemyLaser.getFacingDirection() == 0)
+                                        newEnemyLaserShot(enemyLaser.getX() + (enemyLaser.getW()), enemyLaser.getY() + enemyLaser.getH() - 10);
+                                    if (enemyLaser.getFacingDirection() == 1)
+                                        newEnemyLaserShot(enemyLaser.getX() - C.FRAME_WIDTH + 50, enemyLaser.getY() + enemyLaser.getH() - 10);
+                                    try {
+                                        SoundManager.playEnemyShot();//todo zmień na dzwiek wystrzału lasera!
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                            }
+                        }
                         //generowanie wystrzalow potrojnych dla bossow 1 (isBoss==1)
 
                         if (listEnemy != null && C.PAUSE != true) {
@@ -394,6 +415,24 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+                        //kolizja wrogaLasera i gracza
+                        if (listEnemyLaser != null) {
+                            for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
+                                EnemyLaser enemy = listEnemyLaser.get(iw);
+                                //usun wrogow ktorych hp jest rowne lub mniejsze 0
+                                if (enemy.getHp() <= 0) {
+                                    listEnemyLaser.remove(enemy);
+                                }
+                                //kolizja wroga i gracza
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH()) && !C.shieldActivated) {
+                                    enemy.setHp(enemy.getHp()-1);
+                                    //wpisz akcja
+                                    playerHit();
+                                    listEnemyLaser.remove(enemy);
+                                }
+                            }
+                        }
                         //kolizja meteora i gracza
                         if (listMeteor != null) {
                             for (int iw = 0; iw < listMeteor.size(); iw++) {
@@ -466,6 +505,34 @@ public class GamePanel extends JPanel implements KeyListener {
                                         }
                                     }
                                 }//listmeteor
+                                if (listEnemyLaser != null) {
+                                    for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
+                                        EnemyLaser enemy = listEnemyLaser.get(iw);
+                                        //kolizja wroga i strzału gracza
+                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
+                                            //usunięcie wroga gdy ma 1 hp
+                                            if (enemy.getHp() == 1) {
+                                                listEnemyLaser.remove(enemy);
+                                                try {
+                                                    SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
+                                                } catch (Exception e) {
+                                                    throw new RuntimeException(e);
+                                                }
+                                                if (playershot != null)
+                                                    listPlayerShot.remove(playershot);
+                                                //wpisz akcja
+                                                newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
+                                                C.totalPoints+=50;
+                                                updateLabels();
+                                            } else {
+                                                if (playershot != null)
+                                                    listPlayerShot.remove(playershot);
+                                                enemy.setHp(enemy.getHp() - 1);
+                                            }
+                                        }
+                                    }
+                                }//listEnemyLaser
                             }
                         }
 //kolizja strzału wroga z graczem
@@ -478,6 +545,23 @@ public class GamePanel extends JPanel implements KeyListener {
                                     listEnemyShot.remove(enemyShot);
                                     //wpisz akcja
                                     playerHit();
+                                }
+                            }
+                        }
+//kolizja strzału lasera wroga z graczem
+                        if (listEnemyLaserShot != null) {
+                            for (int iw = 0; iw < listEnemyLaserShot.size(); iw++) {
+                                EnemyLaserShot enemyShot = listEnemyLaserShot.get(iw);
+                                //kolizja strzału wroga i gracza
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        enemyShot.getX(), enemyShot.getY(), enemyShot.getW(), enemyShot.getH()) && !C.shieldActivated) {
+                                    listEnemyLaserShot.remove(enemyShot);
+                                    //wpisz akcja
+                                    playerHit();
+                                }
+                                ///////////////////usuwanie laserow po uplywie czasu
+                                if (enemyShot.getTime() > 20 && enemyShot != null) {
+                                    listEnemyLaserShot.remove(enemyShot);
                                 }
                             }
                         }
@@ -1102,6 +1186,10 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listEnemy.size(); i++) {
                     listEnemy.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
                 }
+            if (listEnemyLaser != null)            //rysowanie wrogow z laserem
+                for (int i = 0; i < listEnemyLaser.size(); i++) {
+                    listEnemyLaser.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
+                }
             if (listMeteor != null)            //rysowanie meteorów
                 for (int i = 0; i < listMeteor.size(); i++) {
                     listMeteor.get(i).draw(g2D);  //na każdym elemencie listy wykonanie draw()
@@ -1129,6 +1217,10 @@ public class GamePanel extends JPanel implements KeyListener {
             if (listEnemyShot != null)            //rysowanie wrogich strzałów
                 for (int i = 0; i < listEnemyShot.size(); i++) {
                     listEnemyShot.get(i).draw(g2D);
+                }
+            if (listEnemyLaserShot != null)            //rysowanie wrogich strzałów laserem
+                for (int i = 0; i < listEnemyLaserShot.size(); i++) {
+                    listEnemyLaserShot.get(i).draw(g2D);
                 }
             if (listPlayerShot != null)            //rysowanie strzałów gracza
                 for (int i = 0; i < listPlayerShot.size(); i++) {
@@ -1215,6 +1307,19 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.start();
         listEnemy.add(enemy);
     }
+    //utworzenie obiektu wroga z laserem wraz z wszystkimi jego parametrami
+    public void newEnemyLaser(int x,int y,int velX,int velY,int facingDirection,int movingType,int centerX,int centerY,int radius,int hp){
+        EnemyLaser enemy = new EnemyLaser(x,y,50,50,velX,velY,facingDirection,movingType,centerX,centerY,radius,hp,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHp(hp);
+        enemy.setMovingType(movingType);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.start();
+        listEnemyLaser.add(enemy);
+    }
     public void newBoss(int x,int y,int velX,int velY,int movingType,int centerX,int centerY,int radius,int hp){
         Enemy enemy = new Enemy(x, y,this);
         enemy.setRadius(radius);
@@ -1268,6 +1373,11 @@ public class GamePanel extends JPanel implements KeyListener {
         Life life = new Life(x,y,25,25,this);
         life.start();//start watku
         listLife.add(life);//dodanie do listy obiektow
+    }
+    public void newEnemyLaserShot(int x,int y){//utworzenie obiektu lasera
+        EnemyLaserShot enemyLaserShot = new EnemyLaserShot(x,y,this);
+        enemyLaserShot.start();
+        listEnemyLaserShot.add(enemyLaserShot);
     }
     public void newFirerateUpgrade(int x,int y){//utworzenie obiektu przyspieszenia strzelania
         FirerateUpgrade firerateUpgrade = new FirerateUpgrade(x,y,25,25,this);
@@ -1476,10 +1586,11 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==84) {//T przycisk do testów testowania debug
             //newMeteor(100,0,50,0);
-            newMeteor(300,0,150,1);
+            //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
             //newBonusShield(150,0);
-
+            newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
+            newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
 
             /* //-10hp kazdemu wrogowi
