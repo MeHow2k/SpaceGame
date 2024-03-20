@@ -404,8 +404,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     //wpisz akcja
                                     playerHit();
                                     if(meteor.getW()>=50) {
-                                        newMeteor(meteor.getX(),meteor.getY(),meteor.getW()/2,meteor.getMovingType());
-                                        newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY()+meteor.getH()/2,meteor.getW()/2,meteor.getMovingType());
+                                        onMeteorHit(meteor);
                                     }
                                     listMeteor.remove(meteor);
                                 }
@@ -461,8 +460,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                             C.totalPoints+=5;
                                             //dropsystem
                                             if(meteor.getW()>=50) {
-                                                newMeteor(meteor.getX(),meteor.getY(),meteor.getW()/2,meteor.getMovingType());
-                                                newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY()+meteor.getH()/2,meteor.getW()/2,meteor.getMovingType());
+                                                onMeteorHit(meteor);
                                             }
                                             listMeteor.remove(meteor);
                                         }
@@ -1247,6 +1245,20 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.start();
         listEnemy.add(enemy);
     }
+    public void onMeteorHit(Meteor meteor){//rozłupanie meteoru na 2
+        if(meteor.getMovingType()==1) {
+            newMeteor(meteor.getX() + meteor.getW() / 2, meteor.getY(), meteor.getW() / 2, 2);
+            newMeteor(meteor.getX() + meteor.getW() / 2, meteor.getY(), meteor.getW() / 2, 1);
+        }
+        if(meteor.getMovingType()==2) {
+            newMeteor(meteor.getX() + meteor.getW() / 2, meteor.getY(), meteor.getW() / 2, 1);
+            newMeteor(meteor.getX() + meteor.getW() / 2, meteor.getY(), meteor.getW() / 2, 2);
+        }
+        if(meteor.getMovingType()==0){
+            newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY(),meteor.getW()/2,1);
+            newMeteor(meteor.getX()+meteor.getW()/2,meteor.getY(),meteor.getW()/2,2);
+        }
+    }
     public void newPoints(int x,int y,int w,int h){//utworzenie obiektu wroga
         Points point = new Points(x,y,this);
         point.start();//start watku
@@ -1464,11 +1476,11 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         if (e.getKeyCode()==84) {//T przycisk do testów testowania debug
             //newMeteor(100,0,50,0);
-            //newMeteor(300,0,150,1);
+            newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
             //newBonusShield(150,0);
 
-            newFirerateUpgrade(100,-10);
+            //newFirerateUpgrade(100,-10);
 
             /* //-10hp kazdemu wrogowi
             if (listEnemy != null) {
