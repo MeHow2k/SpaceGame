@@ -446,6 +446,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                         onMeteorHit(meteor);
                                     }
                                     listMeteor.remove(meteor);
+                                }else if (meteor.getY() > C.FRAME_HEIGHT) {
+                                    listMeteor.remove(meteor);
                                 }
                             }
                         }
@@ -521,8 +523,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 }
                                                 if (playershot != null)
                                                     listPlayerShot.remove(playershot);
-                                                newDrop(enemy.getX()+12,enemy.getY()+12,13,10,10,10);
-                                                //newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
+                                                //wpisz akcja
+                                                newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
                                                 C.totalPoints+=50;
                                                 updateLabels();
                                             } else {
@@ -628,6 +630,23 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+//                        if (C.LEVEL == 0 ) {
+//                            if(level_delay>300)//po opoznieniu (liczba klatek)
+//                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+//                                    Random random = new Random();
+//                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+//                                    newMeteor(random.nextInt( 1000)-500, -70, level_temp1, 1);
+//                                    tick = 0;
+//                                    enemyCreated++;
+//                                    if (C.LEVEL == 0 && enemyCreated == 30) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+//                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+//
+//                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
+//                                C.LEVEL++;
+//                                System.out.println("LEVEL: " + C.LEVEL);
+//                                resetLevel();
+//                            }
+//                        }
 
                         if (C.LEVEL == 1 ) {
                             if(level_delay>300)//po opoznieniu (liczba klatek)
@@ -1169,15 +1188,15 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                         if (C.LEVEL == 28 ) {
                             if(level_delay>300)//po opoznieniu
-                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 0,1,0,0,0,2);
                                     newEnemyLaser(C.FRAME_WIDTH / 2 - 130, 0, 1, 1, 1,1,0,0,0,2);
                                     tick = 0;
                                     enemyCreated++;
-                                    if (C.LEVEL == 28 && enemyCreated == 8) C.isLevelCreated = true;
+                                    if (C.LEVEL == 28 && enemyCreated == 7) C.isLevelCreated = true;
                                 } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
-                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                            if (listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
@@ -1785,11 +1804,11 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
             //newBonusShield(150,0);
-            newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
-            newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
+            //newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
+            //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
 
-            /* //-10hp kazdemu wrogowi
+             //-10hp kazdemu wrogowi
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);
@@ -1798,7 +1817,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         listEnemy.remove(enemy);
                     } else enemy.setHP(enemy.getHP() - 10);
                 }
-            }*/
+            }
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
