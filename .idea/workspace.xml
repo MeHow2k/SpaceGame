@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Graphics/laser.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyLaser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/EnemyLaserShot.java" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Plik backgroundBoss.wav">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sound/!Linki.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Sound/!Linki.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,9 +38,7 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -63,11 +61,7 @@
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Entities" />
     </key>
   </component>
   <component name="RunManager">
@@ -261,21 +255,39 @@
       <option name="project" value="LOCAL" />
       <updated>1709751240071</updated>
     </task>
-    <task id="LOCAL-00023" summary="Dodano bonus: przyśpieszenie strzelania">
-      <created>1710947059851</created>
+    <task id="LOCAL-00023" summary="Dodanie levelu 20 - boss">
+      <option name="closed" value="true" />
+      <created>1710358590930</created>
       <option name="number" value="00023" />
       <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1710947059851</updated>
+      <updated>1710358590930</updated>
     </task>
-    <task id="LOCAL-00024" summary="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza">
-      <created>1710949147245</created>
+    <task id="LOCAL-00024" summary="Sprite dla bossa i strzelanko">
+      <option name="closed" value="true" />
+      <created>1710359689978</created>
       <option name="number" value="00024" />
       <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1710949147245</updated>
+      <updated>1710359689978</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Zmiana muzyki, implementacja muzyki dla bossa.">
+      <option name="closed" value="true" />
+      <created>1710608924900</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1710608924900</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Plik backgroundBoss.wav">
+      <option name="closed" value="true" />
+      <created>1710609096449</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1710609096449</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,8 +317,10 @@
     <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Dodanie leveli od 11-19" />
-    <MESSAGE value="Dodano bonus: przyśpieszenie strzelania" />
-    <MESSAGE value="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawa działania rozdwajania się meteorów przy kolizji lub strzale gracza" />
+    <MESSAGE value="Dodanie levelu 20 - boss" />
+    <MESSAGE value="Sprite dla bossa i strzelanko" />
+    <MESSAGE value="Zmiana muzyki, implementacja muzyki dla bossa." />
+    <MESSAGE value="Plik backgroundBoss.wav" />
+    <option name="LAST_COMMIT_MESSAGE" value="Plik backgroundBoss.wav" />
   </component>
 </project>
