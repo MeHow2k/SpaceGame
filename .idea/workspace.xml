@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Plik backgroundBoss.wav">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Levele 21-23 i michałowe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sound/!Linki.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Sound/!Linki.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
@@ -287,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710609096449</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Levele 21-23 i michałowe">
+      <option name="closed" value="true" />
+      <created>1711208270169</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1711208270169</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -321,6 +327,7 @@
     <MESSAGE value="Sprite dla bossa i strzelanko" />
     <MESSAGE value="Zmiana muzyki, implementacja muzyki dla bossa." />
     <MESSAGE value="Plik backgroundBoss.wav" />
-    <option name="LAST_COMMIT_MESSAGE" value="Plik backgroundBoss.wav" />
+    <MESSAGE value="Levele 21-23 i michałowe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Levele 21-23 i michałowe" />
   </component>
 </project>

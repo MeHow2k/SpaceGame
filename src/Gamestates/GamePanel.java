@@ -1053,11 +1053,11 @@ public class GamePanel extends JPanel implements KeyListener {
                             if(level_delay>300)//po opoznieniu
                                 if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
                                     newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 + 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
-                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 - 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 2);
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 - 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 1);
                                     newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 - 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 1);
                                     tick = 0;
                                     enemyCreated++;
-                                    if (C.LEVEL == 22 && enemyCreated == 8) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                    if (C.LEVEL == 22 && enemyCreated == 7) C.isLevelCreated = true;//jezeli stworzono 7 przeciwnikow, poziom stworzony
                                 } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
@@ -1073,10 +1073,128 @@ public class GamePanel extends JPanel implements KeyListener {
                                     newEnemy(C.FRAME_WIDTH + 60, C.FRAME_HEIGHT / 2 - 25 - 100, 1, 1, 5, C.FRAME_WIDTH / 2 - 55, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 2);
                                     tick = 0;
                                     enemyCreated++;
-                                    if (C.LEVEL == 23 && enemyCreated == 10) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                    if (C.LEVEL == 23 && enemyCreated == 11) C.isLevelCreated = true;//jezeli stworzono 11 przeciwnikow, poziom stworzony
                                 } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 24 ) {
+                            //warunek dodatkowy: jeśli hp wroga <=2 to zmien na movingtype 0
+                            if (listEnemy != null) {
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                    Enemy enemy = listEnemy.get(iw);
+                                    if (enemy.getHP() <= 2) {
+                                        enemy.setMovingType(0);
+                                    }
+                                }
+                            }
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 4);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 24 && enemyCreated == 8) {C.isLevelCreated = true;//jezeli stworzono 8 przeciwnikow, poziom stworzony
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 25 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    Random random = new Random();
+                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                    newMeteor(random.nextInt(C.FRAME_WIDTH - 25), -75, level_temp1, 0);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 25 && enemyCreated == 30) C.isLevelCreated = true;
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 26 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, 60, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 2);
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 2);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 26 && enemyCreated == 10) {
+                                        C.isLevelCreated = true;//jezeli stworzono 10 przeciwnikow, poziom stworzony
+                                        if (listEnemy != null) {
+                                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                                Enemy enemy = listEnemy.get(iw);
+                                                enemy.setMovingType(0);
+                                            }
+                                        }
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 27 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    Random random = new Random();
+                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                    newMeteor(random.nextInt(C.FRAME_WIDTH + 250) + 200, -75, level_temp1, 2);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 27 && enemyCreated == 30) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 28 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 0,1,0,0,0,2);
+                                    newEnemyLaser(C.FRAME_WIDTH / 2 - 130, 0, 1, 1, 1,1,0,0,0,2);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 28 && enemyCreated == 8) C.isLevelCreated = true;
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 29 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    Random random = new Random();
+                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                    newMeteor(random.nextInt( 1000)-500, -70, level_temp1, 1);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 29 && enemyCreated == 30) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
