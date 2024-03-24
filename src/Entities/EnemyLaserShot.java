@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import Constants.C;
 public class EnemyLaserShot extends Thread {
-    private int x,y,w=C.FRAME_WIDTH-50,h=10,movingType=0,time=0;
+    private int x,y,w=350,h=10,movingType=0,time=0;
     JPanel panel;
     Image imgLaser = new ImageIcon(getClass().getClassLoader().getResource("laser.gif")).getImage();
     public EnemyLaserShot(int x, int y, JPanel panel){

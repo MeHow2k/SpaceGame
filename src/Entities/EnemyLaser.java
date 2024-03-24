@@ -7,13 +7,44 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EnemyLaser extends Thread {
-    private int x,y,w=50,h=50, dirX =1, dirY =1,velX=1,velY=1,hp,movingType=0, facingDirection =0,
-            angle=270,circleCenterX= C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2,radius=300,time=0;
+    private int x;
+    private int y;
+    private int w=50;
+    private int h=50;
+    private int dirX =1;
+    private int dirY =1;
+    private int velX=1;
+    private int velY=1;
+    private int hp;
+    private int movingType=0;
+    private int facingDirection =0;
+    private int angle=270;
+
+    public int getDirX() {
+        return dirX;
+    }
+
+    public void setDirX(int dirX) {
+        this.dirX = dirX;
+    }
+
+    public int getDirY() {
+        return dirY;
+    }
+
+    public void setDirY(int dirY) {
+        this.dirY = dirY;
+    }
+
+    private int circleCenterX= C.FRAME_WIDTH/2-w/2;
+    private int circleCenterY=C.FRAME_HEIGHT/2-100-h/2;
+    private int radius=300;
+    private int time=0;
 
 
     JPanel panel;
-    Image imgEnemyLaserLeft = new ImageIcon(getClass().getClassLoader().getResource("life.png")).getImage();
-    Image imgEnemyLaserRight = new ImageIcon(getClass().getClassLoader().getResource("option_block.gif")).getImage();
+    Image imgEnemyLaserLeft = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft.gif")).getImage();
+    Image imgEnemyLaserRight = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight.gif")).getImage();
     public EnemyLaser(int x, int y, int w, int h, int facingDirection, JPanel panel){
         this.x=x;
         this.y=y;

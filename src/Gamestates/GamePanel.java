@@ -232,10 +232,16 @@ public class GamePanel extends JPanel implements KeyListener {
                                 Random random = new Random();
                                 int roll = random.nextInt(300);
                                 if (roll == 0) {
-                                    if (enemyLaser.getFacingDirection() == 0)
-                                        newEnemyLaserShot(enemyLaser.getX() + (enemyLaser.getW()), enemyLaser.getY() + enemyLaser.getH() - 10);
-                                    if (enemyLaser.getFacingDirection() == 1)
-                                        newEnemyLaserShot(enemyLaser.getX() - C.FRAME_WIDTH + 50, enemyLaser.getY() + enemyLaser.getH() - 10);
+                                    if (enemyLaser.getFacingDirection() == 0){
+                                        if(enemyLaser.getDirY()==1)
+                                        newEnemyLaserShot(enemyLaser.getX() - 355, enemyLaser.getY() + enemyLaser.getH() - 10);
+                                        else newEnemyLaserShot(enemyLaser.getX() - 355, enemyLaser.getY() + enemyLaser.getH() - 30);
+                                    }
+                                    if (enemyLaser.getFacingDirection() == 1){
+                                        if(enemyLaser.getDirY()==1)
+                                        newEnemyLaserShot(enemyLaser.getX() + enemyLaser.getW(), enemyLaser.getY() + enemyLaser.getH() - 10);
+                                        else newEnemyLaserShot(enemyLaser.getX() + enemyLaser.getW(), enemyLaser.getY() + enemyLaser.getH() - 30);
+                                    }
                                     try {
                                         SoundManager.playEnemyShot();//todo zmień na dzwiek wystrzału lasera!
                                     } catch (Exception e) {
@@ -1804,20 +1810,20 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
             //newBonusShield(150,0);
-            //newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
+             newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
             //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
 
              //-10hp kazdemu wrogowi
-            if (listEnemy != null) {
-                for (int iw = 0; iw < listEnemy.size(); iw++) {
-                    Enemy enemy = listEnemy.get(iw);
-                    //usun wrogow ktorych hp jest rowne lub mniejsze 0
-                    if (enemy.getHP() <= 0) {
-                        listEnemy.remove(enemy);
-                    } else enemy.setHP(enemy.getHP() - 10);
-                }
-            }
+//            if (listEnemy != null) {
+//                for (int iw = 0; iw < listEnemy.size(); iw++) {
+//                    Enemy enemy = listEnemy.get(iw);
+//                    //usun wrogow ktorych hp jest rowne lub mniejsze 0
+//                    if (enemy.getHP() <= 0) {
+//                        listEnemy.remove(enemy);
+//                    } else enemy.setHP(enemy.getHP() - 10);
+//                }
+//            }
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
