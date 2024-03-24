@@ -530,7 +530,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 if (playershot != null)
                                                     listPlayerShot.remove(playershot);
                                                 //wpisz akcja
-                                                newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
+                                                newDrop(enemy.getX()+12,enemy.getY()+12,13,10,10,10);
                                                 C.totalPoints+=50;
                                                 updateLabels();
                                             } else {
@@ -1810,9 +1810,9 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
             //newBonusShield(150,0);
-             newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 1,0,0,0,0,2);
+             //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
             //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
-            //newFirerateUpgrade(100,-10);
+            newFirerateUpgrade(100,-10);
 
              //-10hp kazdemu wrogowi
 //            if (listEnemy != null) {

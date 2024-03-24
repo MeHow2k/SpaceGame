@@ -10,17 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Poprawa konczenia poziomu z wrogiem z laserem">
-      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/enemyLaserLeft.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/enemyLaserRight.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphics/laser.gif" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/laser.gif" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Graphics/laser.png" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/laser.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpaceGame.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SpaceGame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/EnemyLaser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyLaser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/EnemyLaserShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyLaserShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -314,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711210361894</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Poprawa wystrzeliwania laserów przez wrogów">
+      <created>1711291975821</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1711291975821</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -349,6 +347,7 @@
     <MESSAGE value="Zmiana muzyki, implementacja muzyki dla bossa." />
     <MESSAGE value="Plik backgroundBoss.wav" />
     <MESSAGE value="Poprawa konczenia poziomu z wrogiem z laserem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawa konczenia poziomu z wrogiem z laserem" />
+    <MESSAGE value="Poprawa wystrzeliwania laserów przez wrogów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawa wystrzeliwania laserów przez wrogów" />
   </component>
 </project>
