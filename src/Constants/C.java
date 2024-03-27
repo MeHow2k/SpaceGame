@@ -7,9 +7,10 @@ public class C {
 
     public static int FRAME_HEIGHT=850;
     public static int FRAME_WIDTH=800;
-    public static int GAMESTATE=1;
+    public static int GAMESTATE=1; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra
     public static int LEVEL=0;
     public static boolean GODMODE=false;
+    public static int playerSkin=0; //0-default 1-? 2-?
     public static int totalPoints=0;
     public static int playerLives=3;
     public static int weaponUpgrade=1;
@@ -22,6 +23,7 @@ public class C {
     public static int highscoreLevel=0;
     public static int cursorPosition=0;
     public static int cursorSettingsPosition=0;
+    public static int cursorBeforeGamePosition=5;
     public static int musicVolume=0;
     public static int soundVolume=0;
     public static boolean isMuted=false;

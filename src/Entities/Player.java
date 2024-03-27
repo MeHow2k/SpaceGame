@@ -11,6 +11,10 @@ import java.awt.*;
 public class Player {
     private int x=0,y=0,w=50,h=50,speed=1;
     Image imgPlayer = new ImageIcon(getClass().getClassLoader().getResource("player.gif")).getImage();
+    Image imgPlayer1 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin1.gif")).getImage();
+    Image imgPlayer2 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin2.gif")).getImage();
+    Image imgPlayer3 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin3.gif")).getImage();
+    Image imgPlayer4 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin4.gif")).getImage();
     Image imgShield = new ImageIcon(getClass().getClassLoader().getResource("shield.gif")).getImage();
     //konstruktor
     public Player(int x,int y){
@@ -20,7 +24,11 @@ public class Player {
 
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
-        g.drawImage(imgPlayer,x,y,w,h,null);
+        if(C.playerSkin==0)g.drawImage(imgPlayer,x,y,w,h,null);
+        if(C.playerSkin==1)g.drawImage(imgPlayer1,x,y,w,h,null);
+        if(C.playerSkin==2)g.drawImage(imgPlayer2,x,y,w,h,null);
+        if(C.playerSkin==3)g.drawImage(imgPlayer3,x,y,w,h,null);
+        if(C.playerSkin==4)g.drawImage(imgPlayer4,x,y,w,h,null);
         if(C.shieldActivated && (C.shieldCooldown>=100 || (C.shieldCooldown<100 && C.shieldCooldown%2==0))){
             g.drawImage(imgShield,x-5,y-5,
                     60,60,null);

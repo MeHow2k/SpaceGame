@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Font customFont;
 
     // deklaracja elementów menu
-    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
+    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;MenuBeforeGame menuBeforeGame;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -1333,6 +1333,30 @@ public class GamePanel extends JPanel implements KeyListener {
                         
                     }//GAMESTATE 2 menusettings
 
+                            if(C.GAMESTATE==5){
+                        if (menu != null && C.cursorSettingsPosition == 0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                            menuCursor.setY(100);
+                        }
+                        if (menu != null && C.cursorSettingsPosition == 1) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                            menuCursor.setY(250);
+                        }
+                        if (menu != null && C.cursorSettingsPosition == 2) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                            menuCursor.setY(400);
+                        }
+                        if (menu != null && C.cursorSettingsPosition == 3) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                            menuCursor.setY(550);
+                        }
+                        if (menu != null && C.cursorSettingsPosition == 4) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 150);
+                            menuCursor.setY(700);
+                        }
+
+
+                    }//GAMESTATE 5 skin selection
 
                     try {
                         Thread.sleep(3);
@@ -1458,6 +1482,10 @@ public class GamePanel extends JPanel implements KeyListener {
             menuAuthors = new MenuAuthors();
             menuAuthors.draw(g2D);
         } //GAMESTATE 4 - autorzy
+        if (C.GAMESTATE == 5) {//GAMESTATE 5- skin selection
+            menuBeforeGame = new MenuBeforeGame();
+            menuBeforeGame.draw(g2D);
+        } //GAMESTATE 5 - wybieranie skórek przed rozp. gry
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -1660,6 +1688,10 @@ public class GamePanel extends JPanel implements KeyListener {
         listWeaponUpgrade.clear();
         listMeteor.clear();
         listBonusShield.clear();
+        listEnemyLaser.clear();
+        listFirerateUpgrade.clear();
+        listEnemyLaserShot.clear();
+
     }
     //usuwanie wrogich obiektow
     public void removeEnemyObjects() {
@@ -1668,6 +1700,13 @@ public class GamePanel extends JPanel implements KeyListener {
                 Enemy e = listEnemy.get(i);
                 e.setHP(e.getHP()-10);
             }
+        if (listEnemyLaser != null)
+            for (int i = 0; i < listEnemyLaser.size(); i++) {
+                EnemyLaser e = listEnemyLaser.get(i);
+                e.setHp(e.getHp()-10);
+            }
+        if (listEnemyLaserShot != null) listEnemyLaserShot.clear();
+        if (listEnemyShot != null) listEnemyShot.clear();
     }
     public void updateLabels(){
         if(C.GAMESTATE==0){
@@ -1786,6 +1825,9 @@ public class GamePanel extends JPanel implements KeyListener {
                 C.PAUSE = false;
             }
         }
+        if (e.getKeyCode()==27 && C.GAMESTATE==5){
+            C.GAMESTATE=1;//powrot do menu z menu before game
+        }
         if (e.getKeyCode()==80) {//p przycisk pauza
             if (C.PAUSE == true) {
                 C.PAUSE = false;
@@ -1866,6 +1908,16 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                 }
             }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
+                if (C.cursorBeforeGamePosition==0) C.cursorBeforeGamePosition=4;
+                else C.cursorBeforeGamePosition--;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==39){//s w prawo
             RIGHT_PRESSED=true;
@@ -1908,6 +1960,16 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                 }
             }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
+                if (C.cursorBeforeGamePosition==4) C.cursorBeforeGamePosition=0;
+               else C.cursorBeforeGamePosition++;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==40){//s w dol
             DOWN_PRESSED=true;
@@ -1922,6 +1984,16 @@ public class GamePanel extends JPanel implements KeyListener {
             }
             if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){
                 C.cursorSettingsPosition++;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==5){
+                if (C.cursorBeforeGamePosition!=5) C.cursorBeforeGamePosition=5;
+                else C.cursorBeforeGamePosition=0;
                 try {
                     SoundManager.playPlayerShot();
                 } catch (Exception ex) {
@@ -1948,6 +2020,16 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==5){
+                if (C.cursorBeforeGamePosition==5) C.cursorBeforeGamePosition=0;
+                else C.cursorBeforeGamePosition=5;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
             SHOT_PRESSED=true;
@@ -1956,13 +2038,7 @@ public class GamePanel extends JPanel implements KeyListener {
             switch (C.GAMESTATE) {
                 case 1:
                     if (C.cursorPosition == 0) {
-                        C.GAMESTATE = 0;//gra
-                        SoundManager.stopMenuBackground();
-                        try {
-                            SoundManager.playBackground();
-                        } catch (Exception ex) {
-                            throw new RuntimeException(ex);
-                        }
+                        C.GAMESTATE = 5;//menu before game
                     }
                     if (C.cursorPosition == 1) {C.GAMESTATE = 3;}//jak grac
                     if (C.cursorPosition == 2) {C.GAMESTATE = 2;}//opcje
@@ -2000,6 +2076,27 @@ public class GamePanel extends JPanel implements KeyListener {
                     break;
                 case 4:
                     C.GAMESTATE = 1;//wyjscie z podmenu
+                    break;
+                case 5:
+                    try {
+                        SoundManager.playPlayerShot();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    if(C.cursorBeforeGamePosition==0) C.playerSkin=0;//skin select:
+                    if(C.cursorBeforeGamePosition==1) C.playerSkin=1;
+                    if(C.cursorBeforeGamePosition==2) C.playerSkin=2;
+                    if(C.cursorBeforeGamePosition==3) C.playerSkin=3;
+                    if(C.cursorBeforeGamePosition==4) C.playerSkin=4;
+                    if(C.cursorBeforeGamePosition==5) {//graj
+                        C.GAMESTATE=0;
+                        SoundManager.stopMenuBackground();
+                        try {
+                            SoundManager.playBackground();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
                     break;
 
             }
