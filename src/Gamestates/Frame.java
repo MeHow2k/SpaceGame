@@ -36,6 +36,7 @@ public class Frame extends JFrame {
                     fos.write("4\n".getBytes()); // Domyślna głośność muzyki
                     fos.write("4\n".getBytes()); // Domyślna głośność dzwięków
                     fos.write("false\n".getBytes());  // Domyślne brak wyciszenia
+                    fos.write("0\n".getBytes());  // Domyślny skin 0
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -54,6 +55,7 @@ public class Frame extends JFrame {
                 String muteOption = scanner.nextLine();
                 if(muteOption.equals("false")) C.isMuted=false;
                 else C.isMuted=true;
+                C.playerSkin=Integer.parseInt(scanner.nextLine());
             }
 
         } catch (FileNotFoundException e) {

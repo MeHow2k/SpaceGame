@@ -1750,7 +1750,7 @@ public class GamePanel extends JPanel implements KeyListener {
             File config = new File("config.txt");
             FileWriter out = new FileWriter(config);
             //wpisanie aktualnych ustawień do pliku ustawień
-            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted);
+            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted+"\n"+C.playerSkin);
             out.close();
         } catch (IOException ee) {
             ee.printStackTrace();
@@ -2090,6 +2090,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorBeforeGamePosition==4) C.playerSkin=4;
                     if(C.cursorBeforeGamePosition==5) {//graj
                         C.GAMESTATE=0;
+                        updateSettings();
                         SoundManager.stopMenuBackground();
                         try {
                             SoundManager.playBackground();
