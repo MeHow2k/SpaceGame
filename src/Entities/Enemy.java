@@ -7,7 +7,9 @@ import java.awt.*;
 
 public class Enemy extends Thread{
 
-    private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10, movingType=0, angle=270, circleCenterX=C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2, radius=300;
+    private boolean isInvincible=false;
+    private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10, movingType=0, angle=270,
+            circleCenterX=C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2, radius=300,isBoss = 0;
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
@@ -31,7 +33,7 @@ public class Enemy extends Thread{
             if (hp <= 100) g.drawImage(imgBoss2rage, x, y, w, h, null);
             else g.drawImage(imgBoss2, x, y, w, h, null);
         }else if (isBoss==3 && imgBoss3!=null) {
-            if (hp <= 100) g.drawImage(imgBoss2rage, x, y, w, h, null);
+            if (movingType==999) g.drawImage(imgBoss2rage, x, y, w, h, null);
             else g.drawImage(imgBoss2, x, y, w, h, null);
         }else g.drawImage(imgEnemy,x,y,w,h,null);
     }
@@ -91,7 +93,13 @@ public class Enemy extends Thread{
     public void setRadius(int radius) {
         this.radius = radius;
     }
-    int isBoss = 0;
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
 
     public int getIsBoss() {
         return isBoss;
@@ -143,7 +151,7 @@ public class Enemy extends Thread{
                 }
                 //y=y+;
                 //x = x + velX * dirX;
-
+                if(movingType==999) {}//stanie w miejscu
                 if(movingType==0)//norrmal x+
                     x = x + velX * dirX;
                 if(movingType==1) {//x+y+ odbijanie od krawedzi
@@ -216,6 +224,17 @@ public class Enemy extends Thread{
                     else{
                         if(getHP()>50) x=x+2* dirX *velX;
                         else x=x+5* dirX *velX;
+                        y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                        if(angle==360) angle=0; else angle++;
+                    }
+                }
+                if(movingType==30) {// dla bossa 3
+                    if(getHP()>50){
+                        if(y<100) y=y+1* dirY *velY;
+                        x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                        if(angle==360) angle=0; else angle++;
+                    }
+                    else{
                         y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
                         if(angle==360) angle=0; else angle++;
                     }

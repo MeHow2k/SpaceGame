@@ -103,7 +103,7 @@ public class SoundManager {
         if(clipbackmenu!=null)clipbackmenu.stop();//zatrzymanie dźwięku
     }
     public static void stopBoss(){if(clipboss!=null)clipboss.stop();}//zatrzymanie muzyki bossa
-    public static void stopAllMusic(){stopBackground();stopMenuBackground();}
+    public static void stopAllMusic(){stopBackground();stopMenuBackground();stopBoss();}
     public static void playDefeat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/defeat.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio

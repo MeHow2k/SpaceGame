@@ -414,7 +414,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 //kolizja wroga i gracza
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH()) && !C.shieldActivated) {
-                                        enemy.setHP(enemy.getHP()-1);
+                                        if(!enemy.isInvincible()) enemy.setHP(enemy.getHP()-1);
                                         //wpisz akcja
                                         playerHit();
 
@@ -462,85 +462,89 @@ public class GamePanel extends JPanel implements KeyListener {
                             for (int i = 0; i < listPlayerShot.size(); i++) {
                                 PlayerShot playershot = listPlayerShot.get(i);
                                 ///////////////////// usuwanie wroga i strzału gdy ten ich trafi i dodanie pkt za to ////////////////////////
-                                if (listEnemy != null) {
-                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
-                                        Enemy enemy = listEnemy.get(iw);
-                                        //kolizja wroga i strzału gracza
-                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
-                                                enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
-                                            //usunięcie wroga gdy ma 1 hp
-                                            if (enemy.getHP() == 1) {
-                                                listEnemy.remove(enemy);
-                                                try {
-                                                    SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
-                                                } catch (Exception e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                                if (playershot != null)
-                                                    listPlayerShot.remove(playershot);
-                                                newDrop(enemy.getX()+12,enemy.getY()+12,13,10,10,10);
-                                                //newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
-                                                C.totalPoints+=50;
-                                                updateLabels();
-                                            } else {
-                                                if (playershot != null)
-                                                    listPlayerShot.remove(playershot);
-                                                enemy.setHP(enemy.getHP() - 1);
+                                if(playershot.getY()>-10) {
+                                    if (listEnemy != null) {
+                                        for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                            Enemy enemy = listEnemy.get(iw);
+                                            //kolizja wroga i strzału gracza
+                                            if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                    enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
+                                                //usunięcie wroga gdy ma 1 hp
+                                                if (enemy.getHP() == 1) {
+                                                    listEnemy.remove(enemy);
+                                                    try {
+                                                        SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
+                                                    } catch (Exception e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                    if (playershot != null)
+                                                        listPlayerShot.remove(playershot);
+                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10);
+                                                    //newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
+                                                    C.totalPoints += 50;
+                                                    updateLabels();
+                                                } else {
+                                                    if (playershot != null)
+                                                        listPlayerShot.remove(playershot);
+                                                    if (!enemy.isInvincible()) enemy.setHP(enemy.getHP() - 1);
+                                                    if (enemy.getIsBoss() == 1 || enemy.getIsBoss() == 2 || enemy.getIsBoss() == 3)//todo remove this log!
+                                                        System.out.println("BOSS HEALTH " + enemy.getHP()); //todo remove this log!
+                                                }//todo remove this log!
                                             }
                                         }
-                                    }
-                                }//listenemy
-                                if (listMeteor != null) {
-                                    for (int iw = 0; iw < listMeteor.size(); iw++) {
-                                        Meteor meteor = listMeteor.get(iw);
-                                        //kolizja z graczem
-                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
-                                                meteor.getX(), meteor.getY(), meteor.getW(), meteor.getH())) {
-                                            try {
-                                                SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga todo
-                                            } catch (Exception e) {
-                                                throw new RuntimeException(e);
-                                            }
-                                            if (playershot != null)
-                                                listPlayerShot.remove(playershot);
-                                            //wpisz akcja
-                                            C.totalPoints+=5;
-                                            //dropsystem
-                                            if(meteor.getW()>=50) {
-                                                onMeteorHit(meteor);
-                                            }
-                                            listMeteor.remove(meteor);
-                                        }
-                                    }
-                                }//listmeteor
-                                if (listEnemyLaser != null) {
-                                    for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
-                                        EnemyLaser enemy = listEnemyLaser.get(iw);
-                                        //kolizja wroga i strzału gracza
-                                        if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
-                                                enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
-                                            //usunięcie wroga gdy ma 1 hp
-                                            if (enemy.getHp() == 1) {
-                                                listEnemyLaser.remove(enemy);
+                                    }//listenemy
+                                    if (listMeteor != null) {
+                                        for (int iw = 0; iw < listMeteor.size(); iw++) {
+                                            Meteor meteor = listMeteor.get(iw);
+                                            //kolizja z graczem
+                                            if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                    meteor.getX(), meteor.getY(), meteor.getW(), meteor.getH())) {
                                                 try {
-                                                    SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
+                                                    SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga todo
                                                 } catch (Exception e) {
                                                     throw new RuntimeException(e);
                                                 }
                                                 if (playershot != null)
                                                     listPlayerShot.remove(playershot);
                                                 //wpisz akcja
-                                                newDrop(enemy.getX()+12,enemy.getY()+12,13,10,10,10);
-                                                C.totalPoints+=50;
-                                                updateLabels();
-                                            } else {
-                                                if (playershot != null)
-                                                    listPlayerShot.remove(playershot);
-                                                enemy.setHp(enemy.getHp() - 1);
+                                                C.totalPoints += 5;
+                                                //dropsystem
+                                                if (meteor.getW() >= 50) {
+                                                    onMeteorHit(meteor);
+                                                }
+                                                listMeteor.remove(meteor);
                                             }
                                         }
-                                    }
-                                }//listEnemyLaser
+                                    }//listmeteor
+                                    if (listEnemyLaser != null) {
+                                        for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
+                                            EnemyLaser enemy = listEnemyLaser.get(iw);
+                                            //kolizja wroga i strzału gracza
+                                            if (isCollision(playershot.getX(), playershot.getY(), playershot.getW(), playershot.getH(),
+                                                    enemy.getX(), enemy.getY(), enemy.getW(), enemy.getH())) {
+                                                //usunięcie wroga gdy ma 1 hp
+                                                if (enemy.getHp() == 1) {
+                                                    listEnemyLaser.remove(enemy);
+                                                    try {
+                                                        SoundManager.playEnemyHit(); //dzwiek zniszczenia wroga
+                                                    } catch (Exception e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                    if (playershot != null)
+                                                        listPlayerShot.remove(playershot);
+                                                    //wpisz akcja
+                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10);
+                                                    C.totalPoints += 50;
+                                                    updateLabels();
+                                                } else {
+                                                    if (playershot != null)
+                                                        listPlayerShot.remove(playershot);
+                                                    enemy.setHp(enemy.getHp() - 1);
+                                                }
+                                            }
+                                        }
+                                    }//listEnemyLaser
+                                }
                             }
                         }
 //kolizja strzału wroga z graczem
@@ -1225,7 +1229,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 resetLevel();
                             }
                         }
-                        if (C.LEVEL == 30) {
+                        if (C.LEVEL == 30) { // mehow
                             if(SoundManager.clipback!=null)SoundManager.stopBackground();
                             if (isMusicPlayed == false) {
                                 try {
@@ -1236,16 +1240,58 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             isMusicPlayed = true;
                             if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
-                                newBoss30(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 200);
+                                newBoss30(-100, -100, 1, 1, 30, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 100);
                                 enemyCreated++;
                                 tick = 0;
                                 if (enemyCreated == 1) C.isLevelCreated = true;
-
                             } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
+                            else if (C.PAUSE != true && C.isLevelCreated){//po stworzeniu bossa -> MECHANIKA BOSSA3
+                                System.out.println(level_temp1);//log
+
+                                if (level_temp1>500) { //zatrzymanie bossa i przywoływanie meteorow
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==3) {
+                                            enemy.setMovingType(999);
+                                            enemy.setInvincible(true);
+                                        }
+                                    }
+                                    if(level_temp1%150==0 && level_temp1<1501) {//ostrzał meteorami
+                                        Random random = new Random();
+                                        int roll = random.nextInt(2);
+                                        if (roll == 0) {
+                                            level_temp2 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                            newMeteor(random.nextInt(C.FRAME_WIDTH - 25), -75, level_temp2, 0);
+                                        }
+                                        if (roll == 1) {
+                                            level_temp2 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                            newMeteor(random.nextInt(1000) - 500, -70, level_temp2, 1);
+                                        }
+                                        if (roll == 2) {
+                                            level_temp2 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                            newMeteor(random.nextInt(C.FRAME_WIDTH + 250) + 200, -75, level_temp2, 2);
+                                        }
+                                    }
+                                }
+                                if (level_temp1>1900){ //wznowienie ruchu bossa i zakończenie niewrażliwości
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==3) {
+                                            enemy.setMovingType(30);
+                                            enemy.setInvincible(false);
+                                        }
+                                    }
+                                }
+                                if (level_temp1>2000){//zresetowanie sekwencji
+                                    level_temp1=0;
+                                }
+
+                            }
                             if(C.isLevelCreated==true && !(listEnemy.isEmpty())){
                                 level_temp1Up=true;
+                                level_temp3Up=true;
                             }
-                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                            if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
                                 System.out.println("LEVEL: " + C.LEVEL);
@@ -1635,7 +1681,7 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setCircleCenterY(centerY);
         enemy.setHP(hp);
         enemy.setIsBoss(3);
-        enemy.setMovingType(20);
+        enemy.setMovingType(30);
         enemy.setVelX(velX);
         enemy.setVelY(velY);
         enemy.setW(180);
