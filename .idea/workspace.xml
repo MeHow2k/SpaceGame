@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="SpaceGame:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Więcej leveli">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/Frame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Frame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,9 +36,7 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -54,14 +46,10 @@
     &quot;Application.Frame.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/JAVA PROJEKTY/SpaceGame/src&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4457275&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pawel/Desktop/Nauka/Projekt zespołowy/SpaceGame&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
   }
 }</component>
@@ -71,12 +59,7 @@
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
-      <recent name="D:\JAVA PROJEKTY\SpaceGame\src\META-INF" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="Gamestates" />
     </key>
   </component>
   <component name="RunManager">
@@ -302,42 +285,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710609096449</updated>
     </task>
-    <task id="LOCAL-00027" summary="Poprawa konczenia poziomu z wrogiem z laserem">
-      <created>1711210361894</created>
+    <task id="LOCAL-00027" summary="Levele 21-23 i michałowe">
+      <option name="closed" value="true" />
+      <created>1711208270169</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1711210361894</updated>
+      <updated>1711208270169</updated>
     </task>
-    <task id="LOCAL-00028" summary="Poprawa wystrzeliwania laserów przez wrogów">
-      <created>1711291975821</created>
+    <task id="LOCAL-00028" summary="Więcej leveli">
+      <option name="closed" value="true" />
+      <created>1711209731946</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1711291975821</updated>
+      <updated>1711209731946</updated>
     </task>
-    <task id="LOCAL-00029" summary="Poprawa konczenia poziomu z wrogiem z laserem">
-      <created>1711294819969</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1711294819969</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Poprawa konczenia poziomu z wrogiem z laserem">
-      <created>1711299376242</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1711299376243</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Implementacja systemu zmiany wyglądu gracza przez menu przed rozpoczęciem gry">
-      <created>1711553088073</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1711553088073</updated>
-    </task>
-    <option name="localTasksCounter" value="32" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -371,9 +335,8 @@
     <MESSAGE value="Sprite dla bossa i strzelanko" />
     <MESSAGE value="Zmiana muzyki, implementacja muzyki dla bossa." />
     <MESSAGE value="Plik backgroundBoss.wav" />
-    <MESSAGE value="Poprawa wystrzeliwania laserów przez wrogów" />
-    <MESSAGE value="Poprawa konczenia poziomu z wrogiem z laserem" />
-    <MESSAGE value="Implementacja systemu zmiany wyglądu gracza przez menu przed rozpoczęciem gry" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementacja systemu zmiany wyglądu gracza przez menu przed rozpoczęciem gry" />
+    <MESSAGE value="Levele 21-23 i michałowe" />
+    <MESSAGE value="Więcej leveli" />
+    <option name="LAST_COMMIT_MESSAGE" value="Więcej leveli" />
   </component>
 </project>

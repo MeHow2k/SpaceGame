@@ -346,7 +346,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         weaponUpgrade.getX(), weaponUpgrade.getY(), weaponUpgrade.getW(), weaponUpgrade.getH())) {
                                     try {
-                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                        SoundManager.playPointBonus();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -388,7 +388,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         bonusShield.getX(), bonusShield.getY(), bonusShield.getW(), bonusShield.getH())) {
                                     try {
-                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                        SoundManager.playShield();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
