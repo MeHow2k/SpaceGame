@@ -24,7 +24,8 @@ public class GamePanel extends JPanel implements KeyListener {
     Font customFont;
 
     // deklaracja elementów menu
-    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;MenuBeforeGame menuBeforeGame;
+    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
+    MenuSkinSelection menuSkinSelection;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -1409,7 +1410,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     }//GAMESTATE 2 menusettings
 
                             if(C.GAMESTATE==5){
-                        if (menuBeforeGame != null && C.cursorBeforeGamePosition == 5) {
+                        if (menuSkinSelection != null && C.cursorBeforeGamePosition == 5) {
                             menuCursor.setX(C.FRAME_WIDTH / 2 - 170);
                             menuCursor.setY(690);
                         }
@@ -1543,8 +1544,8 @@ public class GamePanel extends JPanel implements KeyListener {
             menuAuthors.draw(g2D);
         } //GAMESTATE 4 - autorzy
         if (C.GAMESTATE == 5) {//GAMESTATE 5- skin selection
-            menuBeforeGame = new MenuBeforeGame();
-            menuBeforeGame.draw(g2D);
+            menuSkinSelection = new MenuSkinSelection();
+            menuSkinSelection.draw(g2D);
             if(C.cursorBeforeGamePosition==5)menuCursor.draw(g2D);
         } //GAMESTATE 5 - wybieranie skórek przed rozp. gry
     }
