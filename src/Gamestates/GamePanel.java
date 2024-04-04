@@ -24,7 +24,8 @@ public class GamePanel extends JPanel implements KeyListener {
     Font customFont;
 
     // deklaracja elementów menu
-    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;MenuBeforeGame menuBeforeGame;
+    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
+    MenuSkinSelection menuSkinSelection;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -1364,21 +1365,21 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     if(C.GAMESTATE==1){
                     //obsługa menu
-                        menuCursor.setX(C.FRAME_WIDTH / 2 - 180);
+                        menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
                         if (menu != null && C.cursorPosition == 0) {
-                            menuCursor.setY(285);
+                            menuCursor.setY(290);
                         }
                         if (menu != null && C.cursorPosition == 1) {
-                            menuCursor.setY(385);
+                            menuCursor.setY(390);
                         }
                         if (menu != null && C.cursorPosition == 2) {
-                            menuCursor.setY(485);
+                            menuCursor.setY(490);
                         }
                         if (menu != null && C.cursorPosition == 3) {
-                            menuCursor.setY(585);
+                            menuCursor.setY(590);
                         }
                         if (menu != null && C.cursorPosition == 4) {
-                            menuCursor.setY(685);
+                            menuCursor.setY(690);
                         }
 
                     }//GAMESTATE 1 menu
@@ -1401,7 +1402,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 menuCursor.setY(550);
                             }
                             if (menu != null && C.cursorSettingsPosition == 4) {
-                                menuCursor.setX(C.FRAME_WIDTH / 2 - 150);
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
                                 menuCursor.setY(700);
                             }
 
@@ -1409,26 +1410,11 @@ public class GamePanel extends JPanel implements KeyListener {
                     }//GAMESTATE 2 menusettings
 
                             if(C.GAMESTATE==5){
-                        if (menu != null && C.cursorSettingsPosition == 0) {
-                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                            menuCursor.setY(100);
+                        if (menuSkinSelection != null && C.cursorBeforeGamePosition == 5) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 170);
+                            menuCursor.setY(690);
                         }
-                        if (menu != null && C.cursorSettingsPosition == 1) {
-                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                            menuCursor.setY(250);
-                        }
-                        if (menu != null && C.cursorSettingsPosition == 2) {
-                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                            menuCursor.setY(400);
-                        }
-                        if (menu != null && C.cursorSettingsPosition == 3) {
-                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                            menuCursor.setY(550);
-                        }
-                        if (menu != null && C.cursorSettingsPosition == 4) {
-                            menuCursor.setX(C.FRAME_WIDTH / 2 - 150);
-                            menuCursor.setY(700);
-                        }
+
 
 
                     }//GAMESTATE 5 skin selection
@@ -1558,8 +1544,9 @@ public class GamePanel extends JPanel implements KeyListener {
             menuAuthors.draw(g2D);
         } //GAMESTATE 4 - autorzy
         if (C.GAMESTATE == 5) {//GAMESTATE 5- skin selection
-            menuBeforeGame = new MenuBeforeGame();
-            menuBeforeGame.draw(g2D);
+            menuSkinSelection = new MenuSkinSelection();
+            menuSkinSelection.draw(g2D);
+            if(C.cursorBeforeGamePosition==5)menuCursor.draw(g2D);
         } //GAMESTATE 5 - wybieranie skórek przed rozp. gry
     }
     //////////////////////////////////////////////////////////////////////////////
