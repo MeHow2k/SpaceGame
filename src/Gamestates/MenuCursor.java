@@ -6,7 +6,7 @@ import java.awt.*;
 public class MenuCursor {
     private int x,y,w=50,h=50;
     private JPanel panel;
-    Image img = new ImageIcon(getClass().getClassLoader().getResource("cursor.png")).getImage();
+    Image img = new ImageIcon(getClass().getClassLoader().getResource("cursor.gif")).getImage();
 
     public MenuCursor(int x, int y, JPanel panel){
         this.x=x;
