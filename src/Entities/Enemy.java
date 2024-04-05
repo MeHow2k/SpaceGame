@@ -16,7 +16,9 @@ public class Enemy extends Thread{
     Image imgBoss = new ImageIcon(getClass().getClassLoader().getResource("boss.gif")).getImage();
     Image imgBoss2 = new ImageIcon(getClass().getClassLoader().getResource("boss2.gif")).getImage();
     Image imgBoss2rage = new ImageIcon(getClass().getClassLoader().getResource("boss2_rage.gif")).getImage();
-    Image imgBoss3 = new ImageIcon(getClass().getClassLoader().getResource("boss2_rage.gif")).getImage();
+
+    Image imgBoss3 = new ImageIcon(getClass().getClassLoader().getResource("boss3.gif")).getImage();
+    Image imgBoss3rage = new ImageIcon(getClass().getClassLoader().getResource("boss3_rage.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
@@ -33,8 +35,8 @@ public class Enemy extends Thread{
             if (hp <= 100) g.drawImage(imgBoss2rage, x, y, w, h, null);
             else g.drawImage(imgBoss2, x, y, w, h, null);
         }else if (isBoss==3 && imgBoss3!=null) {
-            if (movingType==999) g.drawImage(imgBoss2rage, x, y, w, h, null);
-            else g.drawImage(imgBoss2, x, y, w, h, null);
+            if (movingType==999) g.drawImage(imgBoss3rage, x, y, w, h, null);
+            else g.drawImage(imgBoss3, x, y, w, h, null);
         }else g.drawImage(imgEnemy,x,y,w,h,null);
     }
 
