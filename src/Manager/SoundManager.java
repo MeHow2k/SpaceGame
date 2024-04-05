@@ -159,8 +159,30 @@ public class SoundManager {
         gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
         clip.start();//rozpoczęcie odtwarzania dźwieku
     }
+    public static void playPointBonus() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/pointBonus.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        Clip clip;
+        clip = AudioSystem.getClip();//utworzenie obiektu clip
+        clip.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+        clip.start();//rozpoczęcie odtwarzania dźwieku
+    }
     public static void playPlayerShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/playerShot.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        Clip clip;
+        clip = AudioSystem.getClip();//utworzenie obiektu clip
+        clip.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+        clip.start();//rozpoczęcie odtwarzania dźwieku
+    }
+    public static void playShield() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/shield.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
         Clip clip;
         clip = AudioSystem.getClip();//utworzenie obiektu clip

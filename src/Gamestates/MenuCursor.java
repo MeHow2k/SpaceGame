@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuCursor {
-    private int x,y,w=50,h=50;
+    private int x,y,w=80,h=50;
     private JPanel panel;
     Image img = new ImageIcon(getClass().getClassLoader().getResource("cursor.gif")).getImage();
 

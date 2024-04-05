@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class MenuBeforeGame {
+public class MenuSkinSelection {
     Font customFont;
     Image logo = new ImageIcon(getClass().getClassLoader().getResource("logo.gif")).getImage();
     Image imgPlayer = new ImageIcon(getClass().getClassLoader().getResource("player.gif")).getImage();
@@ -18,7 +18,7 @@ public class MenuBeforeGame {
     Color selectedColor = new Color(255, 233, 12);
 
     int skinPreviewX =C.FRAME_WIDTH/2-50, skinPreviewY =130;
-    public MenuBeforeGame() {
+    public MenuSkinSelection() {
         try {
             //import czcionki
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
