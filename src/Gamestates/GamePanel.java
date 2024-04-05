@@ -1230,7 +1230,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 resetLevel();
                             }
                         }
-                        if (C.LEVEL == 30) { // mehow
+                        if (C.LEVEL == 30) {
                             if(SoundManager.clipback!=null)SoundManager.stopBackground();
                             if (isMusicPlayed == false) {
                                 try {
@@ -1247,7 +1247,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (enemyCreated == 1) C.isLevelCreated = true;
                             } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
                             else if (C.PAUSE != true && C.isLevelCreated){//po stworzeniu bossa -> MECHANIKA BOSSA3
-                                System.out.println(level_temp1);//log
+
 
                                 if (level_temp1>500) { //zatrzymanie bossa i przywoływanie meteorow
                                     for (int iw = 0; iw < listEnemy.size(); iw++) {
