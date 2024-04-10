@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -55,14 +56,16 @@ public class GamePanel extends JPanel implements KeyListener {
         Color color = new Color(132, 142, 220);
         setBackground(color);
         //import czcionki
-        try{
-        customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(customFont);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch(FontFormatException e) {
-                e.printStackTrace();
+        try {
+            //import czcionki
+            InputStream fontStream = getClass().getResourceAsStream("/VT323-Regular.ttf");
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(60f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
         }
         //dodanie nasłuchiwania klawiszy
         addKeyListener(this);
@@ -1928,21 +1931,23 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(100,0,50,0);
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
-            //newBonusShield(150,0);
+            newBonusShield(250,0);
              //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
             //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
-            newFirerateUpgrade(100,-10);
+            //newFirerateUpgrade(100,-10);
+            newWeaponUpgrade(100,-10);
+
 
              //-10hp kazdemu wrogowi
-//            if (listEnemy != null) {
-//                for (int iw = 0; iw < listEnemy.size(); iw++) {
-//                    Enemy enemy = listEnemy.get(iw);
-//                    //usun wrogow ktorych hp jest rowne lub mniejsze 0
-//                    if (enemy.getHP() <= 0) {
-//                        listEnemy.remove(enemy);
-//                    } else enemy.setHP(enemy.getHP() - 10);
-//                }
-//            }
+            if (listEnemy != null) {
+                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                    Enemy enemy = listEnemy.get(iw);
+                    //usun wrogow ktorych hp jest rowne lub mniejsze 0
+                    if (enemy.getHP() <= 0) {
+                        listEnemy.remove(enemy);
+                    } else enemy.setHP(enemy.getHP() - 10);
+                }
+            }
         }
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo

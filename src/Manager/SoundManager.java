@@ -5,8 +5,10 @@ package Manager;
 import Constants.C;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SoundManager {
     static public Clip clipback;
@@ -63,6 +65,8 @@ public class SoundManager {
         }
         return (float) -80.0;
     }
+
+    //todo zrobić zmiany (zamiast file -> getResource) by zrobić JAR (grafika jest jeszcze czcionka), playMenuBackground zrobione dla przykładu
     public static void playBackground() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/backgroundTheme.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
@@ -75,15 +79,22 @@ public class SoundManager {
         clipback.start();//rozpoczęcie odtwarzania dźwieku
     }
     public static void playMenuBackground() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/backgroundMenuTheme.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
-        clipbackmenu = AudioSystem.getClip();//utworzenie obiektu clip
-        clipbackmenu.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clipbackmenu.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clipbackmenu.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
-        clipbackmenu.start();//rozpoczęcie odtwarzania dźwieku
+        //File file = new File(("Sound/backgroundMenuTheme.wav")); //pobranie pliku ze ścieżki //todo stara wersja do usunbiecia
+        String filename="backgroundMenuTheme.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename); //todo nowa wersja, do zmiany we wszystkim!
+        //AudioInputStream ais = AudioSystem.getAudioInputStream(file); todo stara wersja! do usuniecia
+        if(is!=null) {//todo dodaj warunek czy poprawnie wczytano plik
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));//todo nowa wersja,do zmiany we wszystkich! zmiana z (file) -> new buffered(is)
+            clipbackmenu = AudioSystem.getClip();//utworzenie obiektu clip
+            clipbackmenu.open(ais);//otworzenie strumienia audio
+            FloatControl gainControl = (FloatControl)//kontrola głośności
+                    clipbackmenu.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+            clipbackmenu.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
+            clipbackmenu.start();//rozpoczęcie odtwarzania dźwieku
+        }else {
+            System.out.println("Cannot read sound file: "+filename);//todo //wyswietl log gdy nie wczytano
+        }
     }
     public static void playBoss() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/backgroundBoss.wav")); //pobranie pliku ze ścieżki

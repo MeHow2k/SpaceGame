@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SpaceGame:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Więcej leveli">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/SpaceGame_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Gamestates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,23 +48,29 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Frame.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/pawel/Desktop/Nauka/Projekt zespołowy/SpaceGame&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Frame.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.4457275",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
@@ -301,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711209731946</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Usunięcie debugowania level_temp1 przy bossie">
+      <created>1712338053110</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1712338053110</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -337,6 +362,7 @@
     <MESSAGE value="Plik backgroundBoss.wav" />
     <MESSAGE value="Levele 21-23 i michałowe" />
     <MESSAGE value="Więcej leveli" />
-    <option name="LAST_COMMIT_MESSAGE" value="Więcej leveli" />
+    <MESSAGE value="Usunięcie debugowania level_temp1 przy bossie" />
+    <option name="LAST_COMMIT_MESSAGE" value="Usunięcie debugowania level_temp1 przy bossie" />
   </component>
 </project>
