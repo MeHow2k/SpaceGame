@@ -43,10 +43,11 @@ public class GamePanel extends JPanel implements KeyListener {
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
-    boolean isMusicPlayed=false;
+    boolean isMusicPlayed=false, isBossHpTaken= false;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0;
     boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
     int shotCooldown=60;
+    int initialBossHP=0;
     //etykiety
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
     Thread gameThread;
@@ -1467,9 +1468,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if(C.GODMODE) g.drawString("GODMODE", 0, 200);
         if(C.GAMESTATE==0){
             player.draw(g2D);//rysowanie gracza
-            lifeUI.draw(g2D);//rysowanie obrazka w UI
-            playerShotUI.draw(g2D);//rysowanie obrazka w UI
-            if(C.isFirerateUpgrade) firerateUpgradeUI.draw(g2D);
+
 //tu będą pętle rysujące obiekty z list zadeklarowanych na początku
             if (listEnemy != null)            //rysowanie wrogow
                 for (int i = 0; i < listEnemy.size(); i++) {
@@ -1522,6 +1521,37 @@ public class GamePanel extends JPanel implements KeyListener {
                 g.drawString("Gratulacje! Ukończyłeś grę!", C.FRAME_WIDTH/2 - 200, 200);
                 g.drawString("Wynik końcowy: "+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
             }
+    //////////////////////UI i elementy//////////////////////////////////////////////////////////////
+            lifeUI.draw(g2D);//rysowanie obrazka w UI
+            playerShotUI.draw(g2D);//rysowanie obrazka w UI
+            if(C.isFirerateUpgrade) firerateUpgradeUI.draw(g2D);
+
+            //IMPLEMENTACJA PASKÓW I UI GDY NA PLANSZY JEST BOSS
+            if(isBossInGame()) {
+                if (!isBossHpTaken) {//przy pierwszym zczytaniu hp bossa
+                    initialBossHP = getBossesHp();
+                    isBossHpTaken = true;
+                }
+                ////PASKI HP BOSSÓW
+
+                int fullbarWidth = initialBossHP * 3; // Szerokość paska pod paskiem HP
+                int fullbarX = (C.FRAME_WIDTH - initialBossHP * 3) / 2;
+                int barWidth = getBossesHp() * 3; // Szerokość paska HP zależna od ilości HP bossa
+                int barX = (C.FRAME_WIDTH - barWidth) / 2; //  X paska HP dla wyśrodkowania
+                g.setColor(Color.GRAY);
+                g2D.fillRect(fullbarX, 35, fullbarWidth, 20);// pasek pod paskiem
+                g.setColor(Color.RED);
+                g2D.fillRect(barX, 35, barWidth, 20); // Wyśrodkowany pasek HP
+
+                //// STRING NA PASKU HP BOSSOW
+                String hpString = getBossesHp() + " / " + initialBossHP;
+                int textWidth = g2D.getFontMetrics().stringWidth(hpString); // Szerokość tekstu
+                int textX = (C.FRAME_WIDTH - textWidth) / 2; //  x tekstu dla wyśrodkowania
+                g.setColor(Color.white);
+                g.setFont(customFont.deriveFont(20f));
+                g2D.drawString(hpString, textX, 50);
+            }
+            g.setColor(Color.white);
 
         }//gamestate 0
 
@@ -1569,7 +1599,6 @@ public class GamePanel extends JPanel implements KeyListener {
     public void newDrop(int x,int y, int weaponUpgradeChance, int weaponFirerateChance, int bonusShieldChance, int bonusLifeChance){//funkcja losująca drop z przeciwnika
         Random random = new Random();
         int randomNumber = random.nextInt(100) + 1; // losuj liczbe od 1 do 100
-        System.out.println("generated number: "+randomNumber);
         if (randomNumber <= weaponUpgradeChance) {//ulepszenie broni
             newWeaponUpgrade(x,y);
             System.out.println("weapon upg");
@@ -1585,6 +1614,30 @@ public class GamePanel extends JPanel implements KeyListener {
         } else {
             newPoints(x,y,50,50);
         }
+    }
+    public boolean isBossInGame(){//sprawdza czy w grze jest boss czy nie
+        if (listEnemy != null) {
+            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                Enemy enemy = listEnemy.get(iw);
+                if (enemy.getIsBoss()!=0) {
+                    return true; //zwaraca true jesli boss jest na planszy
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+    public int getBossesHp(){//pobiera aktualną liczbę hp bossów
+        if (listEnemy != null) {
+            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                Enemy enemy = listEnemy.get(iw);
+                if (enemy.getIsBoss()!=0) {
+                    return enemy.getHP();
+                }
+            }
+            return 0;
+        }
+        return 0;
     }
     public void newEnemy(int x,int y,int w,int h){//utworzenie obiektu wroga
         Enemy enemy = new Enemy(x,y,this);
@@ -1757,6 +1810,7 @@ public class GamePanel extends JPanel implements KeyListener {
         level_temp2=0; level_temp2Up=false;
         level_temp1=0; level_temp1Up=false;
         enemyCreated=0; C.isLevelCreated=false;
+        initialBossHP=0; isBossHpTaken=false;
     }
     public void removeObjects(){//wyczyszczenie zawartosci list obiektów
         //remove lists
