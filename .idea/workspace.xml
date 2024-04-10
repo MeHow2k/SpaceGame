@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie pasków HP dla Bossów">
+      <change afterPath="$PROJECT_DIR$/Graphics/teamlogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Gamestates/Intro.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
@@ -70,6 +72,7 @@
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
     </key>
   </component>
@@ -326,7 +329,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712735612550</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Dodanie pasków HP dla Bossów">
+      <created>1712739100509</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1712739100509</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -364,6 +374,7 @@
     <MESSAGE value="Więcej leveli" />
     <MESSAGE value="Usunięcie debugowania level_temp1 przy bossie" />
     <MESSAGE value="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR" />
+    <MESSAGE value="Dodanie pasków HP dla Bossów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie pasków HP dla Bossów" />
   </component>
 </project>

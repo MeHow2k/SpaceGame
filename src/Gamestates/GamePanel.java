@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Font customFont;
 
     // deklaracja elementów menu
-    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;
+    Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;Intro intro;
     MenuSkinSelection menuSkinSelection;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
     GamePanel(){
         super(null);
-        Color color = new Color(132, 142, 220);
+        Color color = new Color(0, 0, 0);
         setBackground(color);
         //import czcionki
         try {
@@ -110,13 +110,6 @@ public class GamePanel extends JPanel implements KeyListener {
         labelLevel.setForeground(Color.white);
         add(labelLevel);
 
-        //Odtworzenie głównego motywu gry
-        try {
-            SoundManager.playMenuBackground();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
         gameThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -137,7 +130,17 @@ public class GamePanel extends JPanel implements KeyListener {
                     lastTime = nowTime;
 
 
-
+                    if(C.GAMESTATE==100){
+                        if(C.intro_delay>280){
+                            //Odtworzenie głównego motywu gry
+                            try {
+                                SoundManager.playMenuBackground();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                            C.GAMESTATE=1;
+                        }
+                    }
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
@@ -1437,6 +1440,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         if(!C.PAUSE){
                             if(shieldCooldownDrop) C.shieldCooldown--;
                             level_delay++;
+                            if(C.GAMESTATE==100) C.intro_delay++;
                             if(tickUp) tick++;
                             if(level_temp1Up) level_temp1++;
                             if(level_temp2Up) level_temp2++;
@@ -1463,9 +1467,8 @@ public class GamePanel extends JPanel implements KeyListener {
         g.setColor(Color.white);
         Graphics2D g2D =(Graphics2D) g;
         Image imgBack = new ImageIcon(getClass().getClassLoader().getResource("background.gif")).getImage();
-        g.drawImage(imgBack, 0, 0, C.FRAME_WIDTH, C.FRAME_HEIGHT, null);
+        if(C.GAMESTATE!=100) g.drawImage(imgBack, 0, 0, C.FRAME_WIDTH, C.FRAME_HEIGHT, null);
 
-        if(C.GODMODE) g.drawString("GODMODE", 0, 200);
         if(C.GAMESTATE==0){
             player.draw(g2D);//rysowanie gracza
 
@@ -1522,6 +1525,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 g.drawString("Wynik końcowy: "+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
             }
     //////////////////////UI i elementy//////////////////////////////////////////////////////////////
+            if(C.GODMODE) g.drawString("GODMODE", 0, 200);
             lifeUI.draw(g2D);//rysowanie obrazka w UI
             playerShotUI.draw(g2D);//rysowanie obrazka w UI
             if(C.isFirerateUpgrade) firerateUpgradeUI.draw(g2D);
@@ -1554,6 +1558,11 @@ public class GamePanel extends JPanel implements KeyListener {
             g.setColor(Color.white);
 
         }//gamestate 0
+
+        if(C.GAMESTATE==100){
+            intro = new Intro();
+            intro.draw(g2D);
+        }//GAMESTATE 100 - intro
 
         if(C.GAMESTATE==1){
             menu = new Menu();
