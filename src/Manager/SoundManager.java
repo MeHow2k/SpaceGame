@@ -148,6 +148,17 @@ public class SoundManager {
         gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
         clip.start();//rozpoczęcie odtwarzania dźwieku
     }
+    public static void playMeteorHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File(("Sound/meteorHit.wav")); //pobranie pliku ze ścieżki
+        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        Clip clip;
+        clip = AudioSystem.getClip();//utworzenie obiektu clip
+        clip.open(ais);//otworzenie strumienia audio
+        FloatControl gainControl = (FloatControl)//kontrola głośności
+                clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+        clip.start();//rozpoczęcie odtwarzania dźwieku
+    }
     public static void playPlayerHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File(("Sound/playerHit.wav")); //pobranie pliku ze ścieżki
         AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio

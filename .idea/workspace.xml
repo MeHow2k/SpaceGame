@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="SpaceGame:jar" />
-    </artifacts-to-build>
-  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie pasków HP dla Bossów">
-      <change afterPath="$PROJECT_DIR$/Graphics/teamlogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Gamestates/Intro.java" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dźwięk bonusu i tarczy.">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,36 +39,29 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2XGIx9UOioQRlsKit4zQEmCE1sw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Frame.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15332031",
-    "project.structure.side.proportion": "0.4457275",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Frame.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pawel/Desktop/Nauka/Projekt zespołowy/SpaceGame&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
     </key>
   </component>
@@ -315,28 +304,23 @@
       <option name="project" value="LOCAL" />
       <updated>1711209731946</updated>
     </task>
-    <task id="LOCAL-00029" summary="Usunięcie debugowania level_temp1 przy bossie">
-      <created>1712338053110</created>
+    <task id="LOCAL-00029" summary="Dźwięk bonusu i tarczy.">
+      <option name="closed" value="true" />
+      <created>1712253837444</created>
       <option name="number" value="00029" />
       <option name="presentableId" value="LOCAL-00029" />
       <option name="project" value="LOCAL" />
-      <updated>1712338053110</updated>
+      <updated>1712253837444</updated>
     </task>
-    <task id="LOCAL-00030" summary="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR">
-      <created>1712735612550</created>
+    <task id="LOCAL-00030" summary="Dźwięk bonusu i tarczy.">
+      <option name="closed" value="true" />
+      <created>1712253860824</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1712735612550</updated>
+      <updated>1712253860824</updated>
     </task>
-    <task id="LOCAL-00031" summary="Dodanie pasków HP dla Bossów">
-      <created>1712739100509</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1712739100509</updated>
-    </task>
-    <option name="localTasksCounter" value="32" />
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -372,9 +356,7 @@
     <MESSAGE value="Plik backgroundBoss.wav" />
     <MESSAGE value="Levele 21-23 i michałowe" />
     <MESSAGE value="Więcej leveli" />
-    <MESSAGE value="Usunięcie debugowania level_temp1 przy bossie" />
-    <MESSAGE value="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR" />
-    <MESSAGE value="Dodanie pasków HP dla Bossów" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie pasków HP dla Bossów" />
+    <MESSAGE value="Dźwięk bonusu i tarczy." />
+    <option name="LAST_COMMIT_MESSAGE" value="Dźwięk bonusu i tarczy." />
   </component>
 </project>
