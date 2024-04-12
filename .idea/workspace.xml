@@ -11,8 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/MenuSkinSelection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/MenuSkinSelection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712744121216</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Możliwość pominięcia intro spacją">
+      <created>1712923658579</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1712923658579</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -356,7 +363,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
     <MESSAGE value="szkielet" />
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
@@ -381,6 +387,7 @@
     <MESSAGE value="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR" />
     <MESSAGE value="Dodanie pasków HP dla Bossów" />
     <MESSAGE value="Dodanie Intro z logiem przy uruchamianiu gry." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie Intro z logiem przy uruchamianiu gry." />
+    <MESSAGE value="Możliwość pominięcia intro spacją" />
+    <option name="LAST_COMMIT_MESSAGE" value="Możliwość pominięcia intro spacją" />
   </component>
 </project>

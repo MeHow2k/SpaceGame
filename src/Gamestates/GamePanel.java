@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements KeyListener {
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
     boolean isMusicPlayed=false, isBossHpTaken= false;
-    int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0, menudelay=1000;
+    int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0;
     boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
     int shotCooldown=60;
     int initialBossHP=0;
@@ -1569,21 +1569,6 @@ public class GamePanel extends JPanel implements KeyListener {
                         if (menu != null && C.cursorPosition == 4) {
                             menuCursor.setY(690);
                         }
-////////////////////////generowane wrogow w menu i usuwanie gdy wyjda poza okno//////////////////////////////
-                        menudelay--;
-                        if(menudelay<0){
-                            menudelay=30;
-                            Random r = new Random();
-                            if(r.nextInt(5)==0)newEnemyMenu();
-                        }
-                        if (listEnemyMenu != null) {
-                            for (int iw = 0; iw < listEnemyMenu.size(); iw++) {
-                                Enemy enemy = listEnemyMenu.get(iw);
-                                if (enemy.getX() > C.FRAME_WIDTH+60) {
-                                    listEnemyMenu.remove(enemy);
-                                }
-                            }
-                        }
 
                     }//GAMESTATE 1 menu
 
@@ -1762,10 +1747,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
         if(C.GAMESTATE==1){
             menu = new Menu();
-            if (listEnemyMenu != null)
-                for (int i = 0; i < listEnemyMenu.size(); i++) {
-                    listEnemyMenu.get(i).draw(g2D);
-                }
             menu.draw(g2D);
             menuCursor.draw(g2D);
         }//GAMESTATE 1 -menu
@@ -1780,6 +1761,7 @@ public class GamePanel extends JPanel implements KeyListener {
             menuHowToPlay = new MenuHowToPlay();
             menuHowToPlay.draw(g2D);
         }
+
         if (C.GAMESTATE == 4) {//GAMESTATE 4 - autorzy
             menuAuthors = new MenuAuthors();
             menuAuthors.draw(g2D);
@@ -1857,20 +1839,6 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setMovingType(movingType);
         enemy.start();//start watku
         listEnemy.add(enemy);//dodanie do listy obiektow enemy
-    }
-    public void newEnemyMenu(){//utworzenie obiektu wroga w menu
-        Random random=new Random();
-        Enemy enemy = new Enemy(-60,random.nextInt(C.FRAME_HEIGHT-100),this);
-        enemy.start();
-        listEnemyMenu.add(enemy);
-    }
-    public void deleteEnemyMenu(){//usuniecie wszystkich wrogow w menu
-        if (listEnemyMenu != null) {
-            for (int iw = 0; iw < listEnemyMenu.size(); iw++) {
-                Enemy enemy = listEnemyMenu.get(iw);
-                listEnemyMenu.remove(enemy);
-            }
-        }
     }
     public void newMeteor(int x,int y,int size){//utworzenie obiektu meteoru
         Meteor meteor = new Meteor(x,y,size,size,this);
@@ -2403,7 +2371,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==10){//enter - zatwierdzanie w menu
             switch (C.GAMESTATE) {
                 case 1:
-                    if (C.cursorPosition == 0) {deleteEnemyMenu();
+                    if (C.cursorPosition == 0) {
                         C.GAMESTATE = 5;//menu before game
                     }
                     if (C.cursorPosition == 1) {C.GAMESTATE = 3;}//jak grac
