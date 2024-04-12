@@ -6,6 +6,8 @@ import Constants.C;
 import Entities.*;
 import Manager.SoundManager;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -1937,6 +1939,14 @@ public class GamePanel extends JPanel implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         //////////////////////////////////////////////////////////////////
+        if (e.getKeyCode()==32 && C.GAMESTATE==100){//spacja
+            C.GAMESTATE=1;//skip intro
+            try {
+                SoundManager.playMenuBackground();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         if (e.getKeyCode()==27 && C.GAMESTATE==0){  //esc
             C.PAUSE=true;
             LEFT_PRESSED=false;
@@ -1994,11 +2004,11 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(100,0,50,0);
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
-            newBonusShield(250,0);
+            //newBonusShield(250,0);
              //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
             //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
-            newWeaponUpgrade(100,-10);
+            //newWeaponUpgrade(100,-10);
 
 
              //-10hp kazdemu wrogowi
