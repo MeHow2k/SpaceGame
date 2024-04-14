@@ -9,11 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie pasków HP dla Bossów">
-      <change afterPath="$PROJECT_DIR$/Graphics/teamlogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Gamestates/Intro.java" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,22 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Frame.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15332031",
-    "project.structure.side.proportion": "0.4457275",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Frame.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/JAVA PROJEKTY/SpaceGame&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4457275&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
@@ -336,7 +335,28 @@
       <option name="project" value="LOCAL" />
       <updated>1712739100509</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Dodanie Intro z logiem przy uruchamianiu gry.">
+      <created>1712744121216</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1712744121216</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Możliwość pominięcia intro spacją">
+      <created>1712923658579</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1712923658579</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Możliwość pominięcia intro spacją">
+      <created>1712949483968</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1712949483968</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,7 +371,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test" />
     <MESSAGE value="szkielet" />
     <MESSAGE value="Pętla główna gry, ogrtaniczenie 60FPS, funkcja rysująca, przygotowanie struktury do implementacji innych obiektów i sterowania" />
     <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
@@ -375,6 +394,8 @@
     <MESSAGE value="Usunięcie debugowania level_temp1 przy bossie" />
     <MESSAGE value="Zmiana sposobu wczytywania pliku dźwiękowego i czcionki w celu łatwiejszej przyszłej podmiany reszty dla JAR" />
     <MESSAGE value="Dodanie pasków HP dla Bossów" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie pasków HP dla Bossów" />
+    <MESSAGE value="Dodanie Intro z logiem przy uruchamianiu gry." />
+    <MESSAGE value="Możliwość pominięcia intro spacją" />
+    <option name="LAST_COMMIT_MESSAGE" value="Możliwość pominięcia intro spacją" />
   </component>
 </project>

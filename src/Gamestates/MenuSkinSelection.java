@@ -51,11 +51,11 @@ public class MenuSkinSelection {
         //nazwa skórki
         g.drawString("Nazwa:", C.FRAME_WIDTH/2-200,270);
         g.setFont(customFont.deriveFont(20f));
-        if(C.playerSkin==0) g.drawString("123456789 123456789 123456789 ", C.FRAME_WIDTH/2-100,270);
-        if(C.playerSkin==1) g.drawString("PlayerSkin1 ", C.FRAME_WIDTH/2-100,270);
-        if(C.playerSkin==2)g.drawString("PlayerSkin2", C.FRAME_WIDTH/2-100,270);
-        if(C.playerSkin==3)g.drawString("PlayerSkin3", C.FRAME_WIDTH/2-100,270);
-        if(C.playerSkin==4)g.drawString("PlayerSkin4", C.FRAME_WIDTH/2-100,270);
+        if(C.playerSkin==0) g.drawString("D-1 Galactic ", C.FRAME_WIDTH/2-100,270);
+        if(C.playerSkin==1) g.drawString("C-5 Cosmic Harpoon ", C.FRAME_WIDTH/2-100,270);
+        if(C.playerSkin==2)g.drawString("C3S2-V Neon Comet", C.FRAME_WIDTH/2-100,270);
+        if(C.playerSkin==3)g.drawString("Space Eagle", C.FRAME_WIDTH/2-100,270);
+        if(C.playerSkin==4)g.drawString("Astral Tear", C.FRAME_WIDTH/2-100,270);
 
         //dodaj ify po wiecej
         g.setFont(customFont.deriveFont(35f));

@@ -143,7 +143,7 @@ public class Enemy extends Thread{
                     dirX = 1;
                 }
                 if (x > C.FRAME_WIDTH - getW()) {
-                    dirX = -1;
+                    if(movingType!=1000) dirX = -1;
                 }
                 if (y<0) {
                     dirY = 1;
@@ -154,6 +154,7 @@ public class Enemy extends Thread{
                 //y=y+;
                 //x = x + velX * dirX;
                 if(movingType==999) {}//stanie w miejscu
+                if(movingType==1000) {x = x + velX * dirX;}//dla wroga w menu
                 if(movingType==0)//norrmal x+
                     x = x + velX * dirX;
                 if(movingType==1) {//x+y+ odbijanie od krawedzi
