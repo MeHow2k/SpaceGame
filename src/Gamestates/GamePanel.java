@@ -4,10 +4,10 @@ package Gamestates;
 
 import Constants.C;
 import Entities.*;
-import Manager.SoundManager;
+import Utils.DataSender;
+import Utils.SoundManager;
+import org.json.JSONObject;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,10 +16,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLOutput;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements KeyListener {
+    Date startDate;
 
     Player player;//deklaracja obiektu Gracz
     PlayerShot playerShotUI;
@@ -54,6 +58,8 @@ public class GamePanel extends JPanel implements KeyListener {
     //etykiety
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
     Thread gameThread;
+    ///do statystyk
+    int livesEarned=0,weaponUpgradeEarned=0,firerateUpgradeEarned=0,shieldEarned=0,pointBoxEarned=0;
 
     GamePanel(){
         super(null);
@@ -322,6 +328,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     }
                                     //tutaj wpisz akcja
                                     C.totalPoints+=30;
+                                    pointBoxEarned++;
                                     updateLabels();
                                     listPoints.remove(points);
                                 } else if (points.getY() > C.FRAME_HEIGHT) {
@@ -342,6 +349,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     }
                                     //tutaj wpisz akcja
                                     C.playerLives++;
+                                    livesEarned++;
                                     C.totalPoints+=10;
                                     updateLabels();
                                     listLife.remove(life);
@@ -363,6 +371,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     }
                                     //tutaj wpisz akcja
                                     upgradeWeapon();
+                                    weaponUpgradeEarned++;
                                     C.totalPoints+=10;
                                     updateLabels();
                                     listWeaponUpgrade.remove(weaponUpgrade);
@@ -384,6 +393,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     }
                                     //tutaj wpisz akcja
                                     C.isFirerateUpgrade=true;
+                                    firerateUpgradeEarned++;
                                     C.totalPoints+=10;
                                     updateLabels();
                                     listFirerateUpgrade.remove(firerateUpgrade);
@@ -404,6 +414,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                         throw new RuntimeException(e);
                                     }
                                     //tutaj wpisz akcja
+                                    shieldEarned++;
                                     C.shieldActivated=true;
                                     C.shieldCooldown=500;
                                     C.totalPoints+=10;
@@ -603,6 +614,9 @@ public class GamePanel extends JPanel implements KeyListener {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
+
+                            sendData();
+
                             int enddialog = JOptionPane.showConfirmDialog
                                     (null, "Uzyskałeś " + C.totalPoints + " punktów!\nPrzegrałeś! Chcesz zagrać ponownie?",
                                             "Koniec gry", 0);
@@ -1527,6 +1541,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             removeEnemyObjects();
                             if (tick == 700) {
+                                sendData();
                                 //okno dialogowe konca gry
                                 int eenddialog = JOptionPane.showConfirmDialog
                                         (null, "Uzyskałeś " + C.totalPoints + " punktów!\nGratulacje! Czy chcesz zagrać ponownie?",
@@ -1580,7 +1595,6 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.GAMESTATE==1){
                         ////////////////////////generowane wrogow w menu i usuwanie gdy wyjda poza okno//////////////////////////////
                         menudelay--;
-                        System.out.println(menudelay);
                         if(menudelay<0){
                             menudelay=1000;
                             Random r = new Random();
@@ -2054,6 +2068,7 @@ public class GamePanel extends JPanel implements KeyListener {
         removeObjects();
         resetLevel();
         C.PAUSE= false;
+        livesEarned=0;weaponUpgradeEarned=0;firerateUpgradeEarned=0;shieldEarned=0;pointBoxEarned=0;
     }
     public void resetLevel(){//przywrócenie zmiennych dot opóźnień w poziomach do stanu pierwotnego
         tick=0; tickUp=false; level_delay=0;
@@ -2170,6 +2185,61 @@ public class GamePanel extends JPanel implements KeyListener {
             ee.printStackTrace();
         }
     }
+
+    public void sendData(){
+        new Thread(() -> {
+            try {
+                //ustalenie czasu gry przez porównanie daty startowej i końcowej
+                Date endDate= new Date();
+                long diffInMilliseconds = endDate.getTime() - startDate.getTime();
+                long diffInSeconds = diffInMilliseconds / 1000;
+                C.playtime= diffInSeconds;
+
+                DataSender dataSender = new DataSender();
+                JSONObject jsonObject = new JSONObject();
+
+                // Dodanie nowych danych
+                jsonObject.put("Data_receive_date", getCurrentDate());
+                jsonObject.put("Data_receive_time", getCurrentTime());
+                jsonObject.put("Operating_system", System.getProperty("os.name")+" "
+                        +System.getProperty("os.version")+" "+System.getProperty("os.arch"));
+                jsonObject.put("Java_runtime_version", System.getProperty("java.runtime.version"));
+                jsonObject.put("Game_version",C.VERSION);
+                jsonObject.put("Playtime_seconds", C.playtime);
+                jsonObject.put("End_level",C.LEVEL);
+                jsonObject.put("Lifes_left",C.playerLives);
+                jsonObject.put("Total_points",C.totalPoints);
+                jsonObject.put("Chosen_skin_ID",C.playerSkin);
+                jsonObject.put("life_earned",livesEarned);
+                jsonObject.put("weaponUpgrade_earned",weaponUpgradeEarned);
+                jsonObject.put("firerateUpgrade_earned",firerateUpgradeEarned);
+                jsonObject.put("shield_earned",shieldEarned);
+                jsonObject.put("pointBox_earned",pointBoxEarned);
+                jsonObject.put("game_in_session",C.gamesPlayed);
+
+                dataSender.sendData(jsonObject);
+
+            } catch (Exception e) {
+                // Obsługa błędów podczas wysyłania danych
+                System.out.println("Error sending data");
+            }
+        }).start();
+
+    }
+    // Metoda do pobierania aktualnej daty
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
+    // Metoda do pobierania aktualnej godziny
+    private String getCurrentTime() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Date currentTime = new Date();
+        return timeFormat.format(currentTime);
+    }
+
     //keylistener do sterowania
     @Override
     public void keyTyped(KeyEvent e) {
@@ -2200,6 +2270,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
             //powrót do menu po wybraniu tak
             if (enddialog == 0) {
+                sendData();
                 C.GAMESTATE=1;
                 removeObjects();
                 resetVariables();
@@ -2486,6 +2557,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorBeforeGamePosition==4) C.playerSkin=4;
                     if(C.cursorBeforeGamePosition==5) {//graj
                         C.GAMESTATE=0;
+                        startDate= new Date(); //ustawienie daty poczatku gry
+                        C.gamesPlayed++;
                         updateSettings();
                         SoundManager.stopMenuBackground();
                         try {

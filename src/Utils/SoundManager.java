@@ -1,6 +1,6 @@
 //// klasa odpowiedzialna za dźwięk
 
-package Manager;
+package Utils;
 
 import Constants.C;
 
