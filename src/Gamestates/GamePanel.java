@@ -7,7 +7,6 @@ import Entities.*;
 import Utils.DataSender;
 import Utils.SoundManager;
 import org.json.JSONObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -16,7 +15,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -1504,8 +1502,10 @@ public class GamePanel extends JPanel implements KeyListener {
                                 resetLevel();
                             }
                         }
-                        if (C.LEVEL == 40) {//poziom bossa tymczas.
-                            SoundManager.stopBackground();
+                        if (C.LEVEL == 40) {
+                            boolean isStoppedMoving=false;
+                            int phase=1;
+                            if(SoundManager.clipback!=null)SoundManager.stopBackground();
                             if (isMusicPlayed == false) {
                                 try {
                                     SoundManager.playBoss();
@@ -1514,22 +1514,142 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                             isMusicPlayed = true;
-                            if(level_delay>500)//opoznienie przed pojawieniem sie bossa
-                                if (tick > 180 && C.PAUSE != true && C.isLevelCreated == false) {
-                                    newBoss(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 50);
-                                    enemyCreated++;
-                                    if (enemyCreated == 1) C.isLevelCreated = true;
+                            if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
+                                newBoss40(-100, -100, 1, 1, 40, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 100);
+                                newSpikeBall(-100, -100, 1, 1, 40, C.FRAME_WIDTH / 2 - 90-220, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 70,0);
+                                newSpikeBall(-100, -100, 1, 1, 40, C.FRAME_WIDTH / 2 - 90+220, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 70,1);
+                                enemyCreated++;
+                                tick = 0;
+                                if (enemyCreated == 1) C.isLevelCreated = true;
+                            } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
+                            else if (C.PAUSE != true && C.isLevelCreated){//po stworzeniu bossa -> MECHANIKA BOSSA4
 
-                                } else if (C.PAUSE != true && !C.isLevelCreated) tickUp=true;
+                                if(listEnemy.size()<=1){//gdy zostanie sam boss zmien faze na 2
+                                    phase=2;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        enemy.setInvincible(false);
+                                    }
+                                }
+                                if(level_temp1%100==0) { //generowanie strzałów bossa
+                                    level_temp1++;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==4) {
+                                            try {
+                                                SoundManager.playEnemyShot();
+                                            } catch (Exception e) {}
+                                        newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.75), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 1);//prawo dol
+                                        newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.25), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 2);//lewo dol
+                                        }
+                                    }
+                                }
+                                if (level_temp1>500) { //zatrzymanie bossa i atak spikeball
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
 
-                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                        //Random random = new Random();
+                                        //int roll= random.nextInt(2);
+                                        if(!isStoppedMoving){
+                                            if(enemy.getIsBoss()==4) {
+                                                if(phase==2)enemy.setMovingType(47);
+                                                if(phase==1)enemy.setMovingType(999);
+
+                                            }
+                                            if(enemy.getIsBoss()==41 && phase==1) {
+                                                enemy.setMovingType(999);
+                                                enemy.setInvincible(false);
+                                            }
+                                            else if(enemy.getIsBoss()==42&& phase==1) {
+                                                enemy.setMovingType(999);
+                                                enemy.setInvincible(false);
+                                            }
+                                            isStoppedMoving=true;
+                                        }
+                                        if(enemy.getIsBoss()==41&& phase==1) {
+                                            enemy.setMovingType(44);
+                                            enemy.setInvincible(false);
+                                        }
+                                        else if(enemy.getIsBoss()==42&& phase==1) {
+                                            enemy.setMovingType(44);
+                                            enemy.setInvincible(false);
+                                        }
+
+                                    }
+                                    if(level_temp1%101==0 && level_temp1<1000) {
+                                        level_temp1++;
+                                        for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                            Enemy enemy = listEnemy.get(iw);
+
+                                                if ( phase==1 && (enemy.getIsBoss() == 41 || enemy.getIsBoss() == 42)) {
+                                                    try {
+                                                        SoundManager.playEnemyShot();
+                                                    } catch (Exception e) {}
+                                                    newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                                    newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 1);//prawo dol
+                                                    newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 2);//lewo dol
+                                                    newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 3);//lewo gora
+                                                    newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 4);//prawo gora
+                                                    newEnemyShot(enemy.getX() + (enemy.getW()), enemy.getY() + enemy.getH()/2, 20, 20, 5);//prawo
+                                                    newEnemyShot(enemy.getX(), enemy.getY() + enemy.getH()/2, 20, 20, 6);//lewo
+                                                    newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY(), 20, 20, 7);//gora
+                                                }
+                                                if (enemy.getIsBoss() == 4) {
+                                                    if(phase==2) {
+                                                        Random random = new Random();
+                                                        for(int i=0;i<=5;i++){
+                                                            newEnemyLaserShot(-200,random.nextInt(C.FRAME_HEIGHT-40)+30);
+                                                            newEnemyLaserShot(C.FRAME_WIDTH-150,random.nextInt(C.FRAME_HEIGHT-40)+30);
+                                                        }
+                                                    }
+                                                    try {
+                                                        SoundManager.playEnemyShot();
+                                                    } catch (Exception e) {}
+                                                        newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                                        newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.75), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 1);//prawo dol
+                                                        newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.25), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 2);//lewo dol
+                                                }
+
+                                        }
+                                    }
+                                }
+                                if (level_temp1>1000){ //wznowienie ruchu bossa
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==4) {
+                                            if(phase==1) enemy.setMovingType(40);
+                                            else enemy.setMovingType(46);
+                                        }
+                                        if( phase==1 && (enemy.getIsBoss()==41 || enemy.getIsBoss()==42)) {
+                                            enemy.setMovingType(40);
+                                        }
+
+                                    }
+                                }
+                                if (level_temp1>1100){//zresetowanie sekwencji
+                                    level_temp1=0;
+                                }
+
+                            }
+                            if(C.isLevelCreated==true && !(listEnemy.isEmpty())){
+                                level_temp1Up=true;
+                                level_temp3Up=true;
+                            }
+                            if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                C.totalPoints += 500;
+                                C.totalPoints+=2500;
                                 System.out.println("LEVEL: " + C.LEVEL);
-                                resetLevel();
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
                                 isMusicPlayed = false;
+                                resetLevel();
                             }
                         }
+
+
+
+
                         if (C.LEVEL == C.LAST_LEVEL) { /// ostatni poziom koniec gry
                             SoundManager.stopBoss();
                             if (isMusicPlayed == false) {
@@ -1997,6 +2117,40 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.start();
         listEnemy.add(enemy);
     }
+    public void newBoss40(int x,int y,int velX,int velY,int movingType,int centerX,int centerY,int radius,int hp){
+        Enemy enemy = new Enemy(x, y,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHP(hp);
+        enemy.setIsBoss(4);
+        enemy.setMovingType(40);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.setW(180);
+        enemy.setH(180);
+        enemy.setInvincible(true);
+        enemy.start();
+        listEnemy.add(enemy);
+    }
+    public void newSpikeBall(int x, int y, int velX, int velY, int movingType, int centerX, int centerY, int radius, int hp, int orientation){
+        Enemy enemy = new Enemy(x, y,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHP(hp);
+        if(orientation==0)
+            enemy.setIsBoss(41);
+        else enemy.setIsBoss(42);
+        enemy.setMovingType(40);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.setW(150);
+        enemy.setH(150);
+        enemy.start();
+        listEnemy.add(enemy);
+    }
+
     public void onMeteorHit(Meteor meteor){//rozłupanie meteoru na 2
         if(meteor.getMovingType()==1) {
             newMeteor(meteor.getX() + meteor.getW() / 2, meteor.getY(), meteor.getW() / 2, 2);

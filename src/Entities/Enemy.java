@@ -20,6 +20,10 @@ public class Enemy extends Thread{
     Image imgBoss3 = new ImageIcon(getClass().getClassLoader().getResource("boss3.gif")).getImage();
     Image imgBoss3rage = new ImageIcon(getClass().getClassLoader().getResource("boss3_rage.gif")).getImage();
 
+    Image imgSpikeBall = new ImageIcon(getClass().getClassLoader().getResource("spikeBall.png")).getImage();
+    Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4.png")).getImage();
+    Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4_phase2.png")).getImage();
+
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
         this.x=x;
@@ -30,13 +34,28 @@ public class Enemy extends Thread{
     //metoda rysujaca obiekt
     public void draw(Graphics2D g){
         if (isBoss==1)
-        g.drawImage(imgBoss,x,y,w,h,null);
+        g.drawImage(imgBoss,x,y,w,h,null);//rys bossa1
         else if (isBoss==2 && imgBoss2!=null) {
             if (hp <= 100) g.drawImage(imgBoss2rage, x, y, w, h, null);
-            else g.drawImage(imgBoss2, x, y, w, h, null);
+            else g.drawImage(imgBoss2, x, y, w, h, null);//rys bossa2
         }else if (isBoss==3 && imgBoss3!=null) {
             if (movingType==999) g.drawImage(imgBoss3rage, x, y, w, h, null);
-            else g.drawImage(imgBoss3, x, y, w, h, null);
+            else g.drawImage(imgBoss3, x, y, w, h, null);//rys bossa3
+        }else if (isBoss==4 && imgBoss4!=null) {
+            if (movingType==999 || movingType==40) g.drawImage(imgBoss4, x, y, w, h, null);
+            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys bossa4
+        }else if (isBoss==41 && imgSpikeBall!=null) {
+            g.setColor(Color.red);
+            g.fillRect(getX()-50,getY()+20,10,70);
+            g.setColor(Color.gray);
+            g.fillRect(getX()-50,getY()+20,10,70-getHP());
+            g.drawImage(imgSpikeBall, x, y, w, h, null);//rys lewej spikeball bossa4 z paskeim hp
+        }else if (isBoss==42 && imgSpikeBall!=null) {
+            g.setColor(Color.red);
+            g.fillRect(getX()+50+getW(),getY()+20,10,70);
+            g.setColor(Color.gray);
+            g.fillRect(getX()+50+getW(),getY()+20,10,70-getHP());
+            g.drawImage(imgSpikeBall, x, y, w, h, null);//rys prawej spikeball bossa4 z paskiem hp
         }else g.drawImage(imgEnemy,x,y,w,h,null);
     }
 
@@ -242,6 +261,38 @@ public class Enemy extends Thread{
                         if(angle==360) angle=0; else angle++;
                     }
                 }
+                if(movingType==40) {// dla bossa 4
+
+                        if(y<100) y=y+1* dirY *velY;
+                        x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                        if(angle==360) angle=0; else angle++;
+
+                }
+                if(movingType==44) {// dla spike ball bossa 4 - na dól
+                    if(getY()<C.FRAME_HEIGHT-100){
+                        y=y+3 * dirY *velY;
+                    }
+                    else{
+                        setMovingType(45);
+                    }
+                }
+                if(movingType==45) {// dla spike ball bossa 4 - w góre
+                    if(getY()<100){
+                        setMovingType(999);
+                    }else y=y-1 * dirY *velY;
+                }
+                if(movingType==46) {// dla 2 fazy bossa 4- zlec do środka potem na boki
+                    if(y<C.FRAME_HEIGHT/2-getH()) y=y+1* dirY *velY;
+                    if(y>C.FRAME_HEIGHT/2-getH()) y=y-1* dirY *velY;
+                    x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+                if(movingType==47) {// dla 2 fazy bossa 4- po okregu i strzelaj
+                    x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                    y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                    if(angle==360) angle=0; else angle++;
+                }
+
             }
             try {
                 sleep(10);
