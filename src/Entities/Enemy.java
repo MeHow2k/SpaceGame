@@ -23,9 +23,9 @@ public class Enemy extends Thread{
     Image imgBoss3 = new ImageIcon(getClass().getClassLoader().getResource("boss3.gif")).getImage();
     Image imgBoss3rage = new ImageIcon(getClass().getClassLoader().getResource("boss3_rage.gif")).getImage();
 
-    Image imgSpikeBall = new ImageIcon(getClass().getClassLoader().getResource("spikeBall.png")).getImage();
-    Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4.png")).getImage();
-    Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4_phase2.png")).getImage();
+    Image imgSpikeBall = new ImageIcon(getClass().getClassLoader().getResource("spikeball.gif")).getImage();
+    Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
+    Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4_rage.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
