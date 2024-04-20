@@ -2486,10 +2486,10 @@ public class GamePanel extends JPanel implements KeyListener {
                     } else enemy.setHP(enemy.getHP() - 10);
                 }
             }
-            newEnemy(120,50,1,1,0,100,100,100,1);
-            newEnemy(90,80,1,1,0,100,100,100,2);
-            newEnemy(60,110,1,1,0,100,100,100,3);
-            newEnemy(40,140,1,1,0,100,100,100,4);
+//            newEnemy(120,50,1,1,0,100,100,100,1);
+//            newEnemy(90,80,1,1,0,100,100,100,2);
+//            newEnemy(60,110,1,1,0,100,100,100,3);
+//            newEnemy(40,140,1,1,0,100,100,100,4);
         }
 
         ////   ruch gracza
