@@ -13,6 +13,9 @@ public class Enemy extends Thread{
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
+    Image imgEnemy2 = new ImageIcon(getClass().getClassLoader().getResource("enemy2hp.gif")).getImage();
+    Image imgEnemy3 = new ImageIcon(getClass().getClassLoader().getResource("enemy3hp.gif")).getImage();
+    Image imgEnemy4 = new ImageIcon(getClass().getClassLoader().getResource("enemy4hp.gif")).getImage();
     Image imgBoss = new ImageIcon(getClass().getClassLoader().getResource("boss.gif")).getImage();
     Image imgBoss2 = new ImageIcon(getClass().getClassLoader().getResource("boss2.gif")).getImage();
     Image imgBoss2rage = new ImageIcon(getClass().getClassLoader().getResource("boss2_rage.gif")).getImage();
@@ -56,7 +59,12 @@ public class Enemy extends Thread{
             g.setColor(Color.gray);
             g.fillRect(getX()+50+getW(),getY()+20,10,70-getHP());
             g.drawImage(imgSpikeBall, x, y, w, h, null);//rys prawej spikeball bossa4 z paskiem hp
-        }else g.drawImage(imgEnemy,x,y,w,h,null);
+        }else {
+            if (getHP()==1) g.drawImage(imgEnemy,x,y,w,h,null);
+            if (getHP()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
+            if (getHP()==3) g.drawImage(imgEnemy3,x,y,w,h,null);
+            if (getHP()>=4) g.drawImage(imgEnemy4,x,y,w,h,null);
+        }
     }
 
     public int getDirX() {
