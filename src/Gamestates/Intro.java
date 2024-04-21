@@ -19,12 +19,14 @@ public class Intro  {
 
     public Intro() {
         try {
-            // Import czcionki
+            //import czcionki
             InputStream fontStream = getClass().getResourceAsStream("/VT323-Regular.ttf");
             customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
-        } catch (IOException | FontFormatException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
             e.printStackTrace();
         }
     }

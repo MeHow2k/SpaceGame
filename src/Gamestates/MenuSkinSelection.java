@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MenuSkinSelection {
     Font customFont;
@@ -21,7 +22,8 @@ public class MenuSkinSelection {
     public MenuSkinSelection() {
         try {
             //import czcionki
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
+            InputStream fontStream = getClass().getResourceAsStream("/VT323-Regular.ttf");
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException e) {

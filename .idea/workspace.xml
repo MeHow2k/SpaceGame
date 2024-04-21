@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="SpaceGame:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie dźwięku meteora">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Dodanie samouczka, zmiana na resources w soundmanager">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Graphics/spikeBall.gif" beforeDir="false" afterPath="$PROJECT_DIR$/Graphics/spikeBall.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/config.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/SoundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/SoundManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -336,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712948851923</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Dodanie samouczka, zmiana na resources w soundmanager">
+      <option name="closed" value="true" />
+      <created>1713719210342</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1713719210342</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -375,6 +385,7 @@
     <MESSAGE value="Dźwięk bonusu i tarczy." />
     <MESSAGE value="Dodanie dźwięku, przelatujacy wrogowie i poziomy 31-39." />
     <MESSAGE value="Dodanie dźwięku meteora" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie dźwięku meteora" />
+    <MESSAGE value="Dodanie samouczka, zmiana na resources w soundmanager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie samouczka, zmiana na resources w soundmanager" />
   </component>
 </project>

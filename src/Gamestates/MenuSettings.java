@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MenuSettings {
     Image option_block = new ImageIcon(getClass().getClassLoader().getResource("option_block.gif")).getImage();
@@ -15,7 +16,9 @@ public class MenuSettings {
         title = new Font("arial",Font.BOLD,18);
         //import czcionki
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/VT323-Regular.ttf")).deriveFont(60f);
+            //import czcionki
+            InputStream fontStream = getClass().getResourceAsStream("/VT323-Regular.ttf");
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(60f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(customFont);
         } catch (IOException e) {
