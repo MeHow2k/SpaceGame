@@ -656,10 +656,12 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (C.isLevelCreated == false) newEnemy(0, 50, 50, 50);//stworz przeciwnika jesli lvl nie stworzony
                                 C.isLevelCreated = true;//lvl stworzony
                                 if (listEnemy.isEmpty()) {//gdzy nie ma wrogow na ekranie
-                                    C.LEVEL++;
-                                    System.out.println("LEVEL: " + C.LEVEL);
-                                    newLife(500,-10);
-                                    resetLevel();
+                                    level_temp1Up=true;
+                                    if(level_temp1>500){
+                                        C.LEVEL++;
+                                        System.out.println("LEVEL: " + C.LEVEL);
+                                        resetLevel();
+                                    }
                                 }
                             }
                         }
@@ -1880,6 +1882,20 @@ public class GamePanel extends JPanel implements KeyListener {
                 g.setFont(customFont.deriveFont(40f));
                 g.drawString("Gratulacje! Ukończyłeś grę!", C.FRAME_WIDTH/2 - 200, 200);
                 g.drawString("Wynik końcowy: "+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
+            }
+            if(C.LEVEL==0){
+                g.setColor(Color.white);
+                if(level_temp1==0) {
+                    g.drawString("Użyj strzałek aby się poruszać. Użyj spacji, aby strzelać.", 400, C.FRAME_HEIGHT - 400);
+                    g.drawString("Trafiaj w przeciwników, unikając ich oraz ich strzałów.", 200, 200);
+                }
+                if(level_temp1>0) {
+                    g.drawString("Podczas gry pojawiają się sojusznicze statki wspierające bonusami.", 400, C.FRAME_HEIGHT - 400);
+                    g.drawString("Po zestrzeleniu wroga pojawiają się bonusy do zbierania.", 200, 200);
+                    //g.drawString("Użyj 'R', aby wystrzelić rakietę rażącą wszystkich przeciwników.", 240, C.FRAME_HEIGHT - 80); //możliwe w przyszłości
+                    //g.drawString("Nie otzymasz za to bonusów. Zbierz 50 monet by otrzymać rakietę.", 240, C.FRAME_HEIGHT - 50); //możliwe w przyszłości
+                }
+                g.drawString("Gra skończy się gdy stracisz wszystkie życia!",20,C.FRAME_HEIGHT-100);
             }
     //////////////////////UI i elementy//////////////////////////////////////////////////////////////
             if(C.GODMODE) g.drawString("GODMODE", 0, 200);

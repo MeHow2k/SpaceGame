@@ -68,15 +68,22 @@ public class SoundManager {
 
     //todo zrobić zmiany (zamiast file -> getResource) by zrobić JAR (grafika jest jeszcze czcionka), playMenuBackground zrobione dla przykładu
     public static void playBackground() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/backgroundTheme.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
-        clipback = AudioSystem.getClip();//utworzenie obiektu clip
-        clipback.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clipback.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clipback.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
-        clipback.start();//rozpoczęcie odtwarzania dźwieku
+        //File file = new File(("Sound/backgroundTheme.wav")); //pobranie pliku ze ścieżki
+        String filename="backgroundTheme.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        //AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clipback = AudioSystem.getClip();//utworzenie obiektu clip
+            clipback.open(ais);//otworzenie strumienia audio
+            FloatControl gainControl = (FloatControl)//kontrola głośności
+                    clipback.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+            clipback.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
+            clipback.start();//rozpoczęcie odtwarzania dźwieku
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playMenuBackground() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         //File file = new File(("Sound/backgroundMenuTheme.wav")); //pobranie pliku ze ścieżki //todo stara wersja do usunbiecia
@@ -97,15 +104,20 @@ public class SoundManager {
         }
     }
     public static void playBoss() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/backgroundBoss.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
-        clipboss = AudioSystem.getClip();//utworzenie obiektu clip
-        clipboss.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clipboss.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clipboss.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
-        clipboss.start();//rozpoczęcie odtwarzania dźwieku
+        String filename="backgroundBoss.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clipboss = AudioSystem.getClip();//utworzenie obiektu clip
+            clipboss.open(ais);//otworzenie strumienia audio
+            FloatControl gainControl = (FloatControl)//kontrola głośności
+                    clipboss.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
+            clipboss.loop(Clip.LOOP_CONTINUOUSLY);//ustawienie odtwarzania w pętli
+            clipboss.start();//rozpoczęcie odtwarzania dźwieku
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void stopBackground(){
         if(clipback!=null)clipback.stop();//zatrzymanie dźwięku
@@ -116,113 +128,163 @@ public class SoundManager {
     public static void stopBoss(){if(clipboss!=null)clipboss.stop();}//zatrzymanie muzyki bossa
     public static void stopAllMusic(){stopBackground();stopMenuBackground();stopBoss();}
     public static void playDefeat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/defeat.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="defeat.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playEnemyHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/enemyHit.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="enemyHit.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playEnemyShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/enemyShot.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="enemyShot.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playMeteorHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/meteorHit.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="meteorHit.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playPlayerHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/playerHit.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="playerHit.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playPoint() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/point.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="point.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playPointBonus() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/pointBonus.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="pointBonus.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playPlayerShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/playerShot.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="playerShot.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playShield() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/shield.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="shield.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
     public static void playWin() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        File file = new File(("Sound/win.wav")); //pobranie pliku ze ścieżki
-        AudioInputStream ais = AudioSystem.getAudioInputStream(file);//utworzenie strumienia audio
+        String filename="win.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
-        clip = AudioSystem.getClip();//utworzenie obiektu clip
-        clip.open(ais);//otworzenie strumienia audio
-        FloatControl gainControl = (FloatControl)//kontrola głośności
-                clip.getControl(FloatControl.Type.MASTER_GAIN);
-        gainControl.setValue(checkSoundVolume());//ustawienie wartości głośności | 0 min, -80.0 max |
-        clip.start();//rozpoczęcie odtwarzania dźwieku
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
     }
 }
