@@ -18,7 +18,8 @@ public class AllyAid extends Thread {
     private int movingType=1;
     private int facingDirection =0;
     private int angle=270;
-    boolean isAidDropped=false;
+    private boolean isAidDropped=false;
+    private int aidType = 0; //
 
     public int getDirX() {
         return dirX;
@@ -43,8 +44,8 @@ public class AllyAid extends Thread {
 
 
     JPanel panel;
-    Image imgEnemyLaserLeft = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft.gif")).getImage();
-    Image imgEnemyLaserRight = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight.gif")).getImage();
+    Image imgAllyLeft = new ImageIcon(getClass().getClassLoader().getResource("allyLeft.gif")).getImage();
+    Image imgAllyRight = new ImageIcon(getClass().getClassLoader().getResource("allyRight.gif")).getImage();
     public AllyAid(int x, int y, int facingDirection, JPanel panel){
         this.x=x;
         this.y=y;
@@ -80,9 +81,9 @@ public class AllyAid extends Thread {
     }
 
     public void draw(Graphics2D g){
-        if(imgEnemyLaserLeft !=null && getFacingDirection()==0)
-            g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);
-        else if (imgEnemyLaserLeft !=null && getFacingDirection()==1) g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);
+        if(imgAllyLeft !=null && getFacingDirection()==0)
+            g.drawImage(imgAllyLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);
+        else if (imgAllyLeft !=null && getFacingDirection()==1) g.drawImage(imgAllyRight, this.getX(),this.getY(),this.getW(),this.getH(), null);
     }
 
     public int getY() {

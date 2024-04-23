@@ -83,9 +83,20 @@ public class EnemyLaser extends Thread {
     }
 
     public void draw(Graphics2D g){
-        if(imgEnemyLaserLeft !=null && getFacingDirection()==0)
-            g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);
-        else if (imgEnemyLaserLeft !=null && getFacingDirection()==1) g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);
+        if(imgEnemyLaserLeft !=null && getFacingDirection()==0){//patrzy w lewo
+//            if (getHp()==1) g.drawImage(imgEnemy,x,y,w,h,null);
+//            if (getHp()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
+//            if (getHp()==3) g.drawImage(imgEnemy3,x,y,w,h,null);
+//            if (getHp()>=4) g.drawImage(imgEnemy4,x,y,w,h,null);
+            g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
+        }
+        else if (imgEnemyLaserLeft !=null && getFacingDirection()==1){//patrzy w prawo
+            //if (getHp()==1) g.drawImage(imgEnemy,x,y,w,h,null);
+//            if (getHp()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
+//            if (getHp()==3) g.drawImage(imgEnemy3,x,y,w,h,null);
+//            if (getHp()>=4) g.drawImage(imgEnemy4,x,y,w,h,null);
+            g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
+        }
     }
 
     public int getY() {
