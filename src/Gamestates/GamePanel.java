@@ -41,6 +41,8 @@ public class GamePanel extends JPanel implements KeyListener {
     ArrayList<WeaponUpgrade> listWeaponUpgrade= new ArrayList(20);//lista punktów ulepszenie broni
     ArrayList<FirerateUpgrade> listFirerateUpgrade= new ArrayList(20);//lista punktów przyspieszenia strzelania
     ArrayList<BonusShield> listBonusShield= new ArrayList(20);//lista punktów dodatkowa tarcza
+    ArrayList<BonusAllyAid> listBonusAllyAid= new ArrayList(20);//lista punktów pomoc sojusznika
+    ArrayList<AllyAid> listAllyAid= new ArrayList(20);//lista punktów statków sojusznika
     ArrayList<EnemyShot> listEnemyShot = new ArrayList(20);//lista wrogich strzałów
     ArrayList<EnemyLaserShot> listEnemyLaserShot = new ArrayList(20);//lista wrogich strzałów laserów
     ArrayList<PlayerShot> listPlayerShot = new ArrayList(20);//lista strzalow gracza
@@ -423,6 +425,27 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
+//kolizja gracza z bonusem pomoc sojusznika,
+                        if (listBonusAllyAid != null) {
+                            for (int i = 0; i < listBonusAllyAid.size(); i++) {
+                                BonusAllyAid bonusAllyAid = listBonusAllyAid.get(i);
+                                if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
+                                        bonusAllyAid.getX(), bonusAllyAid.getY(), bonusAllyAid.getW(), bonusAllyAid.getH())) {
+                                    try {
+                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    //tutaj wpisz akcja
+                                    C.totalPoints+=10;
+                                    newAllyAid(-40,20,0);
+                                    updateLabels();
+                                    listBonusAllyAid.remove(bonusAllyAid);
+                                } else if (bonusAllyAid.getY() > C.FRAME_HEIGHT) {
+                                    listBonusAllyAid.remove(bonusAllyAid);
+                                }
+                            }
+                        }
 //kolizja wroga i gracza
                         if (listEnemy != null) {
                             for (int iw = 0; iw < listEnemy.size(); iw++) {
@@ -499,7 +522,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                     }
                                                     if (playershot != null)
                                                         listPlayerShot.remove(playershot);
-                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10);
+                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10,4);
                                                     //newPoints(enemy.getX()+12, enemy.getY()+12, 25,25);
                                                     C.totalPoints += 50;
                                                     updateLabels();
@@ -553,7 +576,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                     if (playershot != null)
                                                         listPlayerShot.remove(playershot);
                                                     //wpisz akcja
-                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10);
+                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10,4);
                                                     C.totalPoints += 50;
                                                     updateLabels();
                                                 } else {
@@ -564,9 +587,9 @@ public class GamePanel extends JPanel implements KeyListener {
                                             }
                                         }
                                     }//listEnemyLaser
-                                }
-                            }
-                        }
+                                }//if player shot
+                            }//for listplayershot
+                        }//if shot null
 //kolizja strzału wroga z graczem
                         if (listEnemyShot != null && !C.shieldActivated) {
                             for (int iw = 0; iw < listEnemyShot.size(); iw++) {
@@ -594,6 +617,25 @@ public class GamePanel extends JPanel implements KeyListener {
                                 ///////////////////usuwanie laserow po uplywie czasu
                                 if (enemyShot.getTime() > 20 && enemyShot != null) {
                                     listEnemyLaserShot.remove(enemyShot);
+                                }
+                            }
+                        }
+//generowanie bonusów przez statek sojusznika
+                        if (listAllyAid != null) {
+                            for (int i = 0; i < listAllyAid.size(); i++) {
+                                AllyAid allyAid = listAllyAid.get(i);
+                                if(allyAid.getX()==C.FRAME_WIDTH/2-allyAid.getW()/2 && allyAid.getIsAidDropped()==false){
+                                    int upgradeChance=20,firerateChance=20,shieldChance=30,lifeChance=30;
+                                    if(C.weaponUpgrade>=3){
+                                        upgradeChance=0;shieldChance+=10;lifeChance+=10;
+                                    } else upgradeChance=20;
+                                    if(C.isFirerateUpgrade) {
+                                        firerateChance=0;shieldChance+=10;lifeChance+=10;
+                                    } else firerateChance=20;
+                                    System.out.println("weapon upgraded:"+upgradeChance+" "+firerateChance+" "+shieldChance+" "+lifeChance);
+                                    newDrop(allyAid.getX()+allyAid.getW()/2,allyAid.getY(),upgradeChance,firerateChance,shieldChance,lifeChance,0);
+                                    newDrop(allyAid.getX(),allyAid.getY(),upgradeChance,firerateChance,shieldChance,lifeChance,0);
+                                    allyAid.setIsAidDropped(true);
                                 }
                             }
                         }
@@ -1864,6 +1906,14 @@ public class GamePanel extends JPanel implements KeyListener {
                 for (int i = 0; i < listBonusShield.size(); i++) {
                     listBonusShield.get(i).draw(g2D);
                 }
+            if (listBonusAllyAid != null)            //rysowanie punktow pomocy sojusznika
+                for (int i = 0; i < listBonusAllyAid.size(); i++) {
+                    listBonusAllyAid.get(i).draw(g2D);
+                }
+            if (listAllyAid != null)            //rysowanie statkowsojusznika
+                for (int i = 0; i < listAllyAid.size(); i++) {
+                    listAllyAid.get(i).draw(g2D);
+                }
             if (listEnemyShot != null)            //rysowanie wrogich strzałów
                 for (int i = 0; i < listEnemyShot.size(); i++) {
                     listEnemyShot.get(i).draw(g2D);
@@ -1982,7 +2032,7 @@ public class GamePanel extends JPanel implements KeyListener {
         )return true;
         else return false;
     }
-    public void newDrop(int x,int y, int weaponUpgradeChance, int weaponFirerateChance, int bonusShieldChance, int bonusLifeChance){//funkcja losująca drop z przeciwnika
+    public void newDrop(int x,int y, int weaponUpgradeChance, int weaponFirerateChance, int bonusShieldChance, int bonusLifeChance, int bonusAllyAidChance){//funkcja losująca drop z przeciwnika
         Random random = new Random();
         int randomNumber = random.nextInt(100) + 1; // losuj liczbe od 1 do 100
         if (randomNumber <= weaponUpgradeChance) {//ulepszenie broni
@@ -1997,6 +2047,9 @@ public class GamePanel extends JPanel implements KeyListener {
         }else if (randomNumber <= weaponUpgradeChance + weaponFirerateChance + bonusShieldChance + bonusLifeChance) {//dodatkowe życie
             newLife(x,y);
             System.out.println("life");
+        }else if (randomNumber <= weaponUpgradeChance + weaponFirerateChance + bonusShieldChance + bonusLifeChance + bonusAllyAidChance) {//pomoc sojusznika
+            newBonusAllyAid(x,y);
+            System.out.println("allyAiD");
         } else {
             newPoints(x,y,50,50);
         }
@@ -2191,6 +2244,11 @@ public class GamePanel extends JPanel implements KeyListener {
         life.start();//start watku
         listLife.add(life);//dodanie do listy obiektow
     }
+    public void newBonusAllyAid(int x,int y){//utworzenie obiektu bonusu pomocy sojusznika
+        BonusAllyAid bonusAllyAid = new BonusAllyAid(x,y,this);
+        bonusAllyAid.start();//start watku
+        listBonusAllyAid.add(bonusAllyAid);//dodanie do listy obiektow
+    }
     public void newEnemyLaserShot(int x,int y){//utworzenie obiektu lasera
         EnemyLaserShot enemyLaserShot = new EnemyLaserShot(x,y,this);
         enemyLaserShot.start();
@@ -2228,6 +2286,13 @@ public class GamePanel extends JPanel implements KeyListener {
         PlayerShot playerShot = new PlayerShot(x,y,this);
         playerShot.start();//start watku
         listPlayerShot.add(playerShot);//dodanie do listy obiektow PlayerShot
+
+    }
+
+    public void newAllyAid(int x, int y, int facingDirection){//utworzenie obiektu strzału gracza
+        AllyAid allyAid = new AllyAid(x,y,facingDirection,this);
+        allyAid.start();//start watku
+        listAllyAid.add(allyAid);//dodanie do listy obiektow PlayerShot
 
     }
     public void resetVariables(){//przywrócenie zmiennych do stanu pierwotnego
@@ -2490,8 +2555,8 @@ public class GamePanel extends JPanel implements KeyListener {
             //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
             //newWeaponUpgrade(100,-10);
-
-
+            newBonusAllyAid(100,-10);
+            newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
