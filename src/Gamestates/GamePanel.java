@@ -637,6 +637,9 @@ public class GamePanel extends JPanel implements KeyListener {
                                     newDrop(allyAid.getX(),allyAid.getY(),upgradeChance,firerateChance,shieldChance,lifeChance,0);
                                     allyAid.setIsAidDropped(true);
                                 }
+                                if(allyAid.getX()<-100 || allyAid.getX()>C.FRAME_HEIGHT+allyAid.getW()){
+                                    listAllyAid.remove(allyAid);
+                                }
                             }
                         }
 
