@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements KeyListener {
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
-    boolean isMusicPlayed=false, isBossHpTaken= false;
+    boolean isMusicPlayed=false, isBossHpTaken= false, isBossAid=true;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0,menudelay=1000;
     boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
     int shotCooldown=60;
@@ -365,7 +365,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         weaponUpgrade.getX(), weaponUpgrade.getY(), weaponUpgrade.getW(), weaponUpgrade.getH())) {
                                     try {
-                                        SoundManager.playPointBonus();
+                                        SoundManager.playWeaponUpgrade();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -865,7 +865,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                 resetLevel();
                             }
                         }
-
                         if (C.LEVEL == 10) {//poziom bossa!
                             SoundManager.stopBackground();
                             if (isMusicPlayed == false) {
@@ -891,6 +890,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                     resetLevel();
                                     isMusicPlayed = false;
                                 }
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==1 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
+                            }
                             }
                         if (C.LEVEL == 11 ) {
                             SoundManager.stopBoss();
@@ -1121,6 +1128,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
                                 resetLevel();
+                            }
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==2 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
                             }
                         }
                         if (C.LEVEL == 21 ) {
@@ -1369,6 +1384,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
                                 resetLevel();
+                            }
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==3 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
                             }
                         }
                         if (C.LEVEL == 31 ) {
@@ -1691,6 +1714,14 @@ public class GamePanel extends JPanel implements KeyListener {
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
                                 resetLevel();
+                            }
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==4 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
                             }
                         }
                         if (C.LEVEL == 41 ) {

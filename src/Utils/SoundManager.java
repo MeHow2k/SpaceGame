@@ -271,6 +271,22 @@ public class SoundManager {
             System.out.println("Cannot read sound file: "+filename);
         }
     }
+    public static void playWeaponUpgrade() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        String filename="weaponUpgrade.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        Clip clip;
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkMusicVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
+    }
     public static void playWin() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         String filename="win.wav";
         InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
