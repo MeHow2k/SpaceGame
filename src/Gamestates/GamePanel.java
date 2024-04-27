@@ -1693,7 +1693,212 @@ public class GamePanel extends JPanel implements KeyListener {
                                 resetLevel();
                             }
                         }
+                        if (C.LEVEL == 41 ) {
+                            SoundManager.stopBoss();
+                            if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBackground();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            isMusicPlayed = true;
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 - 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 3);
+                                    newEnemy(-60, -60, 1, 1, 5, C.FRAME_WIDTH / 2 - 25 + 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 3);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 41 && enemyCreated == 8) C.isLevelCreated = true;//jezeli stworzono 8 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 42 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 + 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 2);
+                                    newEnemy(-60, -60, 1, 1, 2, C.FRAME_WIDTH / 2 - 100, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 2);
+                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25 - 200, C.FRAME_HEIGHT / 2 - 25 - 200, 200, 2);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 42 && enemyCreated == 10) C.isLevelCreated = true;//jezeli stworzono 8 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 43 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 60 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemy(C.FRAME_WIDTH + 60, C.FRAME_HEIGHT / 2 - 25 - 100, 1, 1, 5, C.FRAME_WIDTH / 2 - 55, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 3);
+                                    newEnemy(C.FRAME_WIDTH + 60, C.FRAME_HEIGHT / 2 - 25 - 100, 1, 1, 5, C.FRAME_WIDTH / 2 - 55, C.FRAME_HEIGHT / 2 - 25 - 100, 200, 3);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 43 && enemyCreated == 12) C.isLevelCreated = true;//jezeli stworzono 12 przeciwnikow, poziom stworzony
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 44 ) {
+                            Random random=new Random();
+                            if(listEnemy!=null){
+                                for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                    Enemy enemy = listEnemy.get(iw);
+                                    if(enemy.getHP()<2) {
+                                        int roll=random.nextInt(2);
+                                        if(roll==0) enemy.setDirX(-1);
+                                        if(roll==1) enemy.setDirX(1);
+                                        enemy.setMovingType(1);
+                                    }
+                                }
+                            }
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 70 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+
+                                    if(level_temp1%2==0)
+                                        newEnemy(C.FRAME_WIDTH - 100, 0, 1, 1,7,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,270,4);
+                                    else newEnemy(C.FRAME_WIDTH - 100, 0, 1, 1,7,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,180,4);
+                                    level_temp1++;
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 44 && enemyCreated == 10) {
+                                        C.isLevelCreated = true;
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 45 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    Random random = new Random();
+                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
+                                    newMeteor(random.nextInt(C.FRAME_WIDTH - 25), -75, level_temp1, 0);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 45 && enemyCreated == 40) C.isLevelCreated = true;
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 46 ) {
+                            if(level_delay>300)//po opoznieniu (liczba klatek)
+                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
+                                    newEnemy(-60, 60, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 4);
+                                    newEnemy(-60, 0, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 4);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 46 && enemyCreated == 11) {
+                                        C.isLevelCreated = true;
+                                        if (listEnemy != null) {
+                                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                                Enemy enemy = listEnemy.get(iw);
+                                                enemy.setMovingType(0);
+                                            }
+                                        }
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                //playedMusic = false;?
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 47 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemyLaser(C.FRAME_WIDTH / 2 + 130, 0, 1, 1, 0,1,0,0,0,3);
+                                    newEnemyLaser(C.FRAME_WIDTH / 2 - 130, 0, 1, 1, 1,1,0,0,0,4);
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 47 && enemyCreated == 9) C.isLevelCreated = true;
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 48 ) {
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 70 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    Random random=new Random();
+                                    if(level_temp1%2==0)
+                                        newEnemyLaser(C.FRAME_WIDTH - 100, 0, 1, 1,
+                                                random.nextInt(2),7,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,270,4);
+                                    else newEnemy(C.FRAME_WIDTH - 100, 0, 1, 1,7,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,180,4);
+                                    level_temp1++;
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 48 && enemyCreated == 10) {
+                                        C.isLevelCreated = true;
+                                        if(listEnemyLaser!=null){
+                                            for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
+                                                EnemyLaser enemy = listEnemyLaser.get(iw);
+                                                enemy.setMovingType(0);
+                                            }
+                                        }
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemyLaser.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
+                        if (C.LEVEL == 49 ) {
+                            Random random=new Random();
+                            if(listEnemyLaser!=null){
+                                for (int iw = 0; iw < listEnemyLaser.size(); iw++) {
+                                    EnemyLaser enemy = listEnemyLaser.get(iw);
+                                    if(enemy.getHp()==3) enemy.setVelY(2);
+                                    if(enemy.getHp()==2) enemy.setVelY(3);
+                                    if(enemy.getHp()==2) enemy.setVelY(4);
+                                }
+                            }
+
+                            if(level_delay>300)//po opoznieniu
+                                if (tick > 200 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 klatek powtórz
+                                    newEnemyLaser(random.nextInt(C.FRAME_WIDTH/2), -10, 1, 1,1,0,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,270,4);
+                                    newEnemyLaser(random.nextInt(C.FRAME_WIDTH/2 -100 )+ C.FRAME_WIDTH/2, -10, 1, 1,0,0,C.FRAME_WIDTH/2,C.FRAME_HEIGHT/2-100,180,4);
+                                    level_temp1++;
+                                    tick = 0;
+                                    enemyCreated++;
+                                    if (C.LEVEL == 49 && enemyCreated == 5) {
+                                        C.isLevelCreated = true;
+                                    }
+                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
+
+                            if (listEnemy.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                System.out.println("LEVEL: " + C.LEVEL);
+                                resetLevel();
+                            }
+                        }
 
 
 
