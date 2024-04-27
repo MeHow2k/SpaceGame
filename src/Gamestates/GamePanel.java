@@ -1890,6 +1890,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     enemyCreated++;
                                     if (C.LEVEL == 49 && enemyCreated == 5) {
                                         C.isLevelCreated = true;
+
                                     }
                                 } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
 
