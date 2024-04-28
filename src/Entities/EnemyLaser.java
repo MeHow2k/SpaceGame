@@ -44,7 +44,13 @@ public class EnemyLaser extends Thread {
 
     JPanel panel;
     Image imgEnemyLaserLeft = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft.gif")).getImage();
+    Image imgEnemyLaserLeft2hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft2hp.gif")).getImage();
+    Image imgEnemyLaserLeft3hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft3hp.gif")).getImage();
+    Image imgEnemyLaserLeft4hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserLeft4hp.gif")).getImage();
     Image imgEnemyLaserRight = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight.gif")).getImage();
+    Image imgEnemyLaserRight2hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight2hp.gif")).getImage();
+    Image imgEnemyLaserRight3hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight3hp.gif")).getImage();
+    Image imgEnemyLaserRight4hp = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight4hp.gif")).getImage();
     public EnemyLaser(int x, int y, int w, int h, int facingDirection, JPanel panel){
         this.x=x;
         this.y=y;
@@ -84,17 +90,17 @@ public class EnemyLaser extends Thread {
 
     public void draw(Graphics2D g){
         if(imgEnemyLaserLeft !=null && getFacingDirection()==0){//patrzy w lewo
-//            if (getHp()==1) g.drawImage(imgEnemy,x,y,w,h,null);
-//            if (getHp()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
-//            if (getHp()==3) g.drawImage(imgEnemy3,x,y,w,h,null);
-//            if (getHp()>=4) g.drawImage(imgEnemy4,x,y,w,h,null);
+            if (getHp()==1) g.drawImage(imgEnemyLaserLeft,x,y,w,h,null);
+            if (getHp()==2) g.drawImage(imgEnemyLaserLeft2hp,x,y,w,h,null);
+            if (getHp()==3) g.drawImage(imgEnemyLaserLeft3hp,x,y,w,h,null);
+            if (getHp()>=4) g.drawImage(imgEnemyLaserLeft4hp,x,y,w,h,null);
             g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
         }
         else if (imgEnemyLaserLeft !=null && getFacingDirection()==1){//patrzy w prawo
-            //if (getHp()==1) g.drawImage(imgEnemy,x,y,w,h,null);
-//            if (getHp()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
-//            if (getHp()==3) g.drawImage(imgEnemy3,x,y,w,h,null);
-//            if (getHp()>=4) g.drawImage(imgEnemy4,x,y,w,h,null);
+            if (getHp()==1) g.drawImage(imgEnemyLaserRight,x,y,w,h,null);
+            if (getHp()==2) g.drawImage(imgEnemyLaserRight2hp,x,y,w,h,null);
+            if (getHp()==3) g.drawImage(imgEnemyLaserRight3hp,x,y,w,h,null);
+            if (getHp()>=4) g.drawImage(imgEnemyLaserRight4hp,x,y,w,h,null);
             g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
         }
     }

@@ -13,9 +13,9 @@ public class Enemy extends Thread{
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
-    Image imgEnemy2 = new ImageIcon(getClass().getClassLoader().getResource("enemy2hp.gif")).getImage();
-    Image imgEnemy3 = new ImageIcon(getClass().getClassLoader().getResource("enemy3hp.gif")).getImage();
-    Image imgEnemy4 = new ImageIcon(getClass().getClassLoader().getResource("enemy4hp.gif")).getImage();
+    Image imgEnemy2 = new ImageIcon(getClass().getClassLoader().getResource("enemyhp2.gif")).getImage();
+    Image imgEnemy3 = new ImageIcon(getClass().getClassLoader().getResource("enemyhp3.gif")).getImage();
+    Image imgEnemy4 = new ImageIcon(getClass().getClassLoader().getResource("enemyhp4.gif")).getImage();
     Image imgBoss = new ImageIcon(getClass().getClassLoader().getResource("boss.gif")).getImage();
     Image imgBoss2 = new ImageIcon(getClass().getClassLoader().getResource("boss2.gif")).getImage();
     Image imgBoss2rage = new ImageIcon(getClass().getClassLoader().getResource("boss2_rage.gif")).getImage();
