@@ -875,6 +875,16 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                            }
                             isMusicPlayed = true;
+
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==1 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
+                            }
+
                             if(level_delay>500)//opoznienie przed pojawieniem sie bossa
                                 if (tick > 180 && C.PAUSE != true && C.isLevelCreated == false) {
                                     newBoss(-100, 50, 1, 1, 3, C.FRAME_WIDTH / 2 - 90, C.FRAME_HEIGHT / 2 - 45 - 100, 200, 50);
@@ -2792,11 +2802,14 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(500,-50,350,2);
             //newBonusShield(250,0);
              //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
-            //newEnemyLaser(C.FRAME_WIDTH / 2 - 30, 0, 1, 1, 0,0,0,0,0,2);
+//            newEnemyLaser(320, 0, 1, 1, 0,0,0,0,0,4);
+//            newEnemyLaser(200, 0, 1, 1, 0,0,0,0,0,3);
+//            newEnemyLaser(100, 0, 1, 1, 0,0,0,0,0,2);
+//            newEnemyLaser(30, 0, 1, 1, 0,0,0,0,0,1);
             //newFirerateUpgrade(100,-10);
             //newWeaponUpgrade(100,-10);
-            newBonusAllyAid(100,-10);
-            newAllyAid(C.FRAME_WIDTH+50,60,1);
+            //newBonusAllyAid(100,-10);
+            //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {

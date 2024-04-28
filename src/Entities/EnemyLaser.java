@@ -94,14 +94,14 @@ public class EnemyLaser extends Thread {
             if (getHp()==2) g.drawImage(imgEnemyLaserLeft2hp,x,y,w,h,null);
             if (getHp()==3) g.drawImage(imgEnemyLaserLeft3hp,x,y,w,h,null);
             if (getHp()>=4) g.drawImage(imgEnemyLaserLeft4hp,x,y,w,h,null);
-            g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
+            // g.drawImage(imgEnemyLaserLeft, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
         }
         else if (imgEnemyLaserLeft !=null && getFacingDirection()==1){//patrzy w prawo
             if (getHp()==1) g.drawImage(imgEnemyLaserRight,x,y,w,h,null);
             if (getHp()==2) g.drawImage(imgEnemyLaserRight2hp,x,y,w,h,null);
             if (getHp()==3) g.drawImage(imgEnemyLaserRight3hp,x,y,w,h,null);
             if (getHp()>=4) g.drawImage(imgEnemyLaserRight4hp,x,y,w,h,null);
-            g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
+            // g.drawImage(imgEnemyLaserRight, this.getX(),this.getY(),this.getW(),this.getH(), null);//to usuń i przerób to w komentarzu
         }
     }
 
