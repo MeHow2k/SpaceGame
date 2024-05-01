@@ -160,12 +160,13 @@ public class GamePanel extends JPanel implements KeyListener {
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
                         ///////////////////////////////////////////// etykieta pauzy
-                        //if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
+
                         if (C.PAUSE == true) labelPause.setText(gameStrings.getString("Aby odpauzować"));
                         else labelPause.setText("");
                         ///etykieta poziomu
-                        //labelLevel.setText("Poziom: " + C.LEVEL);
-                        labelLevel.setText(gameStrings.getString("poziom")+" " + C.LEVEL);
+                        if(C.LEVEL==C.LAST_LEVEL) labelLevel.setText(" ");
+                        else labelLevel.setText(gameStrings.getString("poziom")+" " + C.LEVEL);
+
                         //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
@@ -715,23 +716,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
-//                        if (C.LEVEL == 0 ) {
-//                            if(level_delay>300)//po opoznieniu (liczba klatek)
-//                                if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
-//                                    Random random = new Random();
-//                                    level_temp1 = random.nextInt(160) + 40;//losowanie rozmiaru meteora
-//                                    newMeteor(random.nextInt( 1000)-500, -70, level_temp1, 1);
-//                                    tick = 0;
-//                                    enemyCreated++;
-//                                    if (C.LEVEL == 0 && enemyCreated == 30) C.isLevelCreated = true;//jezeli stworzono 5 przeciwnikow, poziom stworzony
-//                                } else if (C.PAUSE != true && C.isLevelCreated != true) tickUp=true;//zwiekszaj tick gdy nie ma pauzy
-//
-//                            if (listMeteor.isEmpty() && C.isLevelCreated == true) {
-//                                C.LEVEL++;
-//                                System.out.println("LEVEL: " + C.LEVEL);
-//                                resetLevel();
-//                            }
-//                        }
 
                         if (C.LEVEL == 1 ) {
                             if(level_delay>300)//po opoznieniu (liczba klatek)
@@ -2781,10 +2765,6 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(500,-50,350,2);
             //newBonusShield(250,0);
              //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
-//            newEnemyLaser(320, 0, 1, 1, 0,0,0,0,0,4);
-//            newEnemyLaser(200, 0, 1, 1, 0,0,0,0,0,3);
-//            newEnemyLaser(100, 0, 1, 1, 0,0,0,0,0,2);
-//            newEnemyLaser(30, 0, 1, 1, 0,0,0,0,0,1);
             //newFirerateUpgrade(100,-10);
             //newWeaponUpgrade(100,-10);
             //newBonusAllyAid(100,-10);
@@ -2799,10 +2779,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     } else enemy.setHP(enemy.getHP() - 10);
                 }
             }
-//            newEnemy(120,50,1,1,0,100,100,100,1);
-//            newEnemy(90,80,1,1,0,100,100,100,2);
-//            newEnemy(60,110,1,1,0,100,100,100,3);
-//            newEnemy(40,140,1,1,0,100,100,100,4);
+
         }
 
         ////   ruch gracza
