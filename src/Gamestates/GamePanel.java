@@ -152,7 +152,11 @@ public class GamePanel extends JPanel implements KeyListener {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-                            C.GAMESTATE=1;
+                            if(C.LANGUAGE!=0 && C.LANGUAGE!=1) {
+                                C.LANGUAGE=0;
+                                C.GAMESTATE=99;
+                            }
+                            else C.GAMESTATE=1;
                         }
                     }
 
@@ -2684,7 +2688,11 @@ public class GamePanel extends JPanel implements KeyListener {
     public void keyPressed(KeyEvent e) {
         //////////////////////////////////////////////////////////////////
         if (e.getKeyCode()==32 && C.GAMESTATE==100){//spacja
-            C.GAMESTATE=1;//skip intro
+            if(C.LANGUAGE!=0 && C.LANGUAGE!=1) {
+                C.LANGUAGE=0;
+                C.GAMESTATE=99;
+            }
+            else C.GAMESTATE=1;//skip intro
             try {
                 SoundManager.playMenuBackground();
             } catch (Exception ex) {
@@ -2978,7 +2986,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorSettingsPosition==3) {
                         //reset najlepszego wyniku
                         int enddialog = JOptionPane.showConfirmDialog
-                                (null, gameStrings.getString("Czy na pewno chcesz zresetować najlepszy wynik?") ,
+                                (null, gameStrings.getString("Czy na pewno chcesz zresetować") ,
                                         "?", 0);
                         //zresetowanie po wybraniu tak
                         if (enddialog == 0) resetHighscore();
