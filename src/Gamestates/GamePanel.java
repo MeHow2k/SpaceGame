@@ -165,7 +165,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         else labelPause.setText("");
                         ///etykieta poziomu
                         //labelLevel.setText("Poziom: " + C.LEVEL);
-                        labelLevel.setText(gameStrings.getString("poziom") + C.LEVEL);
+                        labelLevel.setText(gameStrings.getString("poziom")+" " + C.LEVEL);
                         //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
@@ -666,8 +666,8 @@ public class GamePanel extends JPanel implements KeyListener {
                             sendData();
 
                             int enddialog = JOptionPane.showConfirmDialog
-                                    (null, gameStrings.getString("Uzyskałeś") + C.totalPoints + gameStrings.getString("punktów") +"\n"+ gameStrings.getString("Przegrałeś!")
-                                            +gameStrings.getString("Czy chcesz zagrać ponownie?"),
+                                    (null, gameStrings.getString("Uzyskałeś") + " " + C.totalPoints+ " " + gameStrings.getString("punktów") +"\n"+ gameStrings.getString("Przegrałeś!")
+                                            + " " +gameStrings.getString("Czy chcesz zagrać ponownie?"),
                                             gameStrings.getString("Koniec gry"), 0);
                             //zresetowanie gry po wybraniu tak
                             if (enddialog == 0) {
@@ -1906,9 +1906,9 @@ public class GamePanel extends JPanel implements KeyListener {
                                 sendData();
                                 //okno dialogowe konca gry
                                 int eenddialog = JOptionPane.showConfirmDialog
-                                        (null, gameStrings.getString("Uzyskałeś") + C.totalPoints
+                                        (null, gameStrings.getString("Uzyskałeś") +" " + C.totalPoints+" "
                                                         + gameStrings.getString("punktów") +"\n"+
-                                                        gameStrings.getString("Gratulacje!")
+                                                        gameStrings.getString("Gratulacje!")+" "
                                                         +gameStrings.getString("Czy chcesz zagrać ponownie?"),
                                                 gameStrings.getString("Koniec gry"), 0);
                                 //zresetowanie gry po wybraniu tak
@@ -2008,12 +2008,17 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             if (menu != null && C.cursorSettingsPosition == 3) {
                                 menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                                menuCursor.setY(550);
+                                menuCursor.setY(485);
                             }
                             if (menu != null && C.cursorSettingsPosition == 4) {
-                                menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
-                                menuCursor.setY(700);
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(590);
                             }
+                            if (menu != null && C.cursorSettingsPosition == 5) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
+                                menuCursor.setY(705);
+                            }
+
 
                         
                     }//GAMESTATE 2 menusettings
@@ -2545,7 +2550,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     public void updateLabels(){
         if(C.GAMESTATE==0){
-            labelTotalPoints.setText(gameStrings.getString("Punkty: ")+C.totalPoints);
+            labelTotalPoints.setText(gameStrings.getString("Punkty:")+" "+C.totalPoints);
             labelPlayerLives.setText("x "+C.playerLives);
             labelWeaponUpgrade.setText("x "+C.weaponUpgrade);
 
@@ -2840,6 +2845,17 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                     }
                 }
+                if(C.cursorSettingsPosition==3){
+                    if(C.LANGUAGE==0) {
+                        C.LANGUAGE=1;
+                    }else C.LANGUAGE=0;
+                    updateSettings();
+                    try {
+                        SoundManager.playPlayerShot();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
             //obsługa dla menu wyboru statku
             if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
@@ -2892,6 +2908,17 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                     }
                 }
+                if(C.cursorSettingsPosition==3){
+                    if(C.LANGUAGE==0) {
+                        C.LANGUAGE=1;
+                    }else C.LANGUAGE=0;
+                    updateSettings();
+                    try {
+                        SoundManager.playPlayerShot();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
             //obsługa dla menu wyboru statku
             if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
@@ -2915,7 +2942,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
-            if(C.GAMESTATE==2 && C.cursorSettingsPosition<4){
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition<5){
                 C.cursorSettingsPosition++;
                 try {
                     SoundManager.playPlayerShot();
@@ -3000,15 +3027,15 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (C.cursorPosition == 4) System.exit(0);
                     break;
                 case 2: /// obsluga entera w podmenu OPCJE
-                    if(C.cursorSettingsPosition==3) {
+                    if(C.cursorSettingsPosition==4) {
                         //reset najlepszego wyniku
                         int enddialog = JOptionPane.showConfirmDialog
-                                (null, gameStrings.getString("Czy na pewno chcesz zresetować") ,
+                                (null, gameStrings.getString("Czy na pewno zresetować") ,
                                         "?", 0);
                         //zresetowanie po wybraniu tak
                         if (enddialog == 0) resetHighscore();
                     }
-                    if(C.cursorSettingsPosition==4) C.GAMESTATE = 1;
+                    if(C.cursorSettingsPosition==5) C.GAMESTATE = 1;
                     if(C.cursorSettingsPosition==2){
                         if (!C.isMuted) {
                             C.isMuted = true;
@@ -3044,6 +3071,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorBeforeGamePosition==4) C.playerSkin=4;
                     if(C.cursorBeforeGamePosition==5) {//graj
                         C.GAMESTATE=0;
+                        resetLevel();
                         startDate= new Date(); //ustawienie daty poczatku gry
                         C.gamesPlayed++;
                         updateSettings();

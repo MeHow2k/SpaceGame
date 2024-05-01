@@ -58,6 +58,7 @@ public class Strings {
         enStrings.put("Wynik końcowy:", "(en)Wynik końcowy:");
         enStrings.put("Nowy rekord!", "(en)Nowy rekord!");
         enStrings.put("Wybierz język", "Choose language");
+        enStrings.put("Język", "Language");
         enStrings.put("Polski", "Polish");
         enStrings.put("Angielski", "English");
 
@@ -106,6 +107,7 @@ public class Strings {
         plStrings.put("Wynik końcowy:", "Wynik końcowy: ");
         plStrings.put("Nowy rekord!", "Nowy rekord!");
         plStrings.put("Wybierz język", "Wybierz język");
+        plStrings.put("Język", "Język");
         plStrings.put("Polski", "Polski");
         plStrings.put("Angielski", "Angielski");
 
