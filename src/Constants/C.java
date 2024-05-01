@@ -4,7 +4,7 @@ package Constants;
 
 public class C {
     public static final String VERSION= "1.0.0dev";
-    public static int LANGUAGE=0; //0-en 1-pl
+    public static int LANGUAGE=999; //0-en 1-pl
 
     public static int FRAME_HEIGHT=850;
     public static int FRAME_WIDTH=800;

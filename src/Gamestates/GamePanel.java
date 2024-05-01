@@ -12,10 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -2586,9 +2583,29 @@ public class GamePanel extends JPanel implements KeyListener {
         try {
             //otwarcie pliku ustawień
             File config = new File("config.txt");
+            String absolutePath = config.getAbsolutePath();
             FileWriter out = new FileWriter(config);
+            if (!config.exists()) {
+                config.createNewFile();
+                // jesli nie ma pliku - stwórz go
+                try (FileOutputStream fos = new FileOutputStream(absolutePath)) {
+                    // Ustaw domyślne wartości głośności muzyki, głośności dzwięków i wyciszenia
+                    String music= C.musicVolume + "\n";
+                    String sound= C.soundVolume + "\n";
+                    String muted= C.isMuted + "\n";
+                    String skin= C.playerSkin + "\n";
+                    String lang= C.LANGUAGE + "\n";
+                    fos.write(music.getBytes());
+                    fos.write(sound.getBytes());
+                    fos.write(muted.getBytes());
+                    fos.write(skin.getBytes());
+                    fos.write(lang.getBytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             //wpisanie aktualnych ustawień do pliku ustawień
-            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted+"\n"+C.playerSkin);
+            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted+"\n"+C.playerSkin+"\n"+C.LANGUAGE);
             out.close();
         } catch (IOException ee) {
             ee.printStackTrace();
