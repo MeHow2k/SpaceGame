@@ -62,7 +62,8 @@ public class Intro  {
         g.setComposite(AlphaComposite.SrcOver); // Resetowanie composite
         g.setColor(textColor);
         g.setFont(customFont.deriveFont(35f));
-        text = "Game developed by:";
+        if(C.LANGUAGE==1) text = "Gra stworzona przez:";
+        else text = "Game developed by:";
         textWidth = g.getFontMetrics().stringWidth(text); // Szerokość tekstu
         g.drawString(text, (C.FRAME_WIDTH - textWidth) / 2 - 100 , C.FRAME_HEIGHT / 2 - 200);
 

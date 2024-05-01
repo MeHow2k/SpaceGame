@@ -3,6 +3,7 @@
 package Gamestates;
 
 import Constants.C;
+import Constants.Strings;
 import Entities.*;
 import Utils.DataSender;
 import Utils.SoundManager;
@@ -27,9 +28,11 @@ public class GamePanel extends JPanel implements KeyListener {
     PlayerShot playerShotUI;
     Life lifeUI; FirerateUpgrade firerateUpgradeUI;
     Font customFont;
+    Strings gameStrings;
 
     // deklaracja elementów menu
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;Intro intro;
+    LanguageSelection languageSelection;
     MenuSkinSelection menuSkinSelection;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
@@ -77,6 +80,8 @@ public class GamePanel extends JPanel implements KeyListener {
         } catch(FontFormatException e) {
             e.printStackTrace();
         }
+        //dodanie obsługi tekstu
+        gameStrings = new Strings();
         //dodanie nasłuchiwania klawiszy
         addKeyListener(this);
         //inicjalizacja obiektow
@@ -154,10 +159,12 @@ public class GamePanel extends JPanel implements KeyListener {
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
                         ///////////////////////////////////////////// etykieta pauzy
-                        if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
+                        //if (C.PAUSE == true) labelPause.setText("Aby odpauzować, wciśnij klawisz \"p\".");
+                        if (C.PAUSE == true) labelPause.setText(gameStrings.getString("Aby odpauzować"));
                         else labelPause.setText("");
                         ///etykieta poziomu
-                        labelLevel.setText("Poziom: " + C.LEVEL);
+                        //labelLevel.setText("Poziom: " + C.LEVEL);
+                        labelLevel.setText(gameStrings.getString("poziom") + C.LEVEL);
                         //obsluga ruchu gracza STEROWANIE
                         if (RIGHT_PRESSED == true && C.PAUSE!=true) {
                             if (C.FRAME_WIDTH - 60 >= player.getX()) {
@@ -530,9 +537,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                     if (playershot != null)
                                                         listPlayerShot.remove(playershot);
                                                     if (!enemy.isInvincible()) enemy.setHP(enemy.getHP() - 1);
-                                                    if (enemy.getIsBoss() == 1 || enemy.getIsBoss() == 2 || enemy.getIsBoss() == 3)//todo remove this log!
-                                                        System.out.println("BOSS HEALTH " + enemy.getHP()); //todo remove this log!
-                                                }//todo remove this log!
+                                                }
                                             }
                                         }
                                     }//listenemy
@@ -632,7 +637,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                     if(C.isFirerateUpgrade) {
                                         firerateChance=0;shieldChance+=10;lifeChance+=10;
                                     } else firerateChance=20;
-                                    System.out.println("weapon upgraded:"+upgradeChance+" "+firerateChance+" "+shieldChance+" "+lifeChance);
                                     newDrop(allyAid.getX()+allyAid.getW()/2,allyAid.getY(),upgradeChance,firerateChance,shieldChance,lifeChance,0);
                                     newDrop(allyAid.getX(),allyAid.getY(),upgradeChance,firerateChance,shieldChance,lifeChance,0);
                                     allyAid.setIsAidDropped(true);
@@ -646,7 +650,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         ////////////////////////////najlepszy wynik///////////////////////////////////////////////////////////////////////////
                         if(C.totalPoints>C.highscorePoints){
                             updateHighscore();
-                            labelRecord.setText("Nowy rekord!");
+                            labelRecord.setText(gameStrings.getString("Nowy rekord!"));
                         }
                         updateLabels();
                         //////////////////////////////////warunek końca gry//////////////////////////////////////////////
@@ -661,8 +665,9 @@ public class GamePanel extends JPanel implements KeyListener {
                             sendData();
 
                             int enddialog = JOptionPane.showConfirmDialog
-                                    (null, "Uzyskałeś " + C.totalPoints + " punktów!\nPrzegrałeś! Chcesz zagrać ponownie?",
-                                            "Koniec gry", 0);
+                                    (null, gameStrings.getString("Uzyskałeś") + C.totalPoints + gameStrings.getString("punktów") +"\n"+ gameStrings.getString("Przegrałeś!")
+                                            +gameStrings.getString("Czy chcesz zagrać ponownie?"),
+                                            gameStrings.getString("Koniec gry"), 0);
                             //zresetowanie gry po wybraniu tak
                             if (enddialog == 0) {
                                 removeObjects();
@@ -704,7 +709,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                     level_temp1Up=true;
                                     if(level_temp1>500){
                                         C.LEVEL++;
-                                        System.out.println("LEVEL: " + C.LEVEL);
                                         resetLevel();
                                     }
                                 }
@@ -739,7 +743,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -754,7 +757,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -769,7 +771,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -784,7 +785,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -799,7 +799,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -814,7 +813,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -830,7 +828,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -846,7 +843,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -861,7 +857,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -896,7 +891,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                     C.LEVEL++;
                                     C.totalPoints += 500;
-                                    System.out.println("LEVEL: " + C.LEVEL);
                                     resetLevel();
                                     isMusicPlayed = false;
                                 }
@@ -930,7 +924,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -946,7 +939,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -961,7 +953,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -986,8 +977,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1011,8 +1000,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1027,7 +1014,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1043,7 +1029,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1070,8 +1055,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1105,8 +1088,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1133,7 +1114,6 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 C.isLevelCreated = false;
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
@@ -1169,7 +1149,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1186,7 +1165,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1202,7 +1180,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1227,8 +1204,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1245,7 +1220,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1269,8 +1243,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1287,7 +1259,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1303,7 +1274,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1320,7 +1290,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1389,7 +1358,6 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 C.isLevelCreated = false;
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
@@ -1425,7 +1393,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1442,7 +1409,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1458,7 +1424,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1475,7 +1440,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1492,7 +1456,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1516,8 +1479,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1533,7 +1494,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1561,7 +1521,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1578,7 +1537,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1719,7 +1677,6 @@ public class GamePanel extends JPanel implements KeyListener {
                             if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 C.isLevelCreated = false;
                                 enemyCreated = 0;
                                 isMusicPlayed = false;
@@ -1755,7 +1712,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1772,7 +1728,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1788,7 +1743,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1821,7 +1775,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1838,7 +1791,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listMeteor.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1862,8 +1814,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
-                                //playedMusic = false;?
                                 resetLevel();
                             }
                         }
@@ -1879,7 +1829,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1907,7 +1856,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemyLaser.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1937,7 +1885,6 @@ public class GamePanel extends JPanel implements KeyListener {
 
                             if (listEnemy.isEmpty() && listEnemyLaser.isEmpty() && C.isLevelCreated == true) {
                                 C.LEVEL++;
-                                System.out.println("LEVEL: " + C.LEVEL);
                                 resetLevel();
                             }
                         }
@@ -1958,8 +1905,11 @@ public class GamePanel extends JPanel implements KeyListener {
                                 sendData();
                                 //okno dialogowe konca gry
                                 int eenddialog = JOptionPane.showConfirmDialog
-                                        (null, "Uzyskałeś " + C.totalPoints + " punktów!\nGratulacje! Czy chcesz zagrać ponownie?",
-                                                "Ukończyłeś grę!", 0);
+                                        (null, gameStrings.getString("Uzyskałeś") + C.totalPoints
+                                                        + gameStrings.getString("punktów") +"\n"+
+                                                        gameStrings.getString("Gratulacje!")
+                                                        +gameStrings.getString("Czy chcesz zagrać ponownie?"),
+                                                gameStrings.getString("Koniec gry"), 0);
                                 //zresetowanie gry po wybraniu tak
                                 if (eenddialog == 0) {
                                     removeObjects();
@@ -2180,22 +2130,22 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.LEVEL==C.LAST_LEVEL){
                 g.setColor(Color.white);
                 g.setFont(customFont.deriveFont(40f));
-                g.drawString("Gratulacje! Ukończyłeś grę!", C.FRAME_WIDTH/2 - 200, 200);
-                g.drawString("Wynik końcowy: "+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
+                g.drawString(gameStrings.getString("Gratulacje!")+ gameStrings.getString("Ukończyłeś grę!"), C.FRAME_WIDTH/2 - 200, 200);
+                g.drawString(gameStrings.getString("Wynik końcowy:")+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
             }
             if(C.LEVEL==0){
                 g.setColor(Color.white);
                 if(level_temp1==0) {
-                    g.drawString("Użyj strzałek aby się poruszać. Użyj spacji, aby strzelać.", 400, C.FRAME_HEIGHT - 400);
-                    g.drawString("Trafiaj w przeciwników, unikając ich oraz ich strzałów.", 200, 200);
+                    g.drawString(gameStrings.getString("lvl0_użyj"), 400, C.FRAME_HEIGHT - 400);
+                    g.drawString(gameStrings.getString("lvl0_trafiaj"), 200, 200);
                 }
                 if(level_temp1>0) {
-                    g.drawString("Podczas gry pojawiają się sojusznicze statki wspierające bonusami.", 400, C.FRAME_HEIGHT - 400);
-                    g.drawString("Po zestrzeleniu wroga pojawiają się bonusy do zbierania.", 200, 200);
+                    g.drawString(gameStrings.getString("lvl0_podczas"), 400, C.FRAME_HEIGHT - 400);
+                    g.drawString(gameStrings.getString("lvl0_po"), 200, 200);
                     //g.drawString("Użyj 'R', aby wystrzelić rakietę rażącą wszystkich przeciwników.", 240, C.FRAME_HEIGHT - 80); //możliwe w przyszłości
                     //g.drawString("Nie otzymasz za to bonusów. Zbierz 50 monet by otrzymać rakietę.", 240, C.FRAME_HEIGHT - 50); //możliwe w przyszłości
                 }
-                g.drawString("Gra skończy się gdy stracisz wszystkie życia!",20,C.FRAME_HEIGHT-100);
+                g.drawString(gameStrings.getString("lvl0_gra"),20,C.FRAME_HEIGHT-100);
             }
     //////////////////////UI i elementy//////////////////////////////////////////////////////////////
             if(C.GODMODE) g.drawString("GODMODE", 0, 200);
@@ -2236,6 +2186,10 @@ public class GamePanel extends JPanel implements KeyListener {
             intro = new Intro();
             intro.draw(g2D);
         }//GAMESTATE 100 - intro
+        if(C.GAMESTATE==99){
+            languageSelection = new LanguageSelection();
+            languageSelection.draw(g2D);
+        }//GAMESTATE 99 - wybor jezyka
 
         if(C.GAMESTATE==1){
             menu = new Menu();
@@ -2287,19 +2241,14 @@ public class GamePanel extends JPanel implements KeyListener {
         int randomNumber = random.nextInt(100) + 1; // losuj liczbe od 1 do 100
         if (randomNumber <= weaponUpgradeChance) {//ulepszenie broni
             newWeaponUpgrade(x,y);
-            System.out.println("weapon upg");
         } else if (randomNumber <= weaponUpgradeChance+ weaponFirerateChance) {//przyspieszenie strzelania
             newFirerateUpgrade(x,y);
-            System.out.println("weapon firerate");
         } else if (randomNumber <= weaponUpgradeChance + weaponFirerateChance + bonusShieldChance) {//dodatkowa tarcza
             newBonusShield(x,y);
-            System.out.println("shield");
         }else if (randomNumber <= weaponUpgradeChance + weaponFirerateChance + bonusShieldChance + bonusLifeChance) {//dodatkowe życie
             newLife(x,y);
-            System.out.println("life");
         }else if (randomNumber <= weaponUpgradeChance + weaponFirerateChance + bonusShieldChance + bonusLifeChance + bonusAllyAidChance) {//pomoc sojusznika
             newBonusAllyAid(x,y);
-            System.out.println("allyAiD");
         } else {
             newPoints(x,y,50,50);
         }
@@ -2595,7 +2544,7 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     public void updateLabels(){
         if(C.GAMESTATE==0){
-            labelTotalPoints.setText("Punkty: "+C.totalPoints);
+            labelTotalPoints.setText(gameStrings.getString("Punkty: ")+C.totalPoints);
             labelPlayerLives.setText("x "+C.playerLives);
             labelWeaponUpgrade.setText("x "+C.weaponUpgrade);
 
@@ -2750,8 +2699,8 @@ public class GamePanel extends JPanel implements KeyListener {
             DOWN_PRESSED=false;
             SHOT_PRESSED=false;
             int enddialog = JOptionPane.showConfirmDialog
-                    (null, "Czy chcesz powrócić do menu?",
-                            "Pauza", 0);
+                    (null, gameStrings.getString("Czy chcesz powrócić do menu?"),
+                            gameStrings.getString("Pauza"), 0);
 
             //powrót do menu po wybraniu tak
             if (enddialog == 0) {
@@ -2959,6 +2908,16 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu wyboru jezyka
+            if(C.GAMESTATE==99){
+                if (C.cursorLanguagePosition!=1) C.cursorLanguagePosition=1;
+                else C.cursorLanguagePosition=0;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
@@ -2989,6 +2948,16 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu wyboru jezyka
+            if(C.GAMESTATE==99){
+                if (C.cursorLanguagePosition==1) C.cursorLanguagePosition=0;
+                else C.cursorLanguagePosition=1;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==32 && !isShotOnCooldown){//spacja - strzał
             SHOT_PRESSED=true;
@@ -3009,7 +2978,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorSettingsPosition==3) {
                         //reset najlepszego wyniku
                         int enddialog = JOptionPane.showConfirmDialog
-                                (null, "Czy na pewno chcesz zresetować najlepszy wynik?",
+                                (null, gameStrings.getString("Czy na pewno chcesz zresetować najlepszy wynik?") ,
                                         "?", 0);
                         //zresetowanie po wybraniu tak
                         if (enddialog == 0) resetHighscore();
@@ -3061,7 +3030,22 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                     }
                     break;
-
+                case 99:
+                    try {
+                        SoundManager.playPlayerShot();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    if (C.cursorLanguagePosition==1) {
+                        C.LANGUAGE=1;
+                        updateSettings();
+                        C.GAMESTATE=1;
+                    } else {
+                        C.LANGUAGE=0;
+                        updateSettings();
+                        C.GAMESTATE=1;
+                    }
+                    break;
             }
 
         }
