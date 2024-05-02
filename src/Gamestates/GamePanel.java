@@ -1889,8 +1889,8 @@ public class GamePanel extends JPanel implements KeyListener {
                             isMusicPlayed = true;
                             if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
                                 newBoss50ship(-100,-170,1,1,100,100);
-                                newBoss50turret(100,-270,1,1,999,0,0,50,0);
-                                newBoss50turret(500,-270,1,1,999,0,0,50,1);
+                                newBoss50turret(100,-270,1,1,999,0,0,30,0);
+                                newBoss50turret(500,-270,1,1,999,0,0,30,1);
                                 newBoss50(300,-270,1,1,999,100,0,100,60);
                                 enemyCreated++;
                                 tick = 0;
@@ -1903,7 +1903,6 @@ public class GamePanel extends JPanel implements KeyListener {
                                     for (int iw = 0; iw < listEnemy.size(); iw++) {
                                         Enemy enemy = listEnemy.get(iw);
                                         enemy.setInvincible(false);
-                                        if(enemy.getIsBoss()==5) initialBossHP=enemy.getHP();
                                     }
                                 }
                                 //generowanie ruchu wież boss5
@@ -2493,7 +2492,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if (listEnemy != null) {
             for (int iw = 0; iw < listEnemy.size(); iw++) {
                 Enemy enemy = listEnemy.get(iw);
-                if (enemy.getIsBoss()!=0) {
+                if (enemy.getIsBoss()!=0 && enemy.getIsBoss()!=51 && enemy.getIsBoss()!=52 && enemy.getIsBoss()!=53) {
                     return enemy.getHP();
                 }
             }

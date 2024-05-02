@@ -66,21 +66,19 @@ public class Enemy extends Thread{
             g.drawImage(imgSpikeBall, x, y, w, h, null);//rys prawej spikeball bossa4 z paskiem hp
         }else if (isBoss==5 && imgBoss5!=null) {
             g.drawImage(imgBoss5, x, y, w, h, null);
-//            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys bossa5
         } else if (isBoss==51 && imgBoss5ship!=null) {
             g.drawImage(imgBoss5ship, x, y, w, h, null);
-//            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys wielkiego statku bossa5
         }else if (isBoss==52 && imgBoss5turret!=null) {
             g.setColor(Color.red);
-            g.fillRect(getX()-20,getY()+20,10,50);
+            g.fillRect(getX()-20,getY()+20,10,60);
             g.setColor(Color.gray);
-            g.fillRect(getX()-20,getY()+20,10,50-getHP());
+            g.fillRect(getX()-20,getY()+20,10,60-getHP()*2);
             g.drawImage(imgBoss5turret, x, y, w, h, null);//rys lewej turreta bossa5 z paskeim hp
         }else if (isBoss==53 && imgBoss5turret!=null) {
             g.setColor(Color.red);
-            g.fillRect(getX()+20+getW(),getY()+20,10,50);
+            g.fillRect(getX()+20+getW(),getY()+20,10,60);
             g.setColor(Color.gray);
-            g.fillRect(getX()+20+getW(),getY()+20,10,50-getHP());
+            g.fillRect(getX()+20+getW(),getY()+20,10,60-getHP()*2);
             g.drawImage(imgBoss5turret, x, y, w, h, null);//rys prawej turreta boss5 z paskiem hp
         }else {
             if (getHP()==1) g.drawImage(imgEnemy,x,y,w,h,null);
