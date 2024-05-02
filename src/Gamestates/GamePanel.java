@@ -698,6 +698,7 @@ public class GamePanel extends JPanel implements KeyListener {
 /////////////////////////////////////////////////////////  Levele   ///////////////////////////////////////////./////////////////
 
                         if (C.LEVEL == 99) { //do testowania
+
                             if (level_delay > 500) {//po opóźnieniu
 
                             }
@@ -1874,6 +1875,224 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 
+                        if (C.LEVEL == 50) {
+                            boolean isBossReleased=false;
+                            int phase=1;
+                            if(SoundManager.clipback!=null)SoundManager.stopBackground();
+                            if (isMusicPlayed == false) {
+                                try {
+                                    SoundManager.playBoss();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            isMusicPlayed = true;
+                            if (tick > 500 && C.PAUSE != true && C.isLevelCreated == false) {
+                                newBoss50ship(-100,-170,1,1,100,100);
+                                newBoss50turret(100,-270,1,1,999,0,0,50,0);
+                                newBoss50turret(500,-270,1,1,999,0,0,50,1);
+                                newBoss50(300,-270,1,1,999,100,0,100,60);
+                                enemyCreated++;
+                                tick = 0;
+                                if (enemyCreated == 1) C.isLevelCreated = true;
+                            } else if (C.PAUSE != true && C.isLevelCreated != true) tick++;
+                            else if (C.PAUSE != true && C.isLevelCreated){//po stworzeniu bossa -> MECHANIKA BOSSA5
+
+                                if(listEnemy.size()<=2 && phase==1){//gdy zostanie sam boss zmien faze na 2
+                                    phase=2;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        enemy.setInvincible(false);
+                                        if(enemy.getIsBoss()==5) initialBossHP=enemy.getHP();
+                                    }
+                                }
+                                //generowanie ruchu wież boss5
+                                if (listEnemy != null && C.PAUSE != true && phase==1) {
+                                    for (int i = 0; i < listEnemy.size(); i++) {
+                                        Enemy enemy = listEnemy.get(i);
+                                        if (enemy.getIsBoss() == 51) {
+                                            for (int j = 0; j < listEnemy.size(); j++) {
+                                                Enemy turret = listEnemy.get(j);
+                                                if (turret.getIsBoss()==52){
+                                                    //ruch dla lewego turreta
+                                                    turret.setX(enemy.getX()+150);
+                                                    turret.setY(enemy.getY());
+                                                }else if (turret.getIsBoss()==53){
+                                                    //ruch prawego turreta
+                                                    turret.setX(enemy.getX()+enemy.getW()-305);
+                                                    turret.setY(enemy.getY());
+                                                }else if (turret.getIsBoss()==5){
+                                                    //ruch bossa
+                                                    turret.setX(enemy.getX()+enemy.getW()/2-90);
+                                                    turret.setY(enemy.getY());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (listEnemy != null && C.PAUSE != true && phase==2) {
+                                    for (int i = 0; i < listEnemy.size(); i++) {
+                                        Enemy enemy = listEnemy.get(i);
+                                        if (enemy.getIsBoss() == 51) {
+                                            enemy.setMovingType(52);
+                                            if(enemy.getY()<-200) listEnemy.remove(enemy);
+                                        }
+                                    }
+                                }
+                                if(level_temp1%300==0 && phase==2) { //random tp
+                                    level_temp1++;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==5) {
+                                            enemy.setBoss5randomlocation();
+                                        }
+                                    }
+                                }
+                                if(level_temp1%100==0) { //generowanie strzałów działek
+                                    level_temp1++;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==52) {
+                                            try {
+                                                SoundManager.playEnemyShot();
+                                            } catch (Exception e) {}
+                                            newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 40, 40, 0);//dol
+                                            newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.75), (int) (enemy.getY() + enemy.getH() * 0.75), 40, 40, 1);//prawo dol
+                                            newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.25), (int) (enemy.getY() + enemy.getH() * 0.75), 40, 40, 2);//lewo dol
+                                        }
+                                        if(enemy.getIsBoss()==53) {
+                                            try {
+                                                SoundManager.playEnemyShot();
+                                            } catch (Exception e) {}
+                                            newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 40, 40, 0);//dol
+                                            newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.75), (int) (enemy.getY() + enemy.getH() * 0.75), 40, 40, 1);//prawo dol
+                                            newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.25), (int) (enemy.getY() + enemy.getH() * 0.75), 40, 40, 2);//lewo dol
+                                        }
+                                    }
+                                }
+
+                                if(level_temp1%201==0) { //generowanie strzałów statku
+                                    level_temp1++;
+                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                        Enemy enemy = listEnemy.get(iw);
+                                        if(enemy.getIsBoss()==51) {
+                                            try {
+                                                SoundManager.playEnemyShot();
+                                            } catch (Exception e) {}
+                                            newEnemyShot(enemy.getX() + (enemy.getW()) / 2-10, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                            newEnemyShot(enemy.getX() + (enemy.getW()) / 2+70, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                            newEnemyShot(enemy.getX() + (enemy.getW()) / 2-90, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+                                        }
+                                    }
+                                }
+//                                if (level_temp1>500) { //zatrzymanie bossa i atak spikeball
+//                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+//                                        Enemy enemy = listEnemy.get(iw);
+//
+//                                        //Random random = new Random();
+//                                        //int roll= random.nextInt(2);
+//                                        if(!isStoppedMoving){
+//                                            if(enemy.getIsBoss()==4) {
+//                                                if(phase==2)enemy.setMovingType(47);
+//                                                if(phase==1)enemy.setMovingType(999);
+//
+//                                            }
+//                                            if(enemy.getIsBoss()==41 && phase==1) {
+//                                                enemy.setMovingType(999);
+//                                                enemy.setInvincible(false);
+//                                            }
+//                                            else if(enemy.getIsBoss()==42&& phase==1) {
+//                                                enemy.setMovingType(999);
+//                                                enemy.setInvincible(false);
+//                                            }
+//                                            isStoppedMoving=true;
+//                                        }
+//                                        if(enemy.getIsBoss()==41&& phase==1) {
+//                                            enemy.setMovingType(44);
+//                                            enemy.setInvincible(false);
+//                                        }
+//                                        else if(enemy.getIsBoss()==42&& phase==1) {
+//                                            enemy.setMovingType(44);
+//                                            enemy.setInvincible(false);
+//                                        }
+//
+//                                    }
+//                                    if(level_temp1%101==0 && level_temp1<1000) {
+//                                        level_temp1++;
+//                                        for (int iw = 0; iw < listEnemy.size(); iw++) {
+//                                            Enemy enemy = listEnemy.get(iw);
+//
+//                                            if ( phase==1 && (enemy.getIsBoss() == 41 || enemy.getIsBoss() == 42)) {
+//                                                try {
+//                                                    SoundManager.playEnemyShot();
+//                                                } catch (Exception e) {}
+//                                                newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 1);//prawo dol
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.75), 20, 20, 2);//lewo dol
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW()*0.25), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 3);//lewo gora
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW()*0.75), (int) (enemy.getY() + enemy.getH()*0.25), 20, 20, 4);//prawo gora
+//                                                newEnemyShot(enemy.getX() + (enemy.getW()), enemy.getY() + enemy.getH()/2, 20, 20, 5);//prawo
+//                                                newEnemyShot(enemy.getX(), enemy.getY() + enemy.getH()/2, 20, 20, 6);//lewo
+//                                                newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY(), 20, 20, 7);//gora
+//                                            }
+//                                            if (enemy.getIsBoss() == 4) {
+//                                                if(phase==2) {
+//                                                    Random random = new Random();
+//                                                    for(int i=0;i<=5;i++){
+//                                                        newEnemyLaserShot(-200,random.nextInt(C.FRAME_HEIGHT-40)+30);
+//                                                        newEnemyLaserShot(C.FRAME_WIDTH-150,random.nextInt(C.FRAME_HEIGHT-40)+30);
+//                                                    }
+//                                                }
+//                                                try {
+//                                                    SoundManager.playEnemyShot();
+//                                                } catch (Exception e) {}
+//                                                newEnemyShot(enemy.getX() + (enemy.getW()) / 2, enemy.getY() + enemy.getH(), 20, 20, 0);//dol
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.75), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 1);//prawo dol
+//                                                newEnemyShot((int) (enemy.getX() + enemy.getW() * 0.25), (int) (enemy.getY() + enemy.getH() * 0.75), 20, 20, 2);//lewo dol
+//                                            }
+//
+//                                        }
+//                                    }
+//                                }
+//                                if (level_temp1>1000){ //wznowienie ruchu bossa
+//                                    for (int iw = 0; iw < listEnemy.size(); iw++) {
+//                                        Enemy enemy = listEnemy.get(iw);
+//                                        if(enemy.getIsBoss()==4) {
+//                                            if(phase==1) enemy.setMovingType(40);
+//                                            else enemy.setMovingType(46);
+//                                        }
+//                                        if( phase==1 && (enemy.getIsBoss()==41 || enemy.getIsBoss()==42)) {
+//                                            enemy.setMovingType(40);
+//                                        }
+//
+//                                    }
+//                                }
+                                if (level_temp1>1100){//zresetowanie sekwencji
+                                    level_temp1=0;
+                                }
+
+                            }
+                            if(C.isLevelCreated==true && !(listEnemy.isEmpty())){
+                                level_temp1Up=true;
+                                level_temp3Up=true;
+                            }
+                            if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                C.LEVEL++;
+                                C.totalPoints+=2500;
+                                C.isLevelCreated = false;
+                                enemyCreated = 0;
+                                isMusicPlayed = false;
+                                resetLevel();
+                            }
+                            for (int iw = 0; iw < listEnemy.size(); iw++) {
+                                Enemy enemy = listEnemy.get(iw);
+                                if(enemy.getIsBoss()==4 && enemy.getHP()%10==0){
+                                    if(isBossAid)newAllyAid(-40,20,0);
+                                    isBossAid=false;
+                                }
+                                else isBossAid=true;
+                            }
+                        }
 
 
                         if (C.LEVEL == C.LAST_LEVEL) { /// ostatni poziom koniec gry
@@ -2391,6 +2610,38 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.start();
         listEnemy.add(enemy);
     }
+    public void newBoss50(int x,int y,int velX,int velY,int movingType,int centerX,int centerY,int radius,int hp){
+        Enemy enemy = new Enemy(x, y,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHP(hp);
+        enemy.setIsBoss(5);
+        enemy.setMovingType(999);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.setW(180);
+        enemy.setH(180);
+        enemy.setInvincible(true);
+        enemy.start();
+        listEnemy.add(enemy);
+    }
+    public void newBoss50ship(int x,int y,int velX,int velY,int radius,int hp){
+        Enemy enemy = new Enemy(x, y,this);
+        enemy.setRadius(radius);
+        enemy.setCircleCenterX(0-100);
+        enemy.setCircleCenterY(0-100);
+        enemy.setHP(hp);
+        enemy.setIsBoss(51);
+        enemy.setMovingType(51);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.setW(1000);
+        enemy.setH(180);
+        enemy.setInvincible(true);
+        enemy.start();
+        listEnemy.add(enemy);
+    }
     public void newSpikeBall(int x, int y, int velX, int velY, int movingType, int centerX, int centerY, int radius, int hp, int orientation){
         Enemy enemy = new Enemy(x, y,this);
         enemy.setRadius(radius);
@@ -2405,6 +2656,24 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setVelY(velY);
         enemy.setW(150);
         enemy.setH(150);
+        enemy.start();
+        listEnemy.add(enemy);
+    }
+    public void newBoss50turret(int x, int y, int velX, int velY, int movingType, int centerX, int centerY, int hp, int orientation){
+        Enemy enemy = new Enemy(x, y,this);
+
+        enemy.setCircleCenterX(centerX);
+        enemy.setCircleCenterY(centerY);
+        enemy.setHP(hp);
+        if(orientation==0)
+            enemy.setIsBoss(52);
+        else enemy.setIsBoss(53);
+        enemy.setMovingType(movingType);
+        enemy.setVelX(velX);
+        enemy.setVelY(velY);
+        enemy.setRadius(100);
+        enemy.setW(150);
+        enemy.setH(200);
         enemy.start();
         listEnemy.add(enemy);
     }
@@ -2770,6 +3039,8 @@ public class GamePanel extends JPanel implements KeyListener {
             //newBonusAllyAid(100,-10);
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
+
+
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);

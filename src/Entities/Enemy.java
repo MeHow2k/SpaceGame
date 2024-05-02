@@ -4,6 +4,7 @@ package Entities;
 import Constants.C;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class Enemy extends Thread{
 
@@ -26,6 +27,10 @@ public class Enemy extends Thread{
     Image imgSpikeBall = new ImageIcon(getClass().getClassLoader().getResource("spikeball.gif")).getImage();
     Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4_rage.gif")).getImage();
     Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
+
+    Image imgBoss5 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
+    Image imgBoss5ship = new ImageIcon(getClass().getClassLoader().getResource("boss5ship.png")).getImage();
+    Image imgBoss5turret = new ImageIcon(getClass().getClassLoader().getResource("spikeball.gif")).getImage();
 
     //konstruktor
     public Enemy(int x, int y, JPanel panel){
@@ -59,6 +64,24 @@ public class Enemy extends Thread{
             g.setColor(Color.gray);
             g.fillRect(getX()+50+getW(),getY()+20,10,70-getHP());
             g.drawImage(imgSpikeBall, x, y, w, h, null);//rys prawej spikeball bossa4 z paskiem hp
+        }else if (isBoss==5 && imgBoss5!=null) {
+            g.drawImage(imgBoss5, x, y, w, h, null);
+//            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys bossa5
+        } else if (isBoss==51 && imgBoss5ship!=null) {
+            g.drawImage(imgBoss5ship, x, y, w, h, null);
+//            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys wielkiego statku bossa5
+        }else if (isBoss==52 && imgBoss5turret!=null) {
+            g.setColor(Color.red);
+            g.fillRect(getX()-20,getY()+20,10,50);
+            g.setColor(Color.gray);
+            g.fillRect(getX()-20,getY()+20,10,50-getHP());
+            g.drawImage(imgBoss5turret, x, y, w, h, null);//rys lewej turreta bossa5 z paskeim hp
+        }else if (isBoss==53 && imgBoss5turret!=null) {
+            g.setColor(Color.red);
+            g.fillRect(getX()+20+getW(),getY()+20,10,50);
+            g.setColor(Color.gray);
+            g.fillRect(getX()+20+getW(),getY()+20,10,50-getHP());
+            g.drawImage(imgBoss5turret, x, y, w, h, null);//rys prawej turreta boss5 z paskiem hp
         }else {
             if (getHP()==1) g.drawImage(imgEnemy,x,y,w,h,null);
             if (getHP()==2) g.drawImage(imgEnemy2,x,y,w,h,null);
@@ -67,116 +90,21 @@ public class Enemy extends Thread{
         }
     }
 
-    public int getDirX() {
-        return dirX;
-    }
-
-    public void setDirX(int dirX) {
-        this.dirX = dirX;
-    }
-
-    public int getDirY() {
-        return dirY;
-    }
-
-    public void setDirY(int dirY) {
-        this.dirY = dirY;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getW() {
-        return w;
-    }
-
-    public int getH() {
-        return h;
-    }
-
-    public int getHP() {
-        return hp;
-    }
-
-    public void setHP(int hp) {
-        this.hp = hp;
-    }
-
-    public void setMovingType(int movingType) {
-        this.movingType = movingType;
-    }
-
-    public void setCircleCenterX(int circleCenterX) {
-        this.circleCenterX = circleCenterX;
-    }
-
-    public void setCircleCenterY(int circleCenterY) {
-        this.circleCenterY = circleCenterY;
-    }
-
-    public void setRadius(int radius) {
-        this.radius = radius;
-    }
-    public boolean isInvincible() {
-        return isInvincible;
-    }
-
-    public void setInvincible(boolean invincible) {
-        isInvincible = invincible;
-    }
-
-    public int getIsBoss() {
-        return isBoss;
-    }
-
-    public void setIsBoss(int isBoss) {
-        this.isBoss = isBoss;
-    }
-
-    public int getVelX() {
-        return velX;
-    }
-
-    public void setVelX(int velX) {
-        this.velX = velX;
-    }
-
-    public int getVelY() {
-        return velY;
-    }
-
-    public void setW(int w) {
-        this.w = w;
-    }
-
-    public void setH(int h) {
-        this.h = h;
-    }
-
-    public void setVelY(int velY) {
-        this.velY = velY;
-    }
-
     @Override
     public void run() {
         while (true){
             if(C.PAUSE != true) {
                 if (x < 0) {
-                    dirX = 1;
+                    if(movingType!=51) dirX = 1;
                 }
                 if (x > C.FRAME_WIDTH - getW()) {
-                    if(movingType!=1000) dirX = -1;
+                    if(movingType!=1000 || movingType!=51) dirX = -1;
                 }
                 if (y<0) {
-                    dirY = 1;
+                    if(movingType!=51)dirY = 1;
                 }
                 if (y>C.FRAME_HEIGHT-150) {
-                    dirY = -1;
+                    if(movingType!=51)dirY = -1;
                 }
                 //y=y+;
                 //x = x + velX * dirX;
@@ -300,6 +228,20 @@ public class Enemy extends Thread{
                     y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
                     if(angle==360) angle=0; else angle++;
                 }
+                if(movingType==50) {// dla bossa 50 - teleport
+
+                }
+                if(movingType==51) {// dla duzego statku bossa 5
+                    if(y<=0)
+                        y=y+1* dirY *velY;
+                    else{
+                        x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                        if(angle==360) angle=0; else angle++;
+                    }
+                }
+                if(movingType==52) {// dla duzego statku bossa 5 faza 2
+                    y = y - velY * dirY;
+                }
 
             }
             try {
@@ -309,4 +251,112 @@ public class Enemy extends Thread{
             }
         }
     }
+    public void setBoss5randomlocation() {
+        Random random = new Random();
+        x = random.nextInt(C.FRAME_WIDTH-200);
+        y = random.nextInt(C.FRAME_HEIGHT-400);
+    }
+    public int getDirX() {
+        return dirX;
+    }
+
+    public void setDirX(int dirX) {
+        this.dirX = dirX;
+    }
+
+    public int getDirY() {
+        return dirY;
+    }
+
+    public void setDirY(int dirY) {
+        this.dirY = dirY;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public int getH() {
+        return h;
+    }
+
+    public int getHP() {
+        return hp;
+    }
+
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
+    public void setMovingType(int movingType) {
+        this.movingType = movingType;
+    }
+
+    public void setCircleCenterX(int circleCenterX) {
+        this.circleCenterX = circleCenterX;
+    }
+
+    public void setCircleCenterY(int circleCenterY) {
+        this.circleCenterY = circleCenterY;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+    public boolean isInvincible() {
+        return isInvincible;
+    }
+
+    public void setInvincible(boolean invincible) {
+        isInvincible = invincible;
+    }
+
+    public int getIsBoss() {
+        return isBoss;
+    }
+
+    public void setIsBoss(int isBoss) {
+        this.isBoss = isBoss;
+    }
+
+    public int getVelX() {
+        return velX;
+    }
+
+    public void setVelX(int velX) {
+        this.velX = velX;
+    }
+
+    public int getVelY() {
+        return velY;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public void setVelY(int velY) {
+        this.velY = velY;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
 }
