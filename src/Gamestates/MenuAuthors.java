@@ -49,7 +49,7 @@ public class MenuAuthors {
             g.drawString("Grafika została wykonana w programie Paint/GIMP/Libresprite", 30, 460);
             g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co ,pobrane ze stron (no copyright)", 30, 490);
             g.drawString("Obróbka dźwięków/muzyki: Audacity", 30, 520);
-        } else {//EN todo
+        } else {//EN todo po prostu bierzesz zamieniasz na ang, ew. jak coś bedzie nie tak to dostosuj położenie albo stwórz nowa linijke
             g.drawString("About game", C.FRAME_WIDTH / 2 - 200, 50);
 
             g.setFont(customFont.deriveFont(25f));
@@ -65,7 +65,7 @@ public class MenuAuthors {
             g.drawString("Grafika została wykonana w programie Paint/GIMP/Libresprite", 30, 460);
             g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co ,pobrane ze stron (no copyright)", 30, 490);
             g.drawString("Obróbka dźwięków/muzyki: Audacity", 30, 520);
-        }
+        }//todo dalej nie
         g.setColor(selectedColor);
         g.setFont(customFont.deriveFont(18f));
         g.drawString(gameStrings.getString("Aby powrócićENTER"), C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);

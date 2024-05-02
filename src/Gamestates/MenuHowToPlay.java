@@ -39,7 +39,7 @@ public class MenuHowToPlay {
     public void draw (Graphics2D g){
         g.setFont(customFont.deriveFont(60f));
         g.setColor(Color.white);
-        if(C.LANGUAGE==1) {//pl
+        if(C.LANGUAGE==1) {//pl //todo jak to zaktualizujesz, to na dole po angielsku
             g.drawString("Jak grać?", C.FRAME_WIDTH / 2 - 200, 50);
 
             g.setFont(customFont.deriveFont(25f));
@@ -59,7 +59,7 @@ public class MenuHowToPlay {
             if (imgZycie != null) g.drawImage(imgZycie, 230, 410, 30, 30, null);
             g.setFont(customFont.deriveFont(25f));
             g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".", 30, 700);
-        } else {//todo en
+        } else {////EN todo po prostu bierzesz zamieniasz na ang, ew. jak coś bedzie nie tak to dostosuj położenie albo stwórz nowa linijke
             g.drawString("How to play?", C.FRAME_WIDTH / 2 - 200, 50);
 
             g.setFont(customFont.deriveFont(25f));
@@ -79,7 +79,7 @@ public class MenuHowToPlay {
             if (imgZycie != null) g.drawImage(imgZycie, 230, 410, 30, 30, null);
             g.setFont(customFont.deriveFont(25f));
             g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".", 30, 700);
-        }
+        }//todo dalej nie
         g.setColor(selectedColor);
         g.setFont(customFont.deriveFont(18f));
         g.drawString(gameStrings.getString("Aby powrócićENTER"), C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
