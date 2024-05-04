@@ -7,65 +7,63 @@ public class Strings {
     private Map<Integer, Map<String, String>> languageMap;
 
     public Strings() {
-        //todo tut do zmiany jezyka w Gamestates!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Inicjalizacja mapy przechowującej tłumaczenia dla różnych języków
         languageMap = new HashMap<>();
 
         // Dodanie tłumaczeń dla poszczególnych stringów
         //ANGIELSKI
         Map<String, String> enStrings = new HashMap<>();
         enStrings.put("Start", "Start");
-        enStrings.put("Jak grać?", "How to play?");
+        enStrings.put("Jak grać?", "How To Play?");
         enStrings.put("Opcje", "Settings");
         enStrings.put("Autorzy", "Authors");
-        enStrings.put("Wyjście", "Exit"); //todo skomentowane do przetłumaczenia (lewo klucz zostaw, prawo String do przetł.)
+        enStrings.put("Wyjście", "Exit");
 
-        enStrings.put("Aby zatwierdzić", "(en)Aby zatwierdzić wciśnij ENTER");
-        enStrings.put("Aby powrócićESC", "(en)Aby powrócić do menu wciśnij ESC");
-        enStrings.put("Aby powrócićENTER", "(en)Aby powrócić do menu wciśnij ENTER");
-        enStrings.put("Aby zmienić wartość", "(en)Aby zmienić wartość użyj strzałek");
-        enStrings.put("Wybierz swój statek!", "(en)Wybierz swój statek!");
-        enStrings.put("Wybrany statek:", "(en)Wybrany statek:");
-        enStrings.put("Nazwa:", "(en)Nazwa:");
-        enStrings.put("Dostępne statki:", "(en)Dostępne statki:");
-        enStrings.put("Graj!", "(en)Graj!");
-        enStrings.put("Głośność muzyki:", "(en)Głośność muzyki:");
-        enStrings.put("Głośność dźwięków:", "(en)Głośność dźwięków:");
-        enStrings.put("Wycisz wszystko:", "(en)Wycisz wszystko:");
-        enStrings.put("TAK", "(en)TAK");
-        enStrings.put("NIE", "(en)NIE");
-        enStrings.put("Zresetuj wynik", "(en)Zresetuj najlepszy wynik:");
-        enStrings.put("Nie ma zapisanego", "(en)Nie ma zapisanego najlepszego wyniku.");
-        enStrings.put("Czy na pewno zresetować", "(en)Czy na pewno chcesz zresetować najlepszy wynik?");
-        enStrings.put("Aktualny:", "(en)Aktualny:");
-        enStrings.put("punktów", "(en)punktów");
-        enStrings.put("Punkty:", "(en)Punkty:");
-        enStrings.put("poziom", "(en)Poziom");
-        enStrings.put("Aby odpauzować", "(en)Aby odpauzować naciśnij klawisz \"p\"");
-        enStrings.put("lvl0_trafiaj", "(en)Trafiaj w przeciwników, unikając ich oraz ich strzałów.");
-        enStrings.put("lvl0_użyj", "(en)Użyj strzałek aby się poruszać. Użyj spacji, aby strzelać.");
-        enStrings.put("lvl0_gra", "(en)Gra skończy się gdy stracisz wszystkie życia!");
-        enStrings.put("lvl0_podczas", "(en)Podczas gry pojawiają się sojusznicze statki wspierające bonusami.");
-        enStrings.put("lvl0_po", "(en)Po zestrzeleniu wroga pojawiają się bonusy do zbierania.");
-        enStrings.put("Pauza", "(en)Pauza");
-        enStrings.put("Czy chcesz powrócić do menu?", "(en)Czy chcesz powrócić do menu?");
-        enStrings.put("Koniec gry", "(en)Koniec gry");
-        enStrings.put("Uzyskałeś", "(en)Uzyskałeś");
-        enStrings.put("Przegrałeś!", "(en)Przegrałeś!");
-        enStrings.put("Czy chcesz zagrać ponownie?", "(en)Czy chcesz zagrać ponownie?");
-        enStrings.put("Gratulacje!", "(en)Gratulacje!");
-        enStrings.put("Ukończyłeś grę!", "(en)Ukończyłeś grę!");
-        enStrings.put("Wynik końcowy:", "(en)Wynik końcowy:");
-        enStrings.put("Nowy rekord!", "(en)Nowy rekord!");
-        enStrings.put("Wybierz język", "Choose language");
+        enStrings.put("Aby zatwierdzić", "To confirm press ENTER");
+        enStrings.put("Aby powrócićESC", "To return to the menu press ESC");
+        enStrings.put("Aby powrócićENTER", "To return to the menu press ENTER");
+        enStrings.put("Aby zmienić wartość", "To change the value use arrows");
+        enStrings.put("Wybierz swój statek!", "Choose your spaceship!");
+        enStrings.put("Wybrany statek:", "Selected spaceship:");
+        enStrings.put("Nazwa:", "Name:");
+        enStrings.put("Dostępne statki:", "Available spaceships:");
+        enStrings.put("Graj!", "Play!");
+        enStrings.put("Głośność muzyki:", "Music Volume:");
+        enStrings.put("Głośność dźwięków:", "Sound Volume:");
+        enStrings.put("Wycisz wszystko:", "Mute All:");
+        enStrings.put("TAK", "YES");
+        enStrings.put("NIE", "NO");
+        enStrings.put("Zresetuj wynik", "Reset your best score");
+        enStrings.put("Nie ma zapisanego", "There is no best score saved.");
+        enStrings.put("Czy na pewno zresetować", "Are you sure you want to reset your best score?");
+        enStrings.put("Aktualny:", "Current:");
+        enStrings.put("punktów", "points");
+        enStrings.put("Punkty:", "Points:");
+        enStrings.put("poziom", "Level");
+        enStrings.put("Aby odpauzować", "To unpause press \"p\"");
+        enStrings.put("lvl0_trafiaj", "Hit your opponents while dodging them and their shots.");
+        enStrings.put("lvl0_użyj", "Use arrows to move. Use SPACEBAR to shoot.");
+        enStrings.put("lvl0_gra", "The game ends when you lose all your lives!");
+        enStrings.put("lvl0_podczas", "Allied spaceships appear during the game to support you with bonuses.");
+        enStrings.put("lvl0_po", "After shooting down an enemy, bonuses appear to be picked up.");
+        enStrings.put("Pauza", "Pause");
+        enStrings.put("Czy chcesz powrócić do menu?", "Do you want to return to the menu?");
+        enStrings.put("Koniec gry", "Game over");
+        enStrings.put("Uzyskałeś", "Yoy have obtained");
+        enStrings.put("Przegrałeś!", "You lost!");
+        enStrings.put("Czy chcesz zagrać ponownie?", "Do you want to play again?");
+        enStrings.put("Gratulacje!", "Congratulations!");
+        enStrings.put("Ukończyłeś grę!", "You have completed the game!");
+        enStrings.put("Wynik końcowy:", "Final score:");
+        enStrings.put("Nowy rekord!", "A new record!");
+        enStrings.put("Wybierz język", "Select language");
         enStrings.put("Język", "Language");
-        enStrings.put("Polski", "Polish");
+        enStrings.put("Polski", "Polski");
         enStrings.put("Angielski", "English");
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
         plStrings.put("Start", "Start");
-        plStrings.put("Jak grać?", "Jak grać?");
+        plStrings.put("Jak grać?", "Jak Grać?");
         plStrings.put("Opcje", "Opcje");
         plStrings.put("Autorzy", "Autorzy");
         plStrings.put("Wyjście", "Wyjście");
@@ -78,9 +76,9 @@ public class Strings {
         plStrings.put("Nazwa:", "Nazwa:");
         plStrings.put("Dostępne statki:", "Dostępne statki:");
         plStrings.put("Graj!", "Graj!");
-        plStrings.put("Głośność muzyki:", "Głośność muzyki:");
-        plStrings.put("Głośność dźwięków:", "Głośność dźwięków:");
-        plStrings.put("Wycisz wszystko:", "Wycisz wszystko:");
+        plStrings.put("Głośność muzyki:", "Głośność Muzyki:");
+        plStrings.put("Głośność dźwięków:", "Głośność Dźwięków:");
+        plStrings.put("Wycisz wszystko:", "Wycisz Wszystko:");
         plStrings.put("TAK", "TAK");
         plStrings.put("NIE", "NIE");
         plStrings.put("Zresetuj wynik", "Zresetuj najlepszy wynik:");
@@ -92,7 +90,7 @@ public class Strings {
         plStrings.put("poziom", "Poziom");
         plStrings.put("Aby odpauzować", "Aby odpauzować naciśnij klawisz \"p\"");
         plStrings.put("lvl0_trafiaj", "Trafiaj w przeciwników, unikając ich oraz ich strzałów.");
-        plStrings.put("lvl0_użyj", "Użyj strzałek aby się poruszać. Użyj spacji, aby strzelać.");
+        plStrings.put("lvl0_użyj", "Użyj strzałek aby się poruszać. Użyj SPACJI, aby strzelać.");
         plStrings.put("lvl0_gra", "Gra skończy się gdy stracisz wszystkie życia!");
         plStrings.put("lvl0_podczas", "Podczas gry pojawiają się sojusznicze statki wspierające bonusami.");
         plStrings.put("lvl0_po", "Po zestrzeleniu wroga pojawiają się bonusy do zbierania.");
@@ -109,7 +107,7 @@ public class Strings {
         plStrings.put("Wybierz język", "Wybierz język");
         plStrings.put("Język", "Język");
         plStrings.put("Polski", "Polski");
-        plStrings.put("Angielski", "Angielski");
+        plStrings.put("Angielski", "English");
 
 
         // Dodanie tłumaczeń do mapy głównej

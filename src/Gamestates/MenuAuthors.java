@@ -47,24 +47,24 @@ public class MenuAuthors {
             g.drawString("Data rozpoczęcia projektu: 25.10.2023", 30, 390);
             g.drawString("Data zakończenia projektu: ?", 30, 420);
             g.drawString("Grafika została wykonana w programie Paint/GIMP/Libresprite", 30, 460);
-            g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co ,pobrane ze stron (no copyright)", 30, 490);
+            g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co, pobrane ze stron (no copyright)", 30, 490);
             g.drawString("Obróbka dźwięków/muzyki: Audacity", 30, 520);
         } else {//EN todo po prostu bierzesz zamieniasz na ang, ew. jak coś bedzie nie tak to dostosuj położenie albo stwórz nowa linijke
-            g.drawString("About game", C.FRAME_WIDTH / 2 - 200, 50);
+            g.drawString("About the game", C.FRAME_WIDTH / 2 - 200, 50);
 
             g.setFont(customFont.deriveFont(25f));
-            g.drawString("Autorzy projektu: Michał Pasieka, Daniel Prorok, Paweł Sanocki", C.FRAME_WIDTH / 2 - 370, 100);
-            g.drawString("Studenci III roku Informatyki w PANS w Krośnie", C.FRAME_WIDTH / 2 - 370, 130);
+            g.drawString("Project authors: Michał Pasieka, Daniel Prorok, Paweł Sanocki", C.FRAME_WIDTH / 2 - 370, 100);
+            g.drawString("Third-year Computer Science students at PANS in Krosno, Poland", C.FRAME_WIDTH / 2 - 370, 130);
 
             g.drawImage(logo, C.FRAME_WIDTH / 2 - 260, 70, 480, 280, null);
 
-            g.drawString("Gra została napisana jako projekt zaliczeniowy przedmiotu:", 30, 330);
-            g.drawString("Projekt zespołowy", 30, 360);
-            g.drawString("Data rozpoczęcia projektu: 25.10.2023", 30, 390);
-            g.drawString("Data zakończenia projektu: ?", 30, 420);
-            g.drawString("Grafika została wykonana w programie Paint/GIMP/Libresprite", 30, 460);
-            g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co ,pobrane ze stron (no copyright)", 30, 490);
-            g.drawString("Obróbka dźwięków/muzyki: Audacity", 30, 520);
+            g.drawString("The game was developed as a course assignment:", 30, 330);
+            g.drawString("Team Project", 30, 360);
+            g.drawString("Project start date: 25.10.2023", 30, 390);
+            g.drawString("Project completion date: ?", 30, 420);
+            g.drawString("The graphics were made in the program Paint/GIMP/Libresprite", 30, 460);
+            g.drawString("Sounds made with: www.beepbox.co, downloaded from websites (no copyright)", 30, 490);
+            g.drawString("Sound/music processing: Audacity", 30, 520);
         }//todo dalej nie
         g.setColor(selectedColor);
         g.setFont(customFont.deriveFont(18f));
