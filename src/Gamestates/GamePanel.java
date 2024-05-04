@@ -1933,11 +1933,11 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 if (turret.getIsBoss()==52){
                                                     //ruch dla lewego turreta
                                                     turret.setX(enemy.getX()+150);
-                                                    turret.setY(enemy.getY());
+                                                    turret.setY(enemy.getY()+40);
                                                 }else if (turret.getIsBoss()==53){
                                                     //ruch prawego turreta
                                                     turret.setX(enemy.getX()+enemy.getW()-305);
-                                                    turret.setY(enemy.getY());
+                                                    turret.setY(enemy.getY()+40);
                                                 }else if (turret.getIsBoss()==5){
                                                     //ruch bossa
                                                     turret.setX(enemy.getX()+enemy.getW()/2-90);
@@ -2634,7 +2634,7 @@ public class GamePanel extends JPanel implements KeyListener {
         enemy.setVelX(velX);
         enemy.setVelY(velY);
         enemy.setW(1000);
-        enemy.setH(180);
+        enemy.setH(220);
         enemy.setInvincible(true);
         enemy.start();
         listEnemy.add(enemy);
