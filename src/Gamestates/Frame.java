@@ -6,6 +6,7 @@ import Constants.C;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Frame extends JFrame {
@@ -37,6 +38,7 @@ public class Frame extends JFrame {
                     fos.write("4\n".getBytes()); // Domyślna głośność dzwięków
                     fos.write("false\n".getBytes());  // Domyślne brak wyciszenia
                     fos.write("0\n".getBytes());  // Domyślny skin 0
+                    fos.write("999\n".getBytes());  // Domyślny język 999- żaden, aby przy uruchomieniu został wybrany przez użytkownika
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -45,6 +47,7 @@ public class Frame extends JFrame {
             Scanner scanner = new Scanner(new FileInputStream(absolutePath),"UTF-8");
 
             // sprawdzanie czy linia tekstu istnieje
+
             while(scanner.hasNextLine()){
                 //kazda linia pliku odpowiada za inne ustawienie
                 //pierwsza za glosnosc muzyki
@@ -55,11 +58,17 @@ public class Frame extends JFrame {
                 String muteOption = scanner.nextLine();
                 if(muteOption.equals("false")) C.isMuted=false;
                 else C.isMuted=true;
+                //wybrana skórka
                 C.playerSkin=Integer.parseInt(scanner.nextLine());
+                //wybrany język
+                C.LANGUAGE=Integer.parseInt(scanner.nextLine());
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("nie znaleziono pliku");
+            System.out.println("Cant find config file.");
+        }catch (NoSuchElementException e) {
+            System.out.println("Config file is broken. Restoring default config...");
+            C.musicVolume=4;C.soundVolume=4;C.isMuted=false;C.playerSkin=0;C.LANGUAGE=99;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -87,7 +96,7 @@ public class Frame extends JFrame {
                 C.highscoreLevel=Integer.parseInt(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println("nie znaleziono pliku");
+            System.out.println("Cant find highscore file.");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,7 @@
 package Gamestates;
 
 import Constants.C;
+import Constants.Strings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +18,11 @@ public class MenuSkinSelection {
     Image imgPlayer3 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin3.gif")).getImage();
     Image imgPlayer4 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin4.gif")).getImage();
     Color selectedColor = new Color(255, 233, 12);
+    Strings gameStrings;
 
     int skinPreviewX =C.FRAME_WIDTH/2-50, skinPreviewY =130;
     public MenuSkinSelection() {
+        gameStrings = new Strings();
         try {
             //import czcionki
             InputStream fontStream = getClass().getResourceAsStream("/VT323-Regular.ttf");
@@ -38,9 +41,9 @@ public class MenuSkinSelection {
         g.setFont(customFont.deriveFont(15f));
         g.setColor(Color.white);
         g.setFont(customFont.deriveFont(65f));
-        g.drawString("Wybierz swój statek!", C.FRAME_WIDTH/2-260,50);
+        g.drawString(gameStrings.getString("Wybierz swój statek!"), C.FRAME_WIDTH/2-260,50);
         g.setFont(customFont.deriveFont(25f));
-        g.drawString("Wybrany statek:", C.FRAME_WIDTH/2-300,145);
+        g.drawString(gameStrings.getString("Wybrany statek:"), C.FRAME_WIDTH/2-300,145);
 
         //obrazek aktuanego wygladu gracza:
         if(C.playerSkin==0) g.drawImage(imgPlayer, skinPreviewX, skinPreviewY,100,100,null);
@@ -51,7 +54,7 @@ public class MenuSkinSelection {
         //dodaj ify po wiecej
 
         //nazwa skórki
-        g.drawString("Nazwa:", C.FRAME_WIDTH/2-200,270);
+        g.drawString(gameStrings.getString("Nazwa:")+" ", C.FRAME_WIDTH/2-200,270);
         g.setFont(customFont.deriveFont(20f));
         if(C.playerSkin==0) g.drawString("D-1 Galactic ", C.FRAME_WIDTH/2-100,270);
         if(C.playerSkin==1) g.drawString("C-5 Cosmic Harpoon ", C.FRAME_WIDTH/2-100,270);
@@ -63,7 +66,7 @@ public class MenuSkinSelection {
         g.setFont(customFont.deriveFont(35f));
 
         //lista skinów jako elementy do wybrania przez gracza:
-        g.drawString("Dostępne statki:", C.FRAME_WIDTH/2-300,365);
+        g.drawString(gameStrings.getString("Dostępne statki:"), C.FRAME_WIDTH/2-300,365);
         g.drawImage(imgPlayer, C.FRAME_WIDTH/2-300, 450,50,50,null);
         g.drawImage(imgPlayer1, C.FRAME_WIDTH/2-175, 450,50,50,null);
         g.drawImage(imgPlayer2, C.FRAME_WIDTH/2-50, 450,50,50,null);
@@ -81,13 +84,13 @@ public class MenuSkinSelection {
         if(C.cursorBeforeGamePosition==4) g.drawRect(C.FRAME_WIDTH/2+200-25,450-25,100,100);
         g.setColor(Color.white);
         if(C.cursorBeforeGamePosition==5) g.setColor(selectedColor);
-        g.drawString("Graj!",C.FRAME_WIDTH/2-50,725);
+        g.drawString(gameStrings.getString("Graj!"), C.FRAME_WIDTH/2-50,725);
         g.setColor(Color.white);
 
         g.setFont(customFont.deriveFont(18f));
-        g.drawString("Aby zatwerdzić naciśnij ENTER",C.FRAME_WIDTH-250,C.FRAME_HEIGHT-70);
+        g.drawString(gameStrings.getString("Aby zatwierdzić"), C.FRAME_WIDTH-250,C.FRAME_HEIGHT-70);
         g.setFont(customFont.deriveFont(18f));
-        g.drawString("Aby powrócić do menu wciśnij ESC",C.FRAME_WIDTH-250,C.FRAME_HEIGHT-50);
+        g.drawString(gameStrings.getString("Aby powrócićESC"), C.FRAME_WIDTH-250,C.FRAME_HEIGHT-50);
     }
 
 }

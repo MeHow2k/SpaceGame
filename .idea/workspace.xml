@@ -9,8 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Levele 41-49">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Komentarze">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/EnemyShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,10 +71,11 @@
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
       <recent name="C:\Users\Daniel\IntelliJ projekty\Java\SpaceGame\Graphics" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Frame">
     <configuration name="Frame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Gamestates.Frame" />
       <module name="SpaceGame" />
@@ -85,9 +89,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Strings" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Constants.Strings" />
+      <module name="SpaceGame" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Constants.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Frame" />
+        <item itemvalue="Application.Strings" />
       </list>
     </recent_temporary>
   </component>
@@ -357,15 +375,84 @@
       <option name="project" value="LOCAL" />
       <updated>1713724508980</updated>
     </task>
-    <task id="LOCAL-00035" summary="Levele 41-49">
-      <option name="closed" value="true" />
-      <created>1714225595575</created>
+    <task id="LOCAL-00035" summary="Poprawa wyświetlania wroga lasera">
+      <created>1714312104950</created>
       <option name="number" value="00035" />
       <option name="presentableId" value="LOCAL-00035" />
       <option name="project" value="LOCAL" />
-      <updated>1714225595575</updated>
+      <updated>1714312104950</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="System zmiany tłumaczeń, GUI zmiany języka">
+      <created>1714559188941</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1714559188941</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Poprawka dot Gamestate przy uruchamianiu">
+      <created>1714559290828</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1714559290828</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Wybór języka przy pierwszym uruchomieniu gry">
+      <created>1714559906057</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1714559906057</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Zapis informacji o języku do pliku">
+      <created>1714561829824</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1714561829824</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Naprawa zmiany głośności dźwięków">
+      <created>1714561983502</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1714561983502</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Możliwość wyboru języka z poziomu menu opcji">
+      <created>1714573351321</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1714573351321</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Usunięcie nieportrzebnych plików i zbędnego kodu">
+      <created>1714574111242</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1714574111242</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Dodanie bossa 50 i jego mechanik (bez naprawienia pasków hp i 2 fazy)">
+      <created>1714651285587</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1714651285587</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Dodanie bossa 50 i jego mechanik (naprawione paski hp bez ogarnietej 2 fazy)">
+      <created>1714651689827</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1714651689827</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Komentarze">
+      <created>1714652257655</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1714652257655</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -386,16 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie obsługi sterowania graczem, dodanie systemu odtwarzania audio." />
-    <MESSAGE value="Poprawa literówki w nazwie pliku" />
-    <MESSAGE value="Dodanie obsługi menu opcje wraz z przygotowaniem do wprowadzenia resetu najlepszego wyniku i kontroli głośności dzwięku i muzyki" />
-    <MESSAGE value="Dodanie dźwięku przy zmianie pozycji kursora w menu" />
-    <MESSAGE value="Kursor prottyp grafiki" />
-    <MESSAGE value="Naprawa usterki przy ponownym odtwarzaniu dźwięku przy zmianie głośności (literówka)" />
-    <MESSAGE value="Dopisanie komentarzy" />
-    <MESSAGE value="Poprawa czcionki w ustawieniach" />
-    <MESSAGE value="Zapisywanie ustawień i najwyższego wyniku do pliku, oraz obsługa ustawień" />
-    <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Dodanie leveli od 11-19" />
     <MESSAGE value="Dodanie levelu 20 - boss" />
@@ -410,7 +487,17 @@
     <MESSAGE value="Dodanie samouczka, zmiana na resources w soundmanager" />
     <MESSAGE value="g" />
     <MESSAGE value="Merge" />
-    <MESSAGE value="Levele 41-49" />
-    <option name="LAST_COMMIT_MESSAGE" value="Levele 41-49" />
+    <MESSAGE value="Poprawa wyświetlania wroga lasera" />
+    <MESSAGE value="System zmiany tłumaczeń, GUI zmiany języka" />
+    <MESSAGE value="Poprawka dot Gamestate przy uruchamianiu" />
+    <MESSAGE value="Wybór języka przy pierwszym uruchomieniu gry" />
+    <MESSAGE value="Zapis informacji o języku do pliku" />
+    <MESSAGE value="Naprawa zmiany głośności dźwięków" />
+    <MESSAGE value="Możliwość wyboru języka z poziomu menu opcji" />
+    <MESSAGE value="Usunięcie nieportrzebnych plików i zbędnego kodu" />
+    <MESSAGE value="Dodanie bossa 50 i jego mechanik (bez naprawienia pasków hp i 2 fazy)" />
+    <MESSAGE value="Dodanie bossa 50 i jego mechanik (naprawione paski hp bez ogarnietej 2 fazy)" />
+    <MESSAGE value="Komentarze" />
+    <option name="LAST_COMMIT_MESSAGE" value="Komentarze" />
   </component>
 </project>

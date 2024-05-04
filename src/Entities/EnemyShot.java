@@ -7,6 +7,27 @@ import java.awt.*;
 
 public class EnemyShot extends Thread {
     private int x, y, w = 10, h = 10, movingType = 0;
+    private double angle = 0;
+    private double radius = 2;
+    int rounds=0;
+
+    public int getCircleCenterX() {
+        return circleCenterX;
+    }
+
+    public void setCircleCenterX(int circleCenterX) {
+        this.circleCenterX = circleCenterX;
+    }
+
+    public int getCircleCenterY() {
+        return circleCenterY;
+    }
+
+    public void setCircleCenterY(int circleCenterY) {
+        this.circleCenterY = circleCenterY;
+    }
+
+    int circleCenterX; int circleCenterY;
 
     public int getMovingType() {
         return movingType;
@@ -70,7 +91,7 @@ public class EnemyShot extends Thread {
     @Override
     public void run() {
         while (true) {
-            if(y>C.FRAME_HEIGHT || y<-40) break;
+            if(y>C.FRAME_HEIGHT || y<-100) break;
             if (C.PAUSE!=true && movingType==0)//w dol
                 y=y+2;
             else if (C.PAUSE!=true && movingType==1){//prawo dol
@@ -91,6 +112,28 @@ public class EnemyShot extends Thread {
                 x=x-2;
             }else if (C.PAUSE!=true && movingType==7){//gora
                 y=y-2;
+            }else if (C.PAUSE!=true && movingType==8){//po okregu po 2 okrazeniach na doł za wskaz. zegara
+
+                x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+                if (angle == 0) {
+                    angle = 360;
+                    rounds++;
+                } else angle--;
+
+                if (radius<100)radius += 0.5;
+
+
+            }else if (C.PAUSE!=true && movingType==9){//po okregu po 2 okrazeniach na doł przeciw wskaz. zegrara
+
+                x = (int) (circleCenterX + radius * Math.cos(Math.toRadians(angle)));
+                y = (int) (circleCenterY + radius * Math.sin(Math.toRadians(angle)));
+
+                if (angle == 360) {
+                    angle = 0;
+                    } else angle++;
+                if (radius<100) radius++;
+
             }
 
             try {
@@ -99,5 +142,21 @@ public class EnemyShot extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 }

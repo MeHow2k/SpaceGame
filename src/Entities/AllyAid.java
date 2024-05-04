@@ -9,8 +9,8 @@ import java.awt.*;
 public class AllyAid extends Thread {
     private int x;
     private int y;
-    private int w=140;
-    private int h=60;
+    private int w=124;
+    private int h=25;
     private int dirX =1;
     private int dirY =1;
     private int velX=1;

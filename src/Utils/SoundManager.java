@@ -137,7 +137,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -153,7 +153,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -169,7 +169,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -185,7 +185,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -201,7 +201,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -217,7 +217,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -233,7 +233,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -249,7 +249,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -265,7 +265,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -281,7 +281,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);
@@ -297,7 +297,7 @@ public class SoundManager {
             clip.open(ais);
             FloatControl gainControl = (FloatControl)
                     clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(checkMusicVolume());
+            gainControl.setValue(checkSoundVolume());
             clip.start();
         }else {
             System.out.println("Cannot read sound file: "+filename);

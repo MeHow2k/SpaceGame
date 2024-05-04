@@ -1,6 +1,7 @@
 package Gamestates;
 
 import Constants.C;
+import Constants.Strings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,9 @@ public class MenuHowToPlay {
     Image imgZycie = new ImageIcon(getClass().getClassLoader().getResource("life.png")).getImage();
 
     Font customFont;
+    Strings gameStrings;
     public MenuHowToPlay() {
+        gameStrings = new Strings();
         //import czcionki
         try {
             //import czcionki
@@ -36,29 +39,50 @@ public class MenuHowToPlay {
     public void draw (Graphics2D g){
         g.setFont(customFont.deriveFont(60f));
         g.setColor(Color.white);
-        g.drawString("Jak grać?", C.FRAME_WIDTH/2-200,50);
+        if(C.LANGUAGE==1) {//pl //todo jak to zaktualizujesz, to na dole po angielsku
+            g.drawString("Jak grać?", C.FRAME_WIDTH / 2 - 200, 50);
 
-        g.setFont(customFont.deriveFont(25f));
-        g.drawString("Poruszasz się za pomocą STRZAŁEK. Strzelasz za pomocą SPACJI.",30,100);
+            g.setFont(customFont.deriveFont(25f));
+            g.drawString("Poruszasz się za pomocą STRZAŁEK. Strzelasz za pomocą SPACJI.", 30, 100);
 
-        g.drawString("Podczas gry musisz niszczyć statki wrogów, unikając ich strzałów.",30,170);
-        if(imgWrog !=null) g.drawImage(imgWrog, 100,200,50,50, null);
-        if(imgStrzalWrog !=null)g.drawImage(imgStrzalWrog, 180,200,50,50, null);
-        g.drawString("Gra kończy się po utracie wszystkich żyć.",30,300);
+            g.drawString("Podczas gry musisz niszczyć statki wrogów, unikając ich strzałów.", 30, 170);
+            if (imgWrog != null) g.drawImage(imgWrog, 100, 200, 50, 50, null);
+            if (imgStrzalWrog != null) g.drawImage(imgStrzalWrog, 180, 200, 50, 50, null);
+            g.drawString("Gra kończy się po utracie wszystkich żyć.", 30, 300);
 
-        g.drawString("Podczas gry można zebrać rożne bonusy:",180,340);
+            g.drawString("Podczas gry można zebrać rożne bonusy:", 180, 340);
 
-        g.drawString("Dodatkowe punkty",30,380);
-        if(imgPunkt !=null)g.drawImage(imgPunkt, 30,410,30,30, null);
+            g.drawString("Dodatkowe punkty", 30, 380);
+            if (imgPunkt != null) g.drawImage(imgPunkt, 30, 410, 30, 30, null);
 
-        g.drawString("Dodatkowe życie",230,380);
-        if(imgZycie !=null)g.drawImage(imgZycie, 230,410,30,30, null);
-        g.setFont(customFont.deriveFont(25f));
-        g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".",30,700);
+            g.drawString("Dodatkowe życie", 230, 380);
+            if (imgZycie != null) g.drawImage(imgZycie, 230, 410, 30, 30, null);
+            g.setFont(customFont.deriveFont(25f));
+            g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".", 30, 700);
+        } else {////EN todo po prostu bierzesz zamieniasz na ang, ew. jak coś bedzie nie tak to dostosuj położenie albo stwórz nowa linijke
+            g.drawString("How to play?", C.FRAME_WIDTH / 2 - 200, 50);
 
+            g.setFont(customFont.deriveFont(25f));
+            g.drawString("Poruszasz się za pomocą STRZAŁEK. Strzelasz za pomocą SPACJI.", 30, 100);
+
+            g.drawString("Podczas gry musisz niszczyć statki wrogów, unikając ich strzałów.", 30, 170);
+            if (imgWrog != null) g.drawImage(imgWrog, 100, 200, 50, 50, null);
+            if (imgStrzalWrog != null) g.drawImage(imgStrzalWrog, 180, 200, 50, 50, null);
+            g.drawString("Gra kończy się po utracie wszystkich żyć.", 30, 300);
+
+            g.drawString("Podczas gry można zebrać rożne bonusy:", 180, 340);
+
+            g.drawString("Dodatkowe punkty", 30, 380);
+            if (imgPunkt != null) g.drawImage(imgPunkt, 30, 410, 30, 30, null);
+
+            g.drawString("Dodatkowe życie", 230, 380);
+            if (imgZycie != null) g.drawImage(imgZycie, 230, 410, 30, 30, null);
+            g.setFont(customFont.deriveFont(25f));
+            g.drawString("Aby zapauzować/odpauzować naciśnij \"P\".   Aby wyjść z gry naciśnij \"ESC\".", 30, 700);
+        }//todo dalej nie
         g.setColor(selectedColor);
         g.setFont(customFont.deriveFont(18f));
-        g.drawString("Aby powrócić do menu naciśnij ENTER",C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
+        g.drawString(gameStrings.getString("Aby powrócićENTER"), C.FRAME_WIDTH-300,C.FRAME_HEIGHT-70);
 
     }
 }
