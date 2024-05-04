@@ -10,7 +10,7 @@ public class Enemy extends Thread{
 
     private boolean isInvincible=false;
     private int x=0,y=0,w=50,h=50,velX=1,velY=1,dirX=1,dirY=1,hp=1, score_increment=10, movingType=0, angle=270,
-            circleCenterX=C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2, radius=300,isBoss = 0;
+            circleCenterX=C.FRAME_WIDTH/2-w/2,circleCenterY=C.FRAME_HEIGHT/2-100-h/2, radius=300,isBoss = 0,bossPhase=0;
     JPanel panel;
 
     Image imgEnemy = new ImageIcon(getClass().getClassLoader().getResource("enemy.gif")).getImage();
@@ -25,8 +25,8 @@ public class Enemy extends Thread{
     Image imgBoss3rage = new ImageIcon(getClass().getClassLoader().getResource("boss3_rage.gif")).getImage();
 
     Image imgSpikeBall = new ImageIcon(getClass().getClassLoader().getResource("spikeball.gif")).getImage();
-    Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4_rage.gif")).getImage();
-    Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
+    Image imgBoss4 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
+    Image imgBoss4phase2 = new ImageIcon(getClass().getClassLoader().getResource("boss4_rage.gif")).getImage();
 
     Image imgBoss5 = new ImageIcon(getClass().getClassLoader().getResource("boss4.gif")).getImage();
     Image imgBoss5ship = new ImageIcon(getClass().getClassLoader().getResource("boss5ship.png")).getImage();
@@ -49,9 +49,9 @@ public class Enemy extends Thread{
         }else if (isBoss==3 && imgBoss3!=null) {
             if (movingType==999) g.drawImage(imgBoss3rage, x, y, w, h, null);
             else g.drawImage(imgBoss3, x, y, w, h, null);//rys bossa3
-        }else if (isBoss==4 && imgBoss4!=null) {
-            if (movingType==999 || movingType==40) g.drawImage(imgBoss4, x, y, w, h, null);
-            else g.drawImage(imgBoss4phase2, x, y, w, h, null);//rys bossa4
+        }else if (isBoss==4 ) {
+            if (bossPhase==2 && imgBoss4phase2!=null) g.drawImage(imgBoss4phase2, x, y, w, h, null);
+            else if(imgBoss4!=null) g.drawImage(imgBoss4, x, y, w, h, null);//rys bossa4
         }else if (isBoss==41 && imgSpikeBall!=null) {
             g.setColor(Color.red);
             g.fillRect(getX()-50,getY()+20,10,70);
@@ -249,10 +249,32 @@ public class Enemy extends Thread{
             }
         }
     }
-    public void setBoss5randomlocation() {
+    public void setBoss5randomlocation(Player player) {
+        int px = player.getX();
+        int py = player.getY();
+        int ph = player.getH();
+        int pw = player.getW();
+
         Random random = new Random();
-        x = random.nextInt(C.FRAME_WIDTH-200);
-        y = random.nextInt(C.FRAME_HEIGHT-400);
+        boolean tooClose;
+        do {
+            tooClose = false;
+
+            int newX = random.nextInt(C.FRAME_WIDTH - getW());
+            int newY = random.nextInt(C.FRAME_HEIGHT - getH()-100);
+
+            if((px-200 < newX + 180
+                    && px-200 + 450 > newX
+                    && py-200 < newY + 180
+                    && py-200 + 450 > newY
+            )==true) {
+                tooClose = true;
+            }else {
+                // Jeśli odległość jest wystarczająco duża, ustaw nową lokalizację dla bossa
+                x = newX;
+                y = newY;
+            }
+        } while (tooClose);
     }
     public int getDirX() {
         return dirX;
@@ -357,4 +379,11 @@ public class Enemy extends Thread{
         this.y = y;
     }
 
+    public int getBossPhase() {
+        return bossPhase;
+    }
+
+    public void setBossPhase(int bossPhase) {
+        this.bossPhase = bossPhase;
+    }
 }

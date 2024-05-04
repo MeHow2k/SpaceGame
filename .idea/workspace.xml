@@ -9,8 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="g">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Komentarze">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/EnemyShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -421,7 +424,35 @@
       <option name="project" value="LOCAL" />
       <updated>1714573351321</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Usunięcie nieportrzebnych plików i zbędnego kodu">
+      <created>1714574111242</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1714574111242</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Dodanie bossa 50 i jego mechanik (bez naprawienia pasków hp i 2 fazy)">
+      <created>1714651285587</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1714651285587</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Dodanie bossa 50 i jego mechanik (naprawione paski hp bez ogarnietej 2 fazy)">
+      <created>1714651689827</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1714651689827</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Komentarze">
+      <created>1714652257655</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1714652257655</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -442,10 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dopisanie komentarzy" />
-    <MESSAGE value="Poprawa czcionki w ustawieniach" />
-    <MESSAGE value="Zapisywanie ustawień i najwyższego wyniku do pliku, oraz obsługa ustawień" />
-    <MESSAGE value="Stworzenie tarczy i implementacja w kolizjach, stworzenie dodatkowego bonusu dodatkowe życie" />
     <MESSAGE value="Wrogowie poruszają się po różnych torach." />
     <MESSAGE value="Dodanie leveli od 11-19" />
     <MESSAGE value="Dodanie levelu 20 - boss" />
@@ -467,6 +494,10 @@
     <MESSAGE value="Zapis informacji o języku do pliku" />
     <MESSAGE value="Naprawa zmiany głośności dźwięków" />
     <MESSAGE value="Możliwość wyboru języka z poziomu menu opcji" />
-    <option name="LAST_COMMIT_MESSAGE" value="Możliwość wyboru języka z poziomu menu opcji" />
+    <MESSAGE value="Usunięcie nieportrzebnych plików i zbędnego kodu" />
+    <MESSAGE value="Dodanie bossa 50 i jego mechanik (bez naprawienia pasków hp i 2 fazy)" />
+    <MESSAGE value="Dodanie bossa 50 i jego mechanik (naprawione paski hp bez ogarnietej 2 fazy)" />
+    <MESSAGE value="Komentarze" />
+    <option name="LAST_COMMIT_MESSAGE" value="Komentarze" />
   </component>
 </project>
