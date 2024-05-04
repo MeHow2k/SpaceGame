@@ -3050,7 +3050,6 @@ public class GamePanel extends JPanel implements KeyListener {
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
 
-
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);

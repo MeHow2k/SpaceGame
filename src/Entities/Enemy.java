@@ -96,7 +96,7 @@ public class Enemy extends Thread{
                     if(movingType!=51) dirX = 1;
                 }
                 if (x > C.FRAME_WIDTH - getW()) {
-                    if(movingType!=1000 || movingType!=51) dirX = -1;
+                    if(movingType!=1000) dirX = -1;
                 }
                 if (y<0) {
                     if(movingType!=51)dirY = 1;
