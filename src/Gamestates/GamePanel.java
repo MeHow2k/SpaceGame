@@ -1998,15 +1998,15 @@ public class GamePanel extends JPanel implements KeyListener {
                                             int roll=random.nextInt(2);
                                             int moveType=8;
                                             if (roll == 0) moveType=8; else moveType =9;
-                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,0,2);
-                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,90,2);
-                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,180,2);
-                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,270,2);
+                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,0,2,1);
+                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,90,2,1);
+                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,180,2,1);
+                                            newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,270,2,1);
                                             if (enemy.getHP()<31) {
-                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,45,2);
-                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,135,2);
-                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,225,2);
-                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,315,2);
+                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,45,2,1);
+                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,135,2,1);
+                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,225,2,1);
+                                                newEnemyShot(enemy.getX()+90-20,enemy.getY()+90-20,40,40,moveType,enemy.getX()+90-20,enemy.getY()+90-20,315,2,1);
                                             }
                                         }
                                     }
@@ -2737,7 +2737,7 @@ public class GamePanel extends JPanel implements KeyListener {
         enemyShot.start();//start watku
         listEnemyShot.add(enemyShot);//dodanie do listy obiektow enemyShot
     }
-    public void newEnemyShot(int x,int y, int w, int h, int movingType,int circleCenterX,int circleCenterY,int angle,int radius){//utworzenie obiektu wrogiego strzału
+    public void newEnemyShot(int x,int y, int w, int h, int movingType,int circleCenterX,int circleCenterY,int angle,int radius,int imgType){//utworzenie obiektu wrogiego strzału
         EnemyShot enemyShot = new EnemyShot(x,y,this);
         enemyShot.setW(w);
         enemyShot.setH(h);
@@ -2746,6 +2746,7 @@ public class GamePanel extends JPanel implements KeyListener {
         enemyShot.setCircleCenterX(circleCenterX);
         enemyShot.setCircleCenterY(circleCenterY);
         enemyShot.setMovingType(movingType);
+        enemyShot.setImgType(imgType);
         enemyShot.start();//start watku
         listEnemyShot.add(enemyShot);//dodanie do listy obiektow enemyShot
     }

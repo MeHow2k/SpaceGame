@@ -10,6 +10,15 @@ public class EnemyShot extends Thread {
     private double angle = 0;
     private double radius = 2;
     int rounds=0;
+    int imgType=0;
+
+    public int getImgType() {
+        return imgType;
+    }
+
+    public void setImgType(int imgType) {
+        this.imgType = imgType;
+    }
 
     public int getCircleCenterX() {
         return circleCenterX;
@@ -39,6 +48,7 @@ public class EnemyShot extends Thread {
 
     JPanel panel;
     Image imgEnemyShot = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot.gif")).getImage();
+    Image imgEnemyShot2 = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot2.gif")).getImage();
 
     public EnemyShot(int x, int y, JPanel panel) {
         this.x = x;
@@ -48,8 +58,10 @@ public class EnemyShot extends Thread {
 
 
     public void draw(Graphics2D g) {
-        if (imgEnemyShot != null) {
+        if (imgType==0 && imgEnemyShot != null) {
             g.drawImage(imgEnemyShot, this.getX(), this.getY(), this.getW(), this.getH(), null);
+        }else if (imgType==1 && imgEnemyShot2 != null) {
+            g.drawImage(imgEnemyShot2, this.getX(), this.getY(), this.getW(), this.getH(), null);
         } else {
             g.setColor(Color.red);
             g.fillRect(this.getX(), this.getY(), this.getW(), this.getH());
