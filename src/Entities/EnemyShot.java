@@ -48,7 +48,7 @@ public class EnemyShot extends Thread {
 
     JPanel panel;
     Image imgEnemyShot = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot.gif")).getImage();
-    Image imgEnemyShot2 = new ImageIcon(getClass().getClassLoader().getResource("EnemyShot2.gif")).getImage();
+    Image imgEnemyShot2 = new ImageIcon(getClass().getClassLoader().getResource("pocisk_20.gif")).getImage();
 
     public EnemyShot(int x, int y, JPanel panel) {
         this.x = x;

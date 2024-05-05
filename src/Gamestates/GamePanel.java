@@ -531,7 +531,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                                     }
                                                     if (playershot != null)
                                                         listPlayerShot.remove(playershot);
-                                                    newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10,4);
+                                                    //newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10,4);
                                                     if(enemy.getIsBoss()>10){
                                                         newDrop(enemy.getX() + 12, enemy.getY() + 12, 0, 0, 0, 0,100);
                                                     }else newDrop(enemy.getX() + 12, enemy.getY() + 12, 13, 10, 10, 10,4);
@@ -3031,14 +3031,14 @@ public class GamePanel extends JPanel implements KeyListener {
                 SHOT_PRESSED = false;
             }
         }
-        if (e.getKeyCode()==71) {//g przycisk wł/wył godmode
+        if (e.getKeyCode()==71 && C.DEVELOPMENT) {//g przycisk wł/wył godmode
             if (C.GODMODE) {
                 C.GODMODE = false;
             } else {
                 C.GODMODE=true;
             }
         }
-        if (e.getKeyCode()==84) {//T przycisk do testów testowania debug
+        if (e.getKeyCode()==84 && C.DEVELOPMENT) {//T przycisk do testów testowania debug
             //newMeteor(100,0,50,0);
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);

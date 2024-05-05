@@ -9,10 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Komentarze">
+    <list default="true" id="2f7f7885-f442-4c90-8dd2-51c25fab79ce" name="Changes" comment="Tłumaczenie jak grać">
+      <change afterPath="$PROJECT_DIR$/.idea/Space Game.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/highscore.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/SpaceGame.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/SpaceGame.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/config.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/highscore.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SpaceGame_jar/highscore.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants/C.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants/C.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/EnemyShot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/EnemyShot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Gamestates/GamePanel.java" afterDir="false" />
     </list>
@@ -50,21 +55,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Frame.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/JAVA PROJEKTY/SpaceGame/.idea/json-20240303.jar&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15332031&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4457275&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.new.ui&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Frame.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/JAVA PROJEKTY/SpaceGame/.idea/json-20240303.jar",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15332031",
+    "project.structure.side.proportion": "0.4457275",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\JAVA PROJEKTY\SpaceGame\Graphics" />
@@ -452,7 +459,35 @@
       <option name="project" value="LOCAL" />
       <updated>1714652257655</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Boss 50 lvl faza2 + naprawa pomocy przy bossach">
+      <created>1714837321576</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1714837321576</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Boss 50 lvl faza2 + naprawa pomocy przy bossach">
+      <created>1714838589660</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1714838589660</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Tłumaczenie jak grać">
+      <created>1714845000819</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1714845000819</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Poprawa wymiarów bossa 5">
+      <created>1714852109689</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1714852109689</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -473,9 +508,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Wrogowie poruszają się po różnych torach." />
-    <MESSAGE value="Dodanie leveli od 11-19" />
-    <MESSAGE value="Dodanie levelu 20 - boss" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Sprite dla bossa i strzelanko" />
     <MESSAGE value="Zmiana muzyki, implementacja muzyki dla bossa." />
     <MESSAGE value="Plik backgroundBoss.wav" />
@@ -498,6 +531,9 @@
     <MESSAGE value="Dodanie bossa 50 i jego mechanik (bez naprawienia pasków hp i 2 fazy)" />
     <MESSAGE value="Dodanie bossa 50 i jego mechanik (naprawione paski hp bez ogarnietej 2 fazy)" />
     <MESSAGE value="Komentarze" />
-    <option name="LAST_COMMIT_MESSAGE" value="Komentarze" />
+    <MESSAGE value="Boss 50 lvl faza2 + naprawa pomocy przy bossach" />
+    <MESSAGE value="Tłumaczenie jak grać" />
+    <MESSAGE value="Poprawa wymiarów bossa 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawa wymiarów bossa 5" />
   </component>
 </project>
