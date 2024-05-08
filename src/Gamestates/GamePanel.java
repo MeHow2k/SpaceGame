@@ -8,11 +8,20 @@ import Entities.*;
 import Utils.DataSender;
 import Utils.SoundManager;
 import org.json.JSONObject;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -2847,65 +2856,90 @@ public class GamePanel extends JPanel implements KeyListener {
         if(C.weaponUpgrade<=2) C.weaponUpgrade++;
     }
     ////////akutualizacja pliku ustawien
-    public void updateSettings(){
+    public static void updateSettings() {
         try {
-            //otwarcie pliku ustawień
-            File config = new File("config.txt");
-            String absolutePath = config.getAbsolutePath();
-            FileWriter out = new FileWriter(config);
-            if (!config.exists()) {
-                config.createNewFile();
-                // jesli nie ma pliku - stwórz go
-                try (FileOutputStream fos = new FileOutputStream(absolutePath)) {
-                    // Ustaw domyślne wartości głośności muzyki, głośności dzwięków i wyciszenia
-                    String music= C.musicVolume + "\n";
-                    String sound= C.soundVolume + "\n";
-                    String muted= C.isMuted + "\n";
-                    String skin= C.playerSkin + "\n";
-                    String lang= C.LANGUAGE + "\n";
-                    fos.write(music.getBytes());
-                    fos.write(sound.getBytes());
-                    fos.write(muted.getBytes());
-                    fos.write(skin.getBytes());
-                    fos.write(lang.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            // Zapisanie ustawień do pliku
+            File configFile = new File("config.dat");
+            String configData = String.format("%d\n%d\n%b\n%d\n%d\n", C.musicVolume, C.soundVolume, C.isMuted, C.playerSkin, C.LANGUAGE);
+            byte[] encryptedConfig = encrypt(configData, C.SECRETKEY);
+            try (FileOutputStream fos = new FileOutputStream(configFile)) {
+                fos.write(encryptedConfig);
             }
-            //wpisanie aktualnych ustawień do pliku ustawień
-            out.write(C.musicVolume + "\n" + C.soundVolume+"\n"+C.isMuted+"\n"+C.playerSkin+"\n"+C.LANGUAGE);
-            out.close();
-        } catch (IOException ee) {
-            ee.printStackTrace();
+        } catch (Exception e) {
+            // Obsługa błędów zapisu ustawień
+            e.printStackTrace();
         }
     }
-    /////////aktualizacja pliku z najlepszym wynikiem
-    public void updateHighscore(){
+
+    public static void updateHighscore() {
         try {
             C.highscorePoints=C.totalPoints;
             C.highscoreLevel=C.LEVEL;
-            //otwarcie pliku highscore
-            File config = new File("highscore.txt");
-            FileWriter out = new FileWriter(config);
-            //wpisanie aktualnego najlepszego wyniku
-            out.write(C.highscorePoints + "\n" + C.highscoreLevel);
-            out.close();
-        } catch (IOException ee) {
-            ee.printStackTrace();
+            // Zapisanie najlepszego wyniku do pliku
+            File highscoreFile = new File("data.dat");
+            String highscoreData = String.format("%d\n%d\n", C.highscorePoints, C.highscoreLevel);
+            byte[] encryptedHighscore = encrypt(highscoreData, C.SECRETKEY);
+            try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
+                fos.write(encryptedHighscore);
+            }
+        } catch (Exception e) {
+            // Obsługa błędów zapisu najlepszego wyniku
+            e.printStackTrace();
+        }
+    }
+
+    // Metoda do odczytu zaszyfrowanego pliku
+    private static byte[] readEncryptedFile(File file) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        try (FileInputStream fis = new FileInputStream(file)) {
+            while ((len = fis.read(buffer)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+        }
+        return baos.toByteArray();
+    }
+
+    // Metoda do szyfrowania
+    private static byte[] encrypt(String input, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        return cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    // Metoda do deszyfrowania
+    private static String decrypt(byte[] encryptedData, String key) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        byte[] decryptedData = cipher.doFinal(encryptedData);
+
+        return new String(decryptedData, StandardCharsets.UTF_8);
+    }
+    private static void createDefaultHighscore(File highscoreFile) {
+        try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
+            // Domyślne wyniki
+            String defaultHighscore = "0\n0\n";
+            byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
+            fos.write(encryptedHighscore);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
     public void resetHighscore(){
-        try {
-            C.highscorePoints=0;
-            C.highscoreLevel=0;
-            //otwarcie pliku highscore
-            File config = new File("highscore.txt");
-            FileWriter out = new FileWriter(config);
-            //wpisanie aktualnego najlepszego wyniku
-            out.write(C.highscorePoints + "\n" + C.highscoreLevel);
-            out.close();
-        } catch (IOException ee) {
-            ee.printStackTrace();
+        C.highscorePoints=0;
+        C.highscoreLevel=0;
+        //otwarcie pliku highscore
+        File file = new File("data.dat");
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            // Domyślne wyniki
+            String defaultHighscore = "0\n0\n";
+            byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
+            fos.write(encryptedHighscore);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

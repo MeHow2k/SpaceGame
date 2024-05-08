@@ -3,11 +3,18 @@ package Gamestates;
 
 import Constants.C;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 
 public class Frame extends JFrame {
     Frame(){
@@ -25,81 +32,90 @@ public class Frame extends JFrame {
         setVisible(true);
     }
     public static void main(String[] args)  {
-        //wczytanie ustawień z pliku ustawień
-        try {
-            File config = new File("config.txt");
-            String absolutePath = config.getAbsolutePath();
-            if (!config.exists()) {
-                config.createNewFile();
-                // jesli nie ma pliku - stwórz go
-                try (FileOutputStream fos = new FileOutputStream(absolutePath)) {
-                    // Ustaw domyślne wartości głośności muzyki, głośności dzwięków i wyciszenia
-                    fos.write("4\n".getBytes()); // Domyślna głośność muzyki
-                    fos.write("4\n".getBytes()); // Domyślna głośność dzwięków
-                    fos.write("false\n".getBytes());  // Domyślne brak wyciszenia
-                    fos.write("0\n".getBytes());  // Domyślny skin 0
-                    fos.write("999\n".getBytes());  // Domyślny język 999- żaden, aby przy uruchomieniu został wybrany przez użytkownika
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Scanner scanner = new Scanner(new FileInputStream(absolutePath),"UTF-8");
-
-            // sprawdzanie czy linia tekstu istnieje
-
-            while(scanner.hasNextLine()){
-                //kazda linia pliku odpowiada za inne ustawienie
-                //pierwsza za glosnosc muzyki
-                C.musicVolume=Integer.parseInt(scanner.nextLine());
-                //druga za glosnosc dzwiekow
-                C.soundVolume=Integer.parseInt(scanner.nextLine());
-                //trzecia calkowite wyciszenie
-                String muteOption = scanner.nextLine();
-                if(muteOption.equals("false")) C.isMuted=false;
-                else C.isMuted=true;
-                //wybrana skórka
-                C.playerSkin=Integer.parseInt(scanner.nextLine());
-                //wybrany język
-                C.LANGUAGE=Integer.parseInt(scanner.nextLine());
-            }
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Cant find config file.");
-        }catch (NoSuchElementException e) {
-            System.out.println("Config file is broken. Restoring default config...");
-            C.musicVolume=4;C.soundVolume=4;C.isMuted=false;C.playerSkin=0;C.LANGUAGE=99;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        // Wczytanie ustawień z pliku ustawień
+        File configFile = new File("config.dat");
+        if (!configFile.exists()) {
+            createDefaultConfig(configFile);
         }
-        //wczytanie najlepszego wyniku z ustawień
         try {
-            File highscore = new File("highscore.txt");
-            String absolutePath = highscore.getAbsolutePath();
-            // Jeśli plik nie istnieje, stwórz go
-            if (!highscore.exists()) {
-                highscore.createNewFile();
-                try (FileOutputStream fos = new FileOutputStream(absolutePath)) {
-                    // Ustaw domyślne wartości
-                    fos.write("0\n".getBytes()); // rekord punktów
-                    fos.write("0\n".getBytes()); // rekord poziomu
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            Scanner scanner = new Scanner(new FileInputStream(absolutePath),"UTF-8");
-            // sprawdzanie czy linia tekstu istnieje
-            while(scanner.hasNextLine()){
-                //ilosc punktow
-                C.highscorePoints=Integer.parseInt(scanner.nextLine());
-                //jaki poziom
-                C.highscoreLevel=Integer.parseInt(scanner.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Cant find highscore file.");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            byte[] configBytes = readEncryptedFile(configFile);
+            String decryptedConfig = decrypt(configBytes, C.SECRETKEY);
+
+                // Przetworzenie zdekodowanych ustawień
+                String[] configLines = decryptedConfig.split("\n");
+                C.musicVolume = Integer.parseInt(configLines[0]);
+                C.soundVolume = Integer.parseInt(configLines[1]);
+                C.isMuted = Boolean.parseBoolean(configLines[2]);
+                C.playerSkin = Integer.parseInt(configLines[3]);
+                C.LANGUAGE = Integer.parseInt(configLines[4]);
+        }catch (Exception e){}
+        // Wczytanie najlepszego wyniku z pliku
+        File highscoreFile = new File("data.dat");
+        if (!highscoreFile.exists()) {
+            createDefaultHighscore(highscoreFile);
         }
+        try {
+            byte[] highscoreBytes = readEncryptedFile(highscoreFile);
+            String decryptedHighscore = decrypt(highscoreBytes, C.SECRETKEY);
+
+            // Przetworzenie zdekodowanego wyniku
+            String[] highscoreLines = decryptedHighscore.split("\n");
+            C.highscorePoints = Integer.parseInt(highscoreLines[0]);
+            C.highscoreLevel = Integer.parseInt(highscoreLines[1]);
+        }catch (Exception e){}
         new Frame();
+    }
+
+
+
+    private static void createDefaultConfig(File configFile) {
+        try (FileOutputStream fos = new FileOutputStream(configFile)) {
+            // Domyślne ustawienia
+            String defaultConfig = "4\n4\nfalse\n0\n999\n";
+            byte[] encryptedConfig = encrypt(defaultConfig, C.SECRETKEY);
+            fos.write(encryptedConfig);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void createDefaultHighscore(File highscoreFile) {
+        try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
+            // Domyślne wyniki
+            String defaultHighscore = "0\n0\n";
+            byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
+            fos.write(encryptedHighscore);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static byte[] readEncryptedFile(File file) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        try (FileInputStream fis = new FileInputStream(file)) {
+            while ((len = fis.read(buffer)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+        }
+        return baos.toByteArray();
+    }
+
+    private static byte[] encrypt(String input, String key) throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
+        return cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private static String decrypt(byte[] encryptedData, String key) throws NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        Cipher cipher = Cipher.getInstance("AES");
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        byte[] decryptedData = cipher.doFinal(encryptedData);
+        return new String(decryptedData, StandardCharsets.UTF_8);
     }
 }
