@@ -50,18 +50,19 @@ public class Frame extends JFrame {
                 C.LANGUAGE = Integer.parseInt(configLines[4]);
         }catch (Exception e){}
         // Wczytanie najlepszego wyniku z pliku
-        File highscoreFile = new File("data.dat");
-        if (!highscoreFile.exists()) {
-            createDefaultHighscore(highscoreFile);
+        File dataFile = new File("data.dat");
+        if (!dataFile.exists()) {
+            createDefaultData(dataFile);
         }
         try {
-            byte[] highscoreBytes = readEncryptedFile(highscoreFile);
-            String decryptedHighscore = decrypt(highscoreBytes, C.SECRETKEY);
+            byte[] dataBytes = readEncryptedFile(dataFile);
+            String decryptedData = decrypt(dataBytes, C.SECRETKEY);
 
             // Przetworzenie zdekodowanego wyniku
-            String[] highscoreLines = decryptedHighscore.split("\n");
-            C.highscorePoints = Integer.parseInt(highscoreLines[0]);
-            C.highscoreLevel = Integer.parseInt(highscoreLines[1]);
+            String[] dataLines = decryptedData.split("\n");
+            C.highscorePoints = Integer.parseInt(dataLines[0]);
+            C.highscoreLevel = Integer.parseInt(dataLines[1]);
+            C.PLAYER_NAME = dataLines[2];
         }catch (Exception e){}
         new Frame();
     }
@@ -79,12 +80,12 @@ public class Frame extends JFrame {
         }
     }
 
-    private static void createDefaultHighscore(File highscoreFile) {
-        try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
+    private static void createDefaultData(File file) {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
             // Domyślne wyniki
-            String defaultHighscore = "0\n0\n";
-            byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
-            fos.write(encryptedHighscore);
+            String defaultData = "0\n0\n\n";
+            byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
+            fos.write(encryptedData);
         }catch (Exception e) {
             throw new RuntimeException(e);
         }

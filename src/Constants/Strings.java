@@ -59,6 +59,13 @@ public class Strings {
         enStrings.put("Język", "Language");
         enStrings.put("Polski", "Polski");
         enStrings.put("Angielski", "English");
+        enStrings.put("Zapisz i wyjdź", "Save and exit");
+        enStrings.put("Ustawienia gracza", "Player settings");
+        enStrings.put("Wpisz korzystając", "Enter player name using a keyboard");
+        enStrings.put("Wpisz nazwę gracza", "Enter player name:");
+        enStrings.put("Zmień nazwę gracza", "Change player name");
+
+
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
@@ -108,6 +115,12 @@ public class Strings {
         plStrings.put("Język", "Język");
         plStrings.put("Polski", "Polski");
         plStrings.put("Angielski", "English");
+        plStrings.put("Zapisz i wyjdź", "Zapisz i wyjdź");
+        plStrings.put("Ustawienia gracza", "Ustawienia gracza");
+        plStrings.put("Wpisz korzystając", "Wpisz nazwę gracza korzystając z klawiatury");
+        plStrings.put("Wpisz nazwę gracza", "Wpisz nazwę gracza:");
+        plStrings.put("Zmień nazwę gracza", "Zmień nazwę gracza");
+
 
 
         // Dodanie tłumaczeń do mapy głównej

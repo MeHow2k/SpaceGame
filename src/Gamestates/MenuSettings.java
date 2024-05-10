@@ -89,12 +89,7 @@ public class MenuSettings {
 
         g.setColor(Color.white);
         if(C.cursorSettingsPosition==4) g.setColor(selectedColor);
-        g.drawString(gameStrings.getString("Zresetuj wynik"), C.FRAME_WIDTH/2-200,600);
-        if(C.highscorePoints==0) g.drawString(gameStrings.getString("Nie ma zapisanego"), C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
-        if(C.highscorePoints!=0 && C.highscoreLevel!=9999)g.drawString(gameStrings.getString("Aktualny:")+" " +C.highscorePoints+" "
-                +gameStrings.getString("punktów")+", "+C.highscoreLevel+" "+gameStrings.getString("poziom"),C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
-        if(C.highscoreLevel==9999) g.drawString(gameStrings.getString("Aktualny:")+" "+C.highscorePoints+" "
-                +gameStrings.getString("punktów")+", "+C.highscoreLevel+" "+gameStrings.getString("poziom"),C.FRAME_WIDTH/2-100,C.FRAME_HEIGHT-200);
+        g.drawString(gameStrings.getString("Ustawienia gracza"), C.FRAME_WIDTH/2-200,650);
 
         g.setFont(customFont.deriveFont(40f));
         g.setColor(Color.white);

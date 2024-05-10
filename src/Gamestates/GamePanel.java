@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener {
     // deklaracja elementów menu
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;Intro intro;
     LanguageSelection languageSelection;
-    MenuSkinSelection menuSkinSelection;
+    MenuSkinSelection menuSkinSelection; PlayerNameSelection playerNameSelection;MenuPlayerSettings menuPlayerSettings;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements KeyListener {
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
+    boolean canEnterName=false;//do aktywacji wpisywania nazwy
     boolean isMusicPlayed=false, isBossHpTaken= false, isBossAid=true;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0,menudelay=1000;
     boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
@@ -152,6 +153,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     if(C.GAMESTATE==100){
                         if(C.intro_delay>280){
+                            System.out.println("lang "+C.LANGUAGE);
                             //Odtworzenie głównego motywu gry
                             try {
                                 SoundManager.playMenuBackground();
@@ -162,9 +164,10 @@ public class GamePanel extends JPanel implements KeyListener {
                                 C.LANGUAGE=0;
                                 C.GAMESTATE=99;
                             }
-                            else C.GAMESTATE=1;
+                            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
                         }
                     }
+
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
@@ -2182,7 +2185,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 }
                             }
                         }
-                    //obsługa menu
+///////////////////////////////////////////////////////////////////////////////////obsługa kursorów menu
                         menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
                         if (menu != null && C.cursorPosition == 0) {
                             menuCursor.setY(290);
@@ -2221,7 +2224,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             if (menu != null && C.cursorSettingsPosition == 4) {
                                 menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                                menuCursor.setY(590);
+                                menuCursor.setY(620);
                             }
                             if (menu != null && C.cursorSettingsPosition == 5) {
                                 menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
@@ -2231,16 +2234,54 @@ public class GamePanel extends JPanel implements KeyListener {
 
                         
                     }//GAMESTATE 2 menusettings
-
                             if(C.GAMESTATE==5){
                         if (menuSkinSelection != null && C.cursorBeforeGamePosition == 5) {
                             menuCursor.setX(C.FRAME_WIDTH / 2 - 170);
                             menuCursor.setY(690);
                         }
-
-
-
                     }//GAMESTATE 5 skin selection
+
+                    if(C.GAMESTATE==22){
+                        if(C.hasPlayerName) {
+                            if (playerNameSelection != null && C.cursorPlayerNamePosition == 0) {
+                                menuCursor.setX(50);
+                                menuCursor.setY(300);
+                            }
+                            if (playerNameSelection != null && C.cursorPlayerNamePosition == 1) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(605);
+                            }
+                            if (playerNameSelection != null && C.cursorPlayerNamePosition == 2) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(705);
+                            }
+                        }else {
+                            if (playerNameSelection != null) {
+                                menuCursor.setX(50);
+                                menuCursor.setY(300);
+                            }
+                        }
+                    }//GAMESTATE 22 playersettings
+
+                    if(C.GAMESTATE==21){
+                            if (menuPlayerSettings != null && C.cursorPlayerSettingsPosition == 0) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(100);
+                            }
+                            if (menuPlayerSettings != null && C.cursorPlayerSettingsPosition == 1) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(250);
+                            }
+                            if (menuPlayerSettings != null && C.cursorPlayerSettingsPosition == 2) {//ex
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(400);
+                            }
+                            if (menuPlayerSettings != null && C.cursorPlayerSettingsPosition == 3) {//ex
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(705);
+                            }
+
+                    }//GAMESTATE 21 playersettings
 
                     try {
                         Thread.sleep(3);
@@ -2363,6 +2404,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 g.drawString(gameStrings.getString("lvl0_gra"),20,C.FRAME_HEIGHT-100);
             }
     //////////////////////UI i elementy//////////////////////////////////////////////////////////////
+            g.setFont(customFont.deriveFont(20f));
             if(C.GODMODE) g.drawString("GODMODE", 0, 200);
             lifeUI.draw(g2D);//rysowanie obrazka w UI
             playerShotUI.draw(g2D);//rysowanie obrazka w UI
@@ -2414,6 +2456,9 @@ public class GamePanel extends JPanel implements KeyListener {
                 }
             menu.draw(g2D);
             menuCursor.draw(g2D);
+            g.setFont(customFont.deriveFont(30f));
+            g.drawString("Witaj ponownie "+C.PLAYER_NAME+" !",50,20);
+            g.setFont(customFont.deriveFont(20f));
         }//GAMESTATE 1 -menu
 
         if(C.GAMESTATE==2){
@@ -2421,6 +2466,16 @@ public class GamePanel extends JPanel implements KeyListener {
             menuSettings.draw(g2D);
             menuCursor.draw(g2D);
         }//GAMESTATE 2 -menuOpcje
+        if(C.GAMESTATE==21){
+            menuPlayerSettings= new MenuPlayerSettings();
+            menuPlayerSettings.draw(g2D);
+            menuCursor.draw(g2D);
+        }//GAMESTATE 21 -menu playersettings
+        if(C.GAMESTATE==22){
+            playerNameSelection = new PlayerNameSelection();
+            playerNameSelection.draw(g2D);
+            menuCursor.draw(g2D);
+        }//GAMESTATE 22 -wpisywanie nazwy gracza
 
         if(C.GAMESTATE==3){
             menuHowToPlay = new MenuHowToPlay();
@@ -2875,9 +2930,9 @@ public class GamePanel extends JPanel implements KeyListener {
         try {
             C.highscorePoints=C.totalPoints;
             C.highscoreLevel=C.LEVEL;
-            // Zapisanie najlepszego wyniku do pliku
+            // Zapisanie postępów i nicku do pliku
             File highscoreFile = new File("data.dat");
-            String highscoreData = String.format("%d\n%d\n", C.highscorePoints, C.highscoreLevel);
+            String highscoreData = String.format("%d\n%d\n%s\n", C.highscorePoints, C.highscoreLevel,C.PLAYER_NAME);
             byte[] encryptedHighscore = encrypt(highscoreData, C.SECRETKEY);
             try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
                 fos.write(encryptedHighscore);
@@ -2918,26 +2973,26 @@ public class GamePanel extends JPanel implements KeyListener {
 
         return new String(decryptedData, StandardCharsets.UTF_8);
     }
-    private static void createDefaultHighscore(File highscoreFile) {
+    private static void createDefaultData(File highscoreFile) {
         try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
             // Domyślne wyniki
-            String defaultHighscore = "0\n0\n";
+            String defaultHighscore = "0\n0\n\n";
             byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
             fos.write(encryptedHighscore);
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public void resetHighscore(){
+    public void resetData(){
         C.highscorePoints=0;
         C.highscoreLevel=0;
         //otwarcie pliku highscore
         File file = new File("data.dat");
         try (FileOutputStream fos = new FileOutputStream(file)) {
             // Domyślne wyniki
-            String defaultHighscore = "0\n0\n";
-            byte[] encryptedHighscore = encrypt(defaultHighscore, C.SECRETKEY);
-            fos.write(encryptedHighscore);
+            String defaultData = "0\n0\n"+C.PLAYER_NAME+"\n";
+            byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
+            fos.write(encryptedData);
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -3011,7 +3066,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 C.LANGUAGE=0;
                 C.GAMESTATE=99;
             }
-            else C.GAMESTATE=1;//skip intro
+            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}//skip intro
             try {
                 SoundManager.playMenuBackground();
             } catch (Exception ex) {
@@ -3053,7 +3108,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==27 && C.GAMESTATE==5){
             C.GAMESTATE=1;//powrot do menu z menu before game
         }
-        if (e.getKeyCode()==80) {//p przycisk pauza
+        if (e.getKeyCode()==80 && C.GAMESTATE==0) {//p przycisk pauza
             if (C.PAUSE == true) {
                 C.PAUSE = false;
             } else {
@@ -3251,6 +3306,24 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu player settings
+            if(C.GAMESTATE==21 && C.cursorPlayerSettingsPosition<3){
+                C.cursorPlayerSettingsPosition++;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            //obsługa dla menu wpisywania nazwy gracza
+            if(C.GAMESTATE==22 && C.cursorPlayerNamePosition<2){
+                C.cursorPlayerNamePosition++;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             //obsługa dla menu wyboru jezyka
             if(C.GAMESTATE==99){
                 if (C.cursorLanguagePosition!=1) C.cursorLanguagePosition=1;
@@ -3291,6 +3364,24 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu player settings
+            if(C.GAMESTATE==21 && C.cursorPlayerSettingsPosition>0){
+                C.cursorPlayerSettingsPosition--;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            //dla wpisywania znawy gracza
+            if(C.GAMESTATE==22 && C.cursorPlayerNamePosition>0){
+                C.cursorPlayerNamePosition--;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             //obsługa dla menu wyboru jezyka
             if(C.GAMESTATE==99){
                 if (C.cursorLanguagePosition==1) C.cursorLanguagePosition=0;
@@ -3319,12 +3410,13 @@ public class GamePanel extends JPanel implements KeyListener {
                     break;
                 case 2: /// obsluga entera w podmenu OPCJE
                     if(C.cursorSettingsPosition==4) {
-                        //reset najlepszego wyniku
-                        int enddialog = JOptionPane.showConfirmDialog
-                                (null, gameStrings.getString("Czy na pewno zresetować") ,
-                                        "?", 0);
-                        //zresetowanie po wybraniu tak
-                        if (enddialog == 0) resetHighscore();
+                        //wejscie do podmenu PlayerSettings
+                        C.GAMESTATE=21;
+//                        int enddialog = JOptionPane.showConfirmDialog
+//                                (null, gameStrings.getString("Czy na pewno zresetować") ,
+//                                        "?", 0);
+//                        //zresetowanie po wybraniu tak
+//                        if (enddialog == 0) resetData();
                     }
                     if(C.cursorSettingsPosition==5) C.GAMESTATE = 1;
                     if(C.cursorSettingsPosition==2){
@@ -3374,6 +3466,19 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
                     }
                     break;
+                case 21:
+                    if(C.cursorPlayerSettingsPosition==0) {C.GAMESTATE=22;}
+                    if(C.cursorPlayerSettingsPosition==1) {resetData();}
+                    if(C.cursorPlayerSettingsPosition==2) {}//reset osiagniec i highscore
+                    if(C.cursorPlayerSettingsPosition==3) {C.GAMESTATE=2;}//powrot do ustawien
+                    break;
+                case 22:
+                    if(!C.hasPlayerName){updateHighscore(); C.GAMESTATE=1;C.hasPlayerName=true;break;}
+                    if(canEnterName && C.cursorPlayerNamePosition==0) canEnterName=false;
+                    else if(!canEnterName && C.cursorPlayerNamePosition==0) canEnterName=true;
+                    else if(C.cursorPlayerNamePosition==1) {updateHighscore(); C.GAMESTATE=2;}
+                        else C.GAMESTATE=1;
+                    break;
                 case 99:
                     try {
                         SoundManager.playPlayerShot();
@@ -3382,16 +3487,24 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                     if (C.cursorLanguagePosition==1) {
                         C.LANGUAGE=1;
-                        updateSettings();
-                        C.GAMESTATE=1;
                     } else {
                         C.LANGUAGE=0;
-                        updateSettings();
-                        C.GAMESTATE=1;
                     }
+                    updateSettings();
+                    if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
                     break;
             }
 
+        }
+
+        if (C.GAMESTATE==22 && canEnterName) {
+            if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) { // Usuwanie ostatniego znaku
+                if (C.PLAYER_NAME.length() > 0) {
+                    C.PLAYER_NAME = C.PLAYER_NAME.substring(0, C.PLAYER_NAME.length() - 1);
+                }
+            }  else if (Character.isLetterOrDigit(e.getKeyChar())) { // Dodawanie znaków do nazwy
+                C.PLAYER_NAME += e.getKeyChar();
+            }
         }
 
     }
