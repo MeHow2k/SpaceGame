@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements KeyListener {
     //zmienne bool zawirajace info czy naciśnięto przycisk
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
-    boolean canEnterName=false;//do aktywacji wpisywania nazwy
+
     boolean isMusicPlayed=false, isBossHpTaken= false, isBossAid=true;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0,menudelay=1000;
     boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
@@ -153,7 +153,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     if(C.GAMESTATE==100){
                         if(C.intro_delay>280){
-                            System.out.println("lang "+C.LANGUAGE);
+
                             //Odtworzenie głównego motywu gry
                             try {
                                 SoundManager.playMenuBackground();
@@ -164,7 +164,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 C.LANGUAGE=0;
                                 C.GAMESTATE=99;
                             }
-                            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
+                            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;C.canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
                         }
                     }
 
@@ -2290,6 +2290,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
 
                     if (delta >= 1) {
+                        checkAchievements();
                         repaint();
                         delta--;
                         frames++;
@@ -2942,7 +2943,54 @@ public class GamePanel extends JPanel implements KeyListener {
             e.printStackTrace();
         }
     }
+    public static void updateAchievements() {
+        //załadowanie osiagniec z wczytanej tablicy
+        if (C.achievements[0]==1) C.isAchivement0done=true;
+        if (C.achievements[1]==1) C.isAchivement1done=true;
+        if (C.achievements[2]==1) C.isAchivement2done=true;
+        if (C.achievements[3]==1) C.isAchivement3done=true;
+        if (C.achievements[4]==1) C.isAchivement4done=true;
+        if (C.achievements[5]==1) C.isAchivement5done=true;
+        try {
+            String achievementsString = "";
+            for (int i=0;i<C.achievements.length;i++){
+                achievementsString += String.valueOf(C.achievements[i]);
+            }
+            // Zapisanie postępów i nicku do pliku
+            File achievementsFile = new File("data1.dat");
+            String achievementsData = String.format("%s\n%s\n", C.PLAYER_NAME,achievementsString);
+            byte[] encryptedHighscore = encrypt(achievementsData, C.SECRETKEY);
+            try (FileOutputStream fos = new FileOutputStream(achievementsFile)) {
+                fos.write(encryptedHighscore);
+            }
+        } catch (Exception e) {
+            // Obsługa błędów zapisu najlepszego wyniku
+            e.printStackTrace();
+        }
+    }
+    public static void checkAchievements() {
+        //sprawdzenie warunków osiągnięć
+        if(!C.isAchivement0done && C.LEVEL>10) {//ach0 beat 10 lvl
+            System.out.println("Achievement 0: Beat 10 lvl");
+            C.achievements[0]=1;
+            C.isAchivement0done=true;
+            updateAchievements();
+        }
 
+    }
+    private static void resetAchievements() {
+            C.ARCH_PLAYER_NAME=C.PLAYER_NAME;
+            //otwarcie pliku
+            File file = new File("data1.dat");
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                // Domyślne wyniki
+                String defaultData = C.PLAYER_NAME+"\n000000000000000000000000000000\n";
+                byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
+                fos.write(encryptedData);
+            }catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+    }
     // Metoda do odczytu zaszyfrowanego pliku
     private static byte[] readEncryptedFile(File file) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -3066,7 +3114,7 @@ public class GamePanel extends JPanel implements KeyListener {
                 C.LANGUAGE=0;
                 C.GAMESTATE=99;
             }
-            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}//skip intro
+            else if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;C.canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}//skip intro
             try {
                 SoundManager.playMenuBackground();
             } catch (Exception ex) {
@@ -3138,7 +3186,7 @@ public class GamePanel extends JPanel implements KeyListener {
             //newBonusAllyAid(100,-10);
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
-
+            C.achievements[0]=1;
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);
@@ -3469,14 +3517,14 @@ public class GamePanel extends JPanel implements KeyListener {
                 case 21:
                     if(C.cursorPlayerSettingsPosition==0) {C.GAMESTATE=22;}
                     if(C.cursorPlayerSettingsPosition==1) {resetData();}
-                    if(C.cursorPlayerSettingsPosition==2) {}//reset osiagniec i highscore
+                    if(C.cursorPlayerSettingsPosition==2) {resetData();resetAchievements();}//reset osiagniec i highscore
                     if(C.cursorPlayerSettingsPosition==3) {C.GAMESTATE=2;}//powrot do ustawien
                     break;
                 case 22:
-                    if(!C.hasPlayerName){updateHighscore(); C.GAMESTATE=1;C.hasPlayerName=true;break;}
-                    if(canEnterName && C.cursorPlayerNamePosition==0) canEnterName=false;
-                    else if(!canEnterName && C.cursorPlayerNamePosition==0) canEnterName=true;
-                    else if(C.cursorPlayerNamePosition==1) {updateHighscore(); C.GAMESTATE=2;}
+                    if(!C.hasPlayerName){updateHighscore();updateAchievements();C.GAMESTATE=1;C.hasPlayerName=true;break;}
+                    if(C.canEnterName && C.cursorPlayerNamePosition==0) C.canEnterName=false;
+                    else if(!C.canEnterName && C.cursorPlayerNamePosition==0) C.canEnterName=true;
+                    else if(C.cursorPlayerNamePosition==1) {updateHighscore();updateAchievements(); C.GAMESTATE=2;}
                         else C.GAMESTATE=1;
                     break;
                 case 99:
@@ -3491,13 +3539,13 @@ public class GamePanel extends JPanel implements KeyListener {
                         C.LANGUAGE=0;
                     }
                     updateSettings();
-                    if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
+                    if(C.PLAYER_NAME ==""){C.hasPlayerName=false; C.GAMESTATE=22;C.canEnterName=true;}else {C.hasPlayerName=true;C.GAMESTATE=1;}
                     break;
             }
 
         }
 
-        if (C.GAMESTATE==22 && canEnterName) {
+        if (C.GAMESTATE==22 && C.canEnterName) {
             if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) { // Usuwanie ostatniego znaku
                 if (C.PLAYER_NAME.length() > 0) {
                     C.PLAYER_NAME = C.PLAYER_NAME.substring(0, C.PLAYER_NAME.length() - 1);

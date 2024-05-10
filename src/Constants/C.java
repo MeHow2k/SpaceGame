@@ -35,6 +35,16 @@ public class C {
     public static int cursorPlayerNamePosition=0;
     public static int musicVolume=0;
     public static int soundVolume=0;
+    public static boolean canEnterName=false;//do aktywacji wpisywania nazwy
+    /////////////////////////////////obsługa osiągnięć////////////////////////////////////////////
+    public static int[] achievements = new int[30];//tablica osiagniec
+    public static String ARCH_PLAYER_NAME="";
+    public static boolean isAchivement0done = false;//win a game
+    public static boolean isAchivement1done = false;//beat 10lvl boss
+    public static boolean isAchivement2done = false;//beat 20lvl boss
+    public static boolean isAchivement3done = false;//beat 30lvl boss
+    public static boolean isAchivement4done = false;//beat 40lvl boss
+    public static boolean isAchivement5done = false;//beat 50lvl boss
 
     public static int intro_delay=0;
     public static long playtime=0;

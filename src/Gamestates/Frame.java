@@ -48,8 +48,10 @@ public class Frame extends JFrame {
                 C.isMuted = Boolean.parseBoolean(configLines[2]);
                 C.playerSkin = Integer.parseInt(configLines[3]);
                 C.LANGUAGE = Integer.parseInt(configLines[4]);
-        }catch (Exception e){}
-        // Wczytanie najlepszego wyniku z pliku
+        }catch (Exception e){
+            System.out.println("error loading file: "+configFile.getName());C.musicVolume=0;C.soundVolume=0;C.isMuted=false;C.playerSkin=0;C.LANGUAGE=999;
+        }
+        // Wczytanie najlepszego wyniku i nazwy gracza z pliku
         File dataFile = new File("data.dat");
         if (!dataFile.exists()) {
             createDefaultData(dataFile);
@@ -63,7 +65,43 @@ public class Frame extends JFrame {
             C.highscorePoints = Integer.parseInt(dataLines[0]);
             C.highscoreLevel = Integer.parseInt(dataLines[1]);
             C.PLAYER_NAME = dataLines[2];
-        }catch (Exception e){}
+        }catch (Exception e){System.out.println("error loading file: "+dataFile.getName());C.PLAYER_NAME="";C.highscoreLevel=0;C.highscorePoints=0;}
+        //wczytanie osiągnięć
+        File data1File = new File("data1.dat");
+        if (!data1File.exists()) {
+            createDefaultData1(data1File);
+        }
+        try {
+            byte[] dataBytes = readEncryptedFile(data1File);
+            String decryptedData = decrypt(dataBytes, C.SECRETKEY);
+
+            // Przetworzenie zdekodowanego wyniku
+            String[] dataLines = decryptedData.split("\n");
+            C.ARCH_PLAYER_NAME = dataLines[0];
+
+            if(C.ARCH_PLAYER_NAME.equals(C.PLAYER_NAME)) {
+                String achievementsString = dataLines[1];
+                for (int i = 0; i < achievementsString.length(); i++) {
+                    C.achievements[i] = Integer.parseInt(achievementsString.charAt(i) + ""); // 2 linijka,tablica achieve
+                }
+                //załadowanie osiagniec z wczytanej tablicy
+                if (C.achievements[0]==1) C.isAchivement0done=true;
+                if (C.achievements[1]==1) C.isAchivement1done=true;
+                if (C.achievements[2]==1) C.isAchivement2done=true;
+                if (C.achievements[3]==1) C.isAchivement3done=true;
+                if (C.achievements[4]==1) C.isAchivement4done=true;
+                if (C.achievements[5]==1) C.isAchivement5done=true;
+            }else {
+                System.out.println("Incorrect player's achievements... Resetting file");
+                createDefaultData1(data1File);
+            }
+        }catch (Exception e){
+            System.out.println("error loading file: "+data1File.getName());
+            // Ustawienie domyślnych wartości
+            for (int i = 0; i < C.achievements.length; i++) {
+                C.achievements[i] = 0;
+            }
+        }
         new Frame();
     }
 
@@ -83,7 +121,17 @@ public class Frame extends JFrame {
     private static void createDefaultData(File file) {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             // Domyślne wyniki
-            String defaultData = "0\n0\n\n";
+            String defaultData = "0\n0\n"+C.PLAYER_NAME+"\n";
+            byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
+            fos.write(encryptedData);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static void createDefaultData1(File file) {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            // Domyślne wyniki
+            String defaultData = C.PLAYER_NAME+"\n000000000000000000000000000000\n";
             byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
             fos.write(encryptedData);
         }catch (Exception e) {

@@ -56,6 +56,11 @@ public class MenuPlayerSettings {
         if(C.cursorPlayerSettingsPosition==2) g.setColor(selectedColor);
         g.drawString("Reset całego postępu", C.FRAME_WIDTH/2-200,430);
         g.drawString("zresetuj osiagniecia i wyniki", C.FRAME_WIDTH/2-100,480);
+//        String achievementsString="";
+//        for(int i=0;i<C.achievements.length;i++){
+//            achievementsString += C.achievements[i];
+//        }
+//        g.drawString(achievementsString, C.FRAME_WIDTH/2-100,530);
         g.setFont(customFont.deriveFont(40f));
         g.setColor(Color.white);
 

@@ -37,7 +37,7 @@ public class PlayerNameSelection {
         g.setColor(Color.white);
 
         if(C.cursorPlayerNamePosition==0) g.setColor(selectedColor);
-
+        if (C.canEnterName) g.setColor(Color.red);
         g.setFont(customFont.deriveFont(80f));
         String playername = C.PLAYER_NAME;
         int playertextWidth = g.getFontMetrics().stringWidth(playername); // Szerokość tekstu
