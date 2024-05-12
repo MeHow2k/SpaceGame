@@ -2987,6 +2987,12 @@ public class GamePanel extends JPanel implements KeyListener {
                 String defaultData = C.PLAYER_NAME+"\n000000000000000000000000000000\n";
                 byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
                 fos.write(encryptedData);
+                C.isAchivement0done=false;
+                C.isAchivement1done=false;
+                C.isAchivement2done=false;
+                C.isAchivement3done=false;
+                C.isAchivement4done=false;
+                C.isAchivement5done=false;
             }catch (Exception e) {
                 throw new RuntimeException(e);
             }
