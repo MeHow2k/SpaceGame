@@ -64,8 +64,8 @@ public class Strings {
         enStrings.put("Wpisz korzystając", "Enter player name using a keyboard");
         enStrings.put("Wpisz nazwę gracza", "Enter player name:");
         enStrings.put("Zmień nazwę gracza", "Change player name");
-
-
+        enStrings.put("TarczaON", "! PROTECTION SHIELD ACTIVATED !");
+        enStrings.put("TarczaOFF", "PROTECTION SHIELD INACTIVE");
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
@@ -120,7 +120,8 @@ public class Strings {
         plStrings.put("Wpisz korzystając", "Wpisz nazwę gracza korzystając z klawiatury");
         plStrings.put("Wpisz nazwę gracza", "Wpisz nazwę gracza:");
         plStrings.put("Zmień nazwę gracza", "Zmień nazwę gracza");
-
+        plStrings.put("TarczaON", "! TARCZA OCHRONNA AKTYWOWANA !");
+        plStrings.put("TarczaOFF", "TARCZA OCHRONNA NIEAKTYWNA");
 
 
         // Dodanie tłumaczeń do mapy głównej

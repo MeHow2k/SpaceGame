@@ -2411,6 +2411,34 @@ public class GamePanel extends JPanel implements KeyListener {
             playerShotUI.draw(g2D);//rysowanie obrazka w UI
             if(C.isFirerateUpgrade) firerateUpgradeUI.draw(g2D);
 
+            //IMPLEMENTACJA PASKA NAŁADOWANIA TARCZY
+            g.setColor(Color.GRAY);
+            g2D.fillRect(-10, C.FRAME_HEIGHT-60, C.FRAME_WIDTH, 40); // pasek tarczy do wypełnienia
+            if(C.shieldActivated) {
+                int barWidth = C.shieldCooldown * 2; // Szerokość paska
+                int barX = (C.FRAME_WIDTH - barWidth) / 2; //  X paska
+                g.setColor(Color.ORANGE);
+                g2D.fillRect(barX, C.FRAME_HEIGHT-60, barWidth, 40); // Wyśrodkowany pasek
+                g.setColor(Color.BLACK);
+                g2D.fillRect(-10, C.FRAME_HEIGHT-64, C.FRAME_WIDTH+40, 4); // ramka od góry
+                //// STRING NA PASKU
+                String shieldString =  gameStrings.getString("TarczaON") ;
+                int textWidth = g2D.getFontMetrics().stringWidth(shieldString); // Szerokość tekstu
+                int textX = (C.FRAME_WIDTH - textWidth) / 2; //  x tekstu dla wyśrodkowania
+                g.setColor(Color.white);
+                g.setFont(customFont.deriveFont(20f));
+                g2D.drawString(shieldString, textX, C.FRAME_HEIGHT-45);
+            }else {
+                String shieldString =  gameStrings.getString("TarczaOFF") ;
+                int textWidth = g2D.getFontMetrics().stringWidth(shieldString); // Szerokość tekstu
+                int textX = (C.FRAME_WIDTH - textWidth) / 2; //  x tekstu dla wyśrodkowania
+                g.setColor(Color.white);
+                g.setFont(customFont.deriveFont(20f));
+                g2D.drawString(shieldString, textX, C.FRAME_HEIGHT-45);
+            }
+
+            g.setColor(Color.white);
+
             //IMPLEMENTACJA PASKÓW I UI GDY NA PLANSZY JEST BOSS
             if(isBossInGame()) {
                 if (!isBossHpTaken) {//przy pierwszym zczytaniu hp bossa
@@ -3185,14 +3213,14 @@ public class GamePanel extends JPanel implements KeyListener {
             //newMeteor(100,0,50,0);
             //newMeteor(300,0,150,1);
             //newMeteor(500,-50,350,2);
-            //newBonusShield(250,0);
+            newBonusShield(250,0);
              //newEnemyLaser(130, 0, 1, 1, 1,0,0,0,0,2);
             //newFirerateUpgrade(100,-10);
             //newWeaponUpgrade(100,-10);
             //newBonusAllyAid(100,-10);
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
-            C.achievements[0]=1;
+
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);
