@@ -11,12 +11,12 @@ import java.io.InputStream;
 
 public class MenuAchievements {
     Font customFont;
-    Image imgAch0 = new ImageIcon(getClass().getClassLoader().getResource("player.gif")).getImage();//win game
+    Image imgAch0 = new ImageIcon(getClass().getClassLoader().getResource("ach0.png")).getImage();//win game
     Image imgAch1 = new ImageIcon(getClass().getClassLoader().getResource("ach1.png")).getImage();//10lv
-    Image imgAch2 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin2.gif")).getImage();//20lv
-    Image imgAch3 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin3.gif")).getImage();//30lv
-    Image imgAch4 = new ImageIcon(getClass().getClassLoader().getResource("playerSkin4.gif")).getImage();//40lv
-    Image imgAch5 = new ImageIcon(getClass().getClassLoader().getResource("meteor.gif")).getImage();//50lv
+    Image imgAch2 = new ImageIcon(getClass().getClassLoader().getResource("ach2.png")).getImage();//20lv
+    Image imgAch3 = new ImageIcon(getClass().getClassLoader().getResource("ach3.png")).getImage();//30lv
+    Image imgAch4 = new ImageIcon(getClass().getClassLoader().getResource("ach4.png")).getImage();//40lv
+    Image imgAch5 = new ImageIcon(getClass().getClassLoader().getResource("ach5.png")).getImage();//50lv
     Image imgAch6 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();//tutaj i niżej nie zaimplementowane
     Image imgAch7 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
     Image imgAch8 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
