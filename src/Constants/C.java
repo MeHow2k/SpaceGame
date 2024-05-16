@@ -10,8 +10,8 @@ public class C {
 
     public static int FRAME_HEIGHT=850;
     public static int FRAME_WIDTH=800;
-    public static int GAMESTATE=100; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra,
-    // 22-playernameseletion,21-playersettings , 100 - intro, 99 - wybor jezyka
+    public static int GAMESTATE=100; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra, 6-osiagniecia
+    // 22-playernameseletion,21-playersettings, , 100 - intro, 99 - wybor jezyka
     public static int LEVEL=0;
     public static int LAST_LEVEL=51;
     public static boolean GODMODE=false;
@@ -29,9 +29,12 @@ public class C {
     public static int highscoreLevel=0;
     public static int cursorPosition=0;
     public static int cursorSettingsPosition=0;
+    public static int cursorPositionColumn=0;
     public static int cursorPlayerSettingsPosition=0;
     public static int cursorBeforeGamePosition=5;
     public static int cursorLanguagePosition=0;
+    public static int cursorAchievementsColumn=0;
+    public static int cursorAchievementsRow=0;
     public static int cursorPlayerNamePosition=0;
     public static int musicVolume=0;
     public static int soundVolume=0;

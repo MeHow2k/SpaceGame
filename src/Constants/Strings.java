@@ -71,6 +71,22 @@ public class Strings {
         enStrings.put("Zresetuj wszystko2", "Reset all highscores and achievements");
         enStrings.put("Czy na pewno?", "Are you sure?");
 
+
+
+
+        enStrings.put("Osiągnięcia", "Achievements");
+        enStrings.put("Lista osiągnięć", "Achievements list");
+        enStrings.put("Ach0opis", "Beat a game.");
+        enStrings.put("Ach1opis", "Complete 10 level.");
+        enStrings.put("Ach2opis", "Complete 20 level");
+        enStrings.put("Ach3opis", "Complete 30 level");
+        enStrings.put("Ach4opis", "Complete 40 level");
+        enStrings.put("Ach5opis", "Complete 50 level");
+
+
+
+
+
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
         plStrings.put("Start", "Start");
@@ -131,6 +147,14 @@ public class Strings {
         plStrings.put("Zresetuj wszystko2", "Zresetuj wszystkie wyniki i osiągnięcia");
         plStrings.put("Czy na pewno?", "Czy na pewno?");
 
+        plStrings.put("Osiągnięcia", "Osiągnięcia");
+        plStrings.put("Lista osiągnięć", "Lista osiągnięć");
+        plStrings.put("Ach0opis", "Ukończ grę.");
+        plStrings.put("Ach1opis", "Ukończ 10 poziom.");
+        plStrings.put("Ach2opis", "Ukończ 20 poziom.");
+        plStrings.put("Ach3opis", "Ukończ 30 poziom.");
+        plStrings.put("Ach4opis", "Ukończ 40 poziom.");
+        plStrings.put("Ach5opis", "Ukończ 50 poziom.");
 
         // Dodanie tłumaczeń do mapy głównej
         languageMap.put(0, enStrings);

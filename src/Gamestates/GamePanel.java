@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements KeyListener {
     // deklaracja elementów menu
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;Intro intro;
     LanguageSelection languageSelection;
-    MenuSkinSelection menuSkinSelection; PlayerNameSelection playerNameSelection;MenuPlayerSettings menuPlayerSettings;
+    MenuSkinSelection menuSkinSelection; PlayerNameSelection playerNameSelection;MenuPlayerSettings menuPlayerSettings;MenuAchievements menuAchievements;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -2185,21 +2185,30 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                         }
 ///////////////////////////////////////////////////////////////////////////////////obsługa kursorów menu
-                        menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
-                        if (menu != null && C.cursorPosition == 0) {
+
+                        if (menu != null && C.cursorPosition == 0 && C.cursorPositionColumn==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(290);
                         }
-                        if (menu != null && C.cursorPosition == 1) {
+                        if (menu != null && C.cursorPosition == 1 && C.cursorPositionColumn==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(390);
                         }
-                        if (menu != null && C.cursorPosition == 2) {
+                        if (menu != null && C.cursorPosition == 2 && C.cursorPositionColumn==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(490);
                         }
-                        if (menu != null && C.cursorPosition == 3) {
+                        if (menu != null && C.cursorPosition == 3 && C.cursorPositionColumn==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(590);
                         }
-                        if (menu != null && C.cursorPosition == 4) {
+                        if (menu != null && C.cursorPosition == 4 && C.cursorPositionColumn==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(690);
+                        }
+                        if (menu != null && C.cursorPositionColumn==1) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2);
+                            menuCursor.setY(590);
                         }
 
                     }//GAMESTATE 1 menu
@@ -2243,6 +2252,14 @@ public class GamePanel extends JPanel implements KeyListener {
                             menuCursor.setY(690);
                         }
                     }//GAMESTATE 5 skin selection
+                    if(C.GAMESTATE==6){
+                        if (menuAchievements != null && C.cursorAchievementsRow ==4) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 170);
+                            menuCursor.setY(690);
+                        }else {
+                            menuCursor.setX(-300);
+                        }
+                    }//GAMESTATE 6 osiagniecia
 
                     if(C.GAMESTATE==22){
                         if(C.hasPlayerName) {
@@ -2524,6 +2541,11 @@ public class GamePanel extends JPanel implements KeyListener {
             menuSkinSelection.draw(g2D);
             if(C.cursorBeforeGamePosition==5)menuCursor.draw(g2D);
         } //GAMESTATE 5 - wybieranie skórek przed rozp. gry
+        if (C.GAMESTATE == 6) {//GAMESTATE 6- menu osiagniec
+            menuAchievements = new MenuAchievements();
+            menuAchievements.draw(g2D);
+            if(C.cursorBeforeGamePosition==5) menuCursor.draw(g2D);
+        } //GAMESTATE 6 - osiagniec
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -3002,13 +3024,42 @@ public class GamePanel extends JPanel implements KeyListener {
     }
     public static void checkAchievements() {
         //sprawdzenie warunków osiągnięć
-        if(!C.isAchivement0done && C.LEVEL>10) {//ach0 beat 10 lvl
-            System.out.println("Achievement 0: Beat 10 lvl");
+        if(!C.isAchivement0done && C.LEVEL==C.LAST_LEVEL) {//ach0 end game
+            System.out.println("Achievement 0: End game");
             C.achievements[0]=1;
             C.isAchivement0done=true;
             updateAchievements();
         }
-
+        if(!C.isAchivement1done && C.LEVEL>10) {//ach1 beat 10 lvl
+            System.out.println("Achievement 1: Beat 10 lvl");
+            C.achievements[1]=1;
+            C.isAchivement1done=true;
+            updateAchievements();
+        }
+        if(!C.isAchivement2done && C.LEVEL>20) {//ach2 beat 20 lvl
+            System.out.println("Achievement 2: Beat 20 lvl");
+            C.achievements[2]=1;
+            C.isAchivement2done=true;
+            updateAchievements();
+        }
+        if(!C.isAchivement3done && C.LEVEL>30) {//ach3 beat 30 lvl
+            System.out.println("Achievement 3: Beat 30 lvl");
+            C.achievements[3]=1;
+            C.isAchivement3done=true;
+            updateAchievements();
+        }
+        if(!C.isAchivement4done && C.LEVEL>40) {//ach3 beat 40 lvl
+            System.out.println("Achievement 4: Beat 40 lvl");
+            C.achievements[4]=1;
+            C.isAchivement4done=true;
+            updateAchievements();
+        }
+        if(!C.isAchivement5done && C.LEVEL>50) {//ach3 beat 50 lvl
+            System.out.println("Achievement 5: Beat 50 lvl");
+            C.achievements[5]=1;
+            C.isAchivement5done=true;
+            updateAchievements();
+        }
     }
     private static void resetAchievements() {
             C.ARCH_PLAYER_NAME=C.PLAYER_NAME;
@@ -3240,6 +3291,15 @@ public class GamePanel extends JPanel implements KeyListener {
         ////   ruch gracza
         if (e.getKeyCode()==37){//s w lewo
             LEFT_PRESSED=true;
+            //obsługa dla menu
+            if (C.GAMESTATE==1){
+                if(C.cursorPositionColumn==1) C.cursorPositionColumn=0;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             //obsługa dla menu opcje
             if(C.GAMESTATE==2){
                 if(C.cursorSettingsPosition==0){
@@ -3311,9 +3371,28 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu osiagniec
+            if(C.GAMESTATE==6 && C.cursorAchievementsColumn!=6 && C.cursorAchievementsRow!=4){
+                if (C.cursorAchievementsColumn==0) C.cursorAchievementsColumn=5;
+                else C.cursorAchievementsColumn--;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==39){//s w prawo
             RIGHT_PRESSED=true;
+            //obsługa dla menu
+            if (C.GAMESTATE==1){
+                if(C.cursorPositionColumn==0) C.cursorPositionColumn=1;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
             //obsługa dla menu opcje
             if (C.GAMESTATE==2){
                 if(C.cursorSettingsPosition==0){
@@ -3385,11 +3464,21 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==6 && C.cursorAchievementsColumn!=6 && C.cursorAchievementsRow!=4){
+                if (C.cursorAchievementsColumn==5) C.cursorAchievementsColumn=0;
+                else C.cursorAchievementsColumn++;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
         if (e.getKeyCode()==40){//s w dol
             DOWN_PRESSED=true;
             //obsługa dla menu i menu opcje
-            if(C.GAMESTATE==1 && C.cursorPosition<4){
+            if(C.GAMESTATE==1 && C.cursorPosition<4 && C.cursorPositionColumn!=1){
                 C.cursorPosition++;
                 try {
                     SoundManager.playPlayerShot();
@@ -3409,6 +3498,16 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==5){
                 if (C.cursorBeforeGamePosition!=5) C.cursorBeforeGamePosition=5;
                 else C.cursorBeforeGamePosition=0;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            //obsługa dla menu osiagniec
+            if(C.GAMESTATE==6){
+                if (C.cursorAchievementsRow<4) C.cursorAchievementsRow++;
+                //else C.cursorBeforeGamePosition=0;
                 try {
                     SoundManager.playPlayerShot();
                 } catch (Exception ex) {
@@ -3447,7 +3546,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
             //obsługa dla menu i menu opcje
-            if(C.GAMESTATE==1 && C.cursorPosition>0){
+            if(C.GAMESTATE==1 && C.cursorPosition>0 && C.cursorPositionColumn!=1){
                 C.cursorPosition--;
                 try {
                     SoundManager.playPlayerShot();
@@ -3467,6 +3566,16 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.GAMESTATE==5){
                 if (C.cursorBeforeGamePosition==5) C.cursorBeforeGamePosition=0;
                 else C.cursorBeforeGamePosition=5;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+            //obsługa dla menu wyboru statku
+            if(C.GAMESTATE==6){
+                if (C.cursorAchievementsRow>0) C.cursorAchievementsRow--;
+                //else C.cursorAchievementsRow=5;
                 try {
                     SoundManager.playPlayerShot();
                 } catch (Exception ex) {
@@ -3508,14 +3617,15 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==10){//enter - zatwierdzanie w menu
             switch (C.GAMESTATE) {
                 case 1:
-                    if (C.cursorPosition == 0) {
+                    if (C.cursorPosition == 0 && C.cursorPositionColumn==0) {
                         deleteEnemyMenu();
                         C.GAMESTATE = 5;//menu before game
                     }
-                    if (C.cursorPosition == 1) {C.GAMESTATE = 3;deleteEnemyMenu();}//jak grac
-                    if (C.cursorPosition == 2) {C.GAMESTATE = 2;}//opcje
-                    if (C.cursorPosition == 3) {C.GAMESTATE = 4;}//autorzy
-                    if (C.cursorPosition == 4) System.exit(0);
+                    if (C.cursorPosition == 1 && C.cursorPositionColumn==0) {C.GAMESTATE = 3;deleteEnemyMenu();}//jak grac
+                    if (C.cursorPosition == 2 && C.cursorPositionColumn==0) {C.GAMESTATE = 2;}//opcje
+                    if (C.cursorPosition == 3 && C.cursorPositionColumn==0) {C.GAMESTATE = 4;}//autorzy
+                    if (C.cursorPositionColumn==1) {C.GAMESTATE = 6;}//menu osiagniec - dodaj cursor position gdy wiecej opcji w 2 kolumnie
+                    if (C.cursorPosition == 4 && C.cursorPositionColumn==0) System.exit(0);
                     break;
                 case 2: /// obsluga entera w podmenu OPCJE
                     if(C.cursorSettingsPosition==5) {
@@ -3569,6 +3679,14 @@ public class GamePanel extends JPanel implements KeyListener {
                             throw new RuntimeException(ex);
                         }
                     }
+                    break;
+                case 6:
+                    try {
+                        SoundManager.playPlayerShot();
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    C.GAMESTATE=1;
                     break;
                 case 21:
                     if(C.cursorPlayerSettingsPosition==0) {C.GAMESTATE=22;}
