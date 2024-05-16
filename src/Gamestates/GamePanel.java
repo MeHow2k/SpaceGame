@@ -3275,6 +3275,12 @@ public class GamePanel extends JPanel implements KeyListener {
             //newBonusAllyAid(100,-10);
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
+            C.isAchivement0done=true;
+            C.isAchivement1done=true;
+            C.isAchivement2done=true;
+            C.isAchivement3done=true;
+            C.isAchivement4done=true;
+            C.isAchivement5done=true;
 
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
