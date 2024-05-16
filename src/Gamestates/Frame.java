@@ -48,8 +48,9 @@ public class Frame extends JFrame {
                 C.isMuted = Boolean.parseBoolean(configLines[2]);
                 C.playerSkin = Integer.parseInt(configLines[3]);
                 C.LANGUAGE = Integer.parseInt(configLines[4]);
+                C.isFPSon = Boolean.parseBoolean(configLines[5]);
         }catch (Exception e){
-            System.out.println("error loading file: "+configFile.getName());C.musicVolume=0;C.soundVolume=0;C.isMuted=false;C.playerSkin=0;C.LANGUAGE=999;
+            System.out.println("error loading file: "+configFile.getName());C.musicVolume=0;C.soundVolume=0;C.isMuted=false;C.playerSkin=0;C.LANGUAGE=999;C.isFPSon=false;
         }
         // Wczytanie najlepszego wyniku i nazwy gracza z pliku
         File dataFile = new File("data.dat");
@@ -110,7 +111,7 @@ public class Frame extends JFrame {
     private static void createDefaultConfig(File configFile) {
         try (FileOutputStream fos = new FileOutputStream(configFile)) {
             // Domyślne ustawienia
-            String defaultConfig = "4\n4\nfalse\n0\n999\n";
+            String defaultConfig = "4\n4\nfalse\n0\n999\nfalse\n";
             byte[] encryptedConfig = encrypt(defaultConfig, C.SECRETKEY);
             fos.write(encryptedConfig);
         } catch (Exception e) {

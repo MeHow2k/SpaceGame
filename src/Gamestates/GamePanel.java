@@ -2970,7 +2970,7 @@ public class GamePanel extends JPanel implements KeyListener {
         try {
             // Zapisanie ustawień do pliku
             File configFile = new File("config.dat");
-            String configData = String.format("%d\n%d\n%b\n%d\n%d\n", C.musicVolume, C.soundVolume, C.isMuted, C.playerSkin, C.LANGUAGE);
+            String configData = String.format("%d\n%d\n%b\n%d\n%d\n%b\n", C.musicVolume, C.soundVolume, C.isMuted, C.playerSkin, C.LANGUAGE, C.isFPSon);
             byte[] encryptedConfig = encrypt(configData, C.SECRETKEY);
             try (FileOutputStream fos = new FileOutputStream(configFile)) {
                 fos.write(encryptedConfig);
