@@ -101,7 +101,6 @@ public class GamePanel extends JPanel implements KeyListener {
         FPSlabel = new JLabel("");
         FPSlabel.setBounds(0, 10, 100, 30);
         FPSlabel.setForeground(Color.white);
-        FPSlabel.setText("FPS: ");
         add(FPSlabel);
         labelTotalPoints = new JLabel("");
         labelTotalPoints.setBounds(C.FRAME_WIDTH-100, 10, 100, 30);
@@ -2224,9 +2223,13 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             if (menu != null && C.cursorSettingsPosition == 4) {
                                 menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
-                                menuCursor.setY(620);
+                                menuCursor.setY(550);
                             }
                             if (menu != null && C.cursorSettingsPosition == 5) {
+                                menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
+                                menuCursor.setY(620);
+                            }
+                            if (menu != null && C.cursorSettingsPosition == 6) {
                                 menuCursor.setX(C.FRAME_WIDTH / 2 - 200);
                                 menuCursor.setY(705);
                             }
@@ -2308,7 +2311,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (System.currentTimeMillis() - timer > 1000) { //co 1 s sprawdza liczbe narysowanych klatek
                         timer += 1000;
                         //wypisywanie liczby klatek na sekundę w etykiecie
-                        FPSlabel.setText("FPS: " + frames + " ");
+
+                         if(C.isFPSon) FPSlabel.setText("FPS: " + frames + " ");
                         frames = 0;
                     }
                 }//wh-true
@@ -3284,6 +3288,18 @@ public class GamePanel extends JPanel implements KeyListener {
                         throw new RuntimeException(ex);
                     }
                 }
+                if(C.cursorSettingsPosition==4){
+                    if(C.isFPSon) {
+                        C.isFPSon=false;
+                        FPSlabel.setText("");
+                        updateSettings();
+                        try {
+                            SoundManager.playPlayerShot();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
             }
             //obsługa dla menu wyboru statku
             if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
@@ -3347,6 +3363,17 @@ public class GamePanel extends JPanel implements KeyListener {
                         throw new RuntimeException(ex);
                     }
                 }
+                if(C.cursorSettingsPosition==4){
+                    if(!C.isFPSon) {
+                        C.isFPSon=true;
+                        updateSettings();
+                        try {
+                            SoundManager.playPlayerShot();
+                        } catch (Exception ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                }
             }
             //obsługa dla menu wyboru statku
             if(C.GAMESTATE==5 && C.cursorBeforeGamePosition!=5){
@@ -3370,7 +3397,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(ex);
                 }
             }
-            if(C.GAMESTATE==2 && C.cursorSettingsPosition<5){
+            if(C.GAMESTATE==2 && C.cursorSettingsPosition<6){
                 C.cursorSettingsPosition++;
                 try {
                     SoundManager.playPlayerShot();
@@ -3491,16 +3518,11 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (C.cursorPosition == 4) System.exit(0);
                     break;
                 case 2: /// obsluga entera w podmenu OPCJE
-                    if(C.cursorSettingsPosition==4) {
+                    if(C.cursorSettingsPosition==5) {
                         //wejscie do podmenu PlayerSettings
                         C.GAMESTATE=21;
-//                        int enddialog = JOptionPane.showConfirmDialog
-//                                (null, gameStrings.getString("Czy na pewno zresetować") ,
-//                                        "?", 0);
-//                        //zresetowanie po wybraniu tak
-//                        if (enddialog == 0) resetData();
                     }
-                    if(C.cursorSettingsPosition==5) C.GAMESTATE = 1;
+                    if(C.cursorSettingsPosition==6) C.GAMESTATE = 1;
                     if(C.cursorSettingsPosition==2){
                         if (!C.isMuted) {
                             C.isMuted = true;

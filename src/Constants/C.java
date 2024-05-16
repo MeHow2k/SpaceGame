@@ -51,5 +51,6 @@ public class C {
     public static int gamesPlayed=0;
     public static boolean hasPlayerName=false;
     public static boolean isMuted=false;
+    public static boolean isFPSon=false;
     public static boolean PAUSE;
 }

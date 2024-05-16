@@ -54,8 +54,8 @@ public class MenuPlayerSettings {
         g.setFont(customFont.deriveFont(25f));
         g.setColor(Color.white);
         if(C.cursorPlayerSettingsPosition==2) g.setColor(selectedColor);
-        g.drawString("Reset całego postępu", C.FRAME_WIDTH/2-200,430);
-        g.drawString("zresetuj osiagniecia i wyniki", C.FRAME_WIDTH/2-100,480);
+        g.drawString(gameStrings.getString("Zresetuj wszystko"), C.FRAME_WIDTH/2-200,430);
+        g.drawString(gameStrings.getString("Zresetuj wszystko2"), C.FRAME_WIDTH/2-100,480);
 //        String achievementsString="";
 //        for(int i=0;i<C.achievements.length;i++){
 //            achievementsString += C.achievements[i];

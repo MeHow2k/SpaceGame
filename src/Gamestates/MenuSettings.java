@@ -89,11 +89,25 @@ public class MenuSettings {
 
         g.setColor(Color.white);
         if(C.cursorSettingsPosition==4) g.setColor(selectedColor);
+        g.drawString(gameStrings.getString("PokażFPS"), C.FRAME_WIDTH/2-200,580);
+        g.setFont(title);
+        if(C.isFPSon){
+            g.setColor(Color.red);
+            g.drawString(gameStrings.getString("TAK"), C.FRAME_WIDTH/2,580);
+        }
+        if(!C.isFPSon){
+            g.setColor(Color.green);
+            g.drawString(gameStrings.getString("NIE"), C.FRAME_WIDTH/2,580);
+        }
+        g.setFont(customFont.deriveFont(25f));
+
+        g.setColor(Color.white);
+        if(C.cursorSettingsPosition==5) g.setColor(selectedColor);
         g.drawString(gameStrings.getString("Ustawienia gracza"), C.FRAME_WIDTH/2-200,650);
 
         g.setFont(customFont.deriveFont(40f));
         g.setColor(Color.white);
-        if(C.cursorSettingsPosition==5) g.setColor(selectedColor);
+        if(C.cursorSettingsPosition==6) g.setColor(selectedColor);
         g.drawString(gameStrings.getString("Wyjście"), C.FRAME_WIDTH/2-80,740);
         g.setFont(customFont.deriveFont(25f));
         g.setColor(Color.white);

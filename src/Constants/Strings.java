@@ -66,6 +66,10 @@ public class Strings {
         enStrings.put("Zmień nazwę gracza", "Change player name");
         enStrings.put("TarczaON", "! PROTECTION SHIELD ACTIVATED !");
         enStrings.put("TarczaOFF", "PROTECTION SHIELD INACTIVE");
+        enStrings.put("PokażFPS", "Show FPS:");
+        enStrings.put("Zresetuj wszystko", "Reset whole progress");
+        enStrings.put("Zresetuj wszystko2", "Reset all highscores and achievements");
+        enStrings.put("Czy na pewno?", "Are you sure?");
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
@@ -122,6 +126,10 @@ public class Strings {
         plStrings.put("Zmień nazwę gracza", "Zmień nazwę gracza");
         plStrings.put("TarczaON", "! TARCZA OCHRONNA AKTYWOWANA !");
         plStrings.put("TarczaOFF", "TARCZA OCHRONNA NIEAKTYWNA");
+        plStrings.put("PokażFPS", "Pokaż FPS:");
+        plStrings.put("Zresetuj wszystko", "Zresetuj cały postęp");
+        plStrings.put("Zresetuj wszystko2", "Zresetuj wszystkie wyniki i osiągnięcia");
+        plStrings.put("Czy na pewno?", "Czy na pewno?");
 
 
         // Dodanie tłumaczeń do mapy głównej
