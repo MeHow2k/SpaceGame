@@ -127,6 +127,22 @@ public class SoundManager {
     }
     public static void stopBoss(){if(clipboss!=null)clipboss.stop();}//zatrzymanie muzyki bossa
     public static void stopAllMusic(){stopBackground();stopMenuBackground();stopBoss();}
+    public static void playAchievement() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        String filename="achievement.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        Clip clip;
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkSoundVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
+    }
     public static void playDefeat() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         String filename="defeat.wav";
         InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
@@ -161,6 +177,22 @@ public class SoundManager {
     }
     public static void playEnemyShot() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         String filename="enemyShot.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        Clip clip;
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkSoundVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
+    }
+    public static void playFirerateUpgrade() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        String filename="firerateUpgrade.wav";
         InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
         if(is!=null) {
@@ -225,6 +257,22 @@ public class SoundManager {
     }
     public static void playPointBonus() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         String filename="pointBonus.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        Clip clip;
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkSoundVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
+    }
+    public static void playPointLife() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        String filename="pointLife.wav";
         InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
         Clip clip;
         if(is!=null) {

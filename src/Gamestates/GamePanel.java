@@ -363,7 +363,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         life.getX(), life.getY(), life.getW(), life.getH())) {
                                     try {
-                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                        SoundManager.playPointLife();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
@@ -407,7 +407,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                 if (isCollision(player.getX(), player.getY(), player.getW(), player.getH(),
                                         firerateUpgrade.getX(), firerateUpgrade.getY(), firerateUpgrade.getW(), firerateUpgrade.getH())) {
                                     try {
-                                        SoundManager.playPoint();// todo zmien dzwiek!
+                                        SoundManager.playFirerateUpgrade();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }
