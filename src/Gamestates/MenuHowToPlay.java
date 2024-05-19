@@ -5,7 +5,6 @@ import Constants.Strings;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,7 +18,7 @@ public class MenuHowToPlay {
     Image imgTarcza = new ImageIcon(getClass().getClassLoader().getResource("shieldBonus.gif")).getImage();
     Image imgWeaponUpgrade = new ImageIcon(getClass().getClassLoader().getResource("weaponBonus.gif")).getImage();
     Image imgWeaponFirerate = new ImageIcon(getClass().getClassLoader().getResource("weaponFirerateBoost.gif")).getImage();
-    Image imgAlly = new ImageIcon(getClass().getClassLoader().getResource("bonusAllyAId.gif")).getImage();
+    Image imgAlly = new ImageIcon(getClass().getClassLoader().getResource("bonusAllyAid.gif")).getImage();
     Image imgAllyShip = new ImageIcon(getClass().getClassLoader().getResource("allyLeft.gif")).getImage();
     Image imgEnemyLaser = new ImageIcon(getClass().getClassLoader().getResource("enemyLaserRight.gif")).getImage();
     Image imgMeteor = new ImageIcon(getClass().getClassLoader().getResource("meteor.gif")).getImage();
