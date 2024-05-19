@@ -19,8 +19,9 @@ import java.security.NoSuchAlgorithmException;
 public class FileDecryptor {
 
     public static void main(String[] args) {
-        File configFile = new File("config.dat");
-        //File configFile = new File("data.dat");
+        //File configFile = new File("config.dat");
+        File configFile = new File("data1.dat");
+        //File configFile = new File("data1.dat");
         if (!configFile.exists()) {
         }
         try {

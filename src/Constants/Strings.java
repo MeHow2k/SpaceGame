@@ -78,10 +78,10 @@ public class Strings {
         enStrings.put("Lista osiągnięć", "Achievements list");
         enStrings.put("Ach0opis", "Beat a game.");
         enStrings.put("Ach1opis", "Complete 10 level.");
-        enStrings.put("Ach2opis", "Complete 20 level");
-        enStrings.put("Ach3opis", "Complete 30 level");
-        enStrings.put("Ach4opis", "Complete 40 level");
-        enStrings.put("Ach5opis", "Complete 50 level");
+        enStrings.put("Ach2opis", "Complete 20 level.");
+        enStrings.put("Ach3opis", "Complete 30 level.");
+        enStrings.put("Ach4opis", "Complete 40 level.");
+        enStrings.put("Ach5opis", "Complete 50 level.");
 
 
 

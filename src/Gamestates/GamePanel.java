@@ -3028,36 +3028,54 @@ public class GamePanel extends JPanel implements KeyListener {
             System.out.println("Achievement 0: End game");
             C.achievements[0]=1;
             C.isAchivement0done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
         if(!C.isAchivement1done && C.LEVEL>10) {//ach1 beat 10 lvl
             System.out.println("Achievement 1: Beat 10 lvl");
             C.achievements[1]=1;
             C.isAchivement1done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
         if(!C.isAchivement2done && C.LEVEL>20) {//ach2 beat 20 lvl
             System.out.println("Achievement 2: Beat 20 lvl");
             C.achievements[2]=1;
             C.isAchivement2done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
         if(!C.isAchivement3done && C.LEVEL>30) {//ach3 beat 30 lvl
             System.out.println("Achievement 3: Beat 30 lvl");
             C.achievements[3]=1;
             C.isAchivement3done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
         if(!C.isAchivement4done && C.LEVEL>40) {//ach3 beat 40 lvl
             System.out.println("Achievement 4: Beat 40 lvl");
             C.achievements[4]=1;
             C.isAchivement4done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
         if(!C.isAchivement5done && C.LEVEL>50) {//ach3 beat 50 lvl
             System.out.println("Achievement 5: Beat 50 lvl");
             C.achievements[5]=1;
             C.isAchivement5done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
             updateAchievements();
         }
     }
