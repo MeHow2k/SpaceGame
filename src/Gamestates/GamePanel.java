@@ -300,7 +300,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                         else newEnemyLaserShot(enemyLaser.getX() + enemyLaser.getW(), enemyLaser.getY() + enemyLaser.getH() - 30);
                                     }
                                     try {
-                                        SoundManager.playEnemyShot();//todo zmień na dzwiek wystrzału lasera!
+                                        SoundManager.playLaser();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
                                     }

@@ -207,6 +207,22 @@ public class SoundManager {
             System.out.println("Cannot read sound file: "+filename);
         }
     }
+    public static void playLaser() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        String filename="laser.wav";
+        InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
+        Clip clip;
+        if(is!=null) {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(is));
+            clip = AudioSystem.getClip();
+            clip.open(ais);
+            FloatControl gainControl = (FloatControl)
+                    clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(checkSoundVolume());
+            clip.start();
+        }else {
+            System.out.println("Cannot read sound file: "+filename);
+        }
+    }
     public static void playMeteorHit() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         String filename="meteorHit.wav";
         InputStream is = SoundManager.class.getClassLoader().getResourceAsStream(filename);
