@@ -60,16 +60,30 @@ public class GamePanel extends JPanel implements KeyListener {
     boolean LEFT_PRESSED, RIGHT_PRESSED, DOWN_PRESSED, UP_PRESSED,SHOT_PRESSED,
             isShotOnCooldown=false;//czas do ponownego strzału
 
-    boolean isMusicPlayed=false, isBossHpTaken= false, isBossAid=true;
+    boolean isMusicPlayed=false;
+    boolean isBossHpTaken= false;
+    boolean isBossAid=true;
+    static boolean isBossDefeated=false;
     int level_temp1 =0; int level_temp2 =0;int level_temp3 =0;int enemyCreated =0,tick=0,level_delay=0,menudelay=1000;
-    boolean tickUp=false,level_temp1Up=false,level_temp2Up=false,level_temp3Up=false,shieldCooldownDrop=false;
+    boolean tickUp=false;
+    boolean level_temp1Up=false;
+    boolean level_temp2Up=false;
+    boolean level_temp3Up=false;
+    boolean shieldCooldownDrop=false;
+    static boolean isPlayerTookHit=false;
     int shotCooldown=60;
     int initialBossHP=0;
     //etykiety
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
     Thread gameThread;
     ///do statystyk
-    int livesEarned=0,weaponUpgradeEarned=0,firerateUpgradeEarned=0,shieldEarned=0,pointBoxEarned=0,shotsNumber=0;
+    static int livesEarned=0;
+    static  int weaponUpgradeEarned=0;
+    static  int firerateUpgradeEarned=0;
+    static  int shieldEarned=0;
+    static  int pointBoxEarned=0;
+    static  int allyAidEarned=0;
+    static  int shotsNumber=0;
 
     GamePanel(){
         super(null);
@@ -464,6 +478,7 @@ public class GamePanel extends JPanel implements KeyListener {
                                     }
                                     //tutaj wpisz akcja
                                     C.totalPoints+=10;
+                                    allyAidEarned++;
                                     newAllyAid(-40,20,0);
                                     updateLabels();
                                     listBonusAllyAid.remove(bonusAllyAid);
@@ -676,6 +691,7 @@ public class GamePanel extends JPanel implements KeyListener {
                         updateLabels();
                         //////////////////////////////////warunek końca gry//////////////////////////////////////////////
                         if (C.playerLives <= 0) {
+                            checkAchievements();
                             try {
                                 SoundManager.playDefeat();
                                 SoundManager.stopAllMusic();
@@ -894,6 +910,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                 } else if (C.PAUSE != true && !C.isLevelCreated) tickUp=true;
 
                                 if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                    isBossDefeated=true;
+                                    checkAchievements();
                                     C.LEVEL++;
                                     C.totalPoints += 500;
                                     resetLevel();
@@ -1117,6 +1135,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                 level_temp1Up=true;
                             }
                             if (listEnemy.isEmpty() && C.isLevelCreated == true) {
+                                isBossDefeated=true;
+                                checkAchievements();
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
                                 C.isLevelCreated = false;
@@ -1361,6 +1381,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                 level_temp3Up=true;
                             }
                             if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                isBossDefeated=true;
+                                checkAchievements();
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
                                 C.isLevelCreated = false;
@@ -1681,6 +1703,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                 level_temp3Up=true;
                             }
                             if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                isBossDefeated=true;
+                                checkAchievements();
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
                                 C.isLevelCreated = false;
@@ -1911,7 +1935,6 @@ public class GamePanel extends JPanel implements KeyListener {
                         }
 
                         if (C.LEVEL == 50) {
-                            boolean isBossReleased=false;
                             int phase=1;
                             if(SoundManager.clipback!=null)SoundManager.stopBackground();
                             if (isMusicPlayed == false) {
@@ -2077,6 +2100,8 @@ public class GamePanel extends JPanel implements KeyListener {
                                 level_temp3Up=true;
                             }
                             if (listEnemy.isEmpty() && listMeteor.isEmpty() && C.isLevelCreated == true) {
+                                isBossDefeated=true;
+                                checkAchievements();
                                 C.LEVEL++;
                                 C.totalPoints+=2500;
                                 C.isLevelCreated = false;
@@ -2897,7 +2922,7 @@ public class GamePanel extends JPanel implements KeyListener {
         removeObjects();
         resetLevel();
         C.PAUSE= false;
-        livesEarned=0;weaponUpgradeEarned=0;firerateUpgradeEarned=0;shieldEarned=0;pointBoxEarned=0;shotsNumber=0;
+        livesEarned=0;weaponUpgradeEarned=0;firerateUpgradeEarned=0;shieldEarned=0;allyAidEarned=0;pointBoxEarned=0;shotsNumber=0;
     }
     public void resetLevel(){//przywrócenie zmiennych dot opóźnień w poziomach do stanu pierwotnego
         tick=0; tickUp=false; level_delay=0;
@@ -2905,7 +2930,7 @@ public class GamePanel extends JPanel implements KeyListener {
         level_temp2=0; level_temp2Up=false;
         level_temp1=0; level_temp1Up=false;
         enemyCreated=0; C.isLevelCreated=false;isMusicPlayed=false;
-        initialBossHP=0; isBossHpTaken=false;
+        initialBossHP=0; isBossHpTaken=false;isPlayerTookHit=false;isBossDefeated=false;
     }
     public void removeObjects(){//wyczyszczenie zawartosci list obiektów
         //remove lists
@@ -2962,6 +2987,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     throw new RuntimeException(e);
                 }
                 C.playerLives--;
+                if(C.LEVEL==10 || C.LEVEL==20 || C.LEVEL==30 || C.LEVEL==40 || C.LEVEL==50) isPlayerTookHit=true;
                 if(C.weaponUpgrade>1) C.weaponUpgrade--;
                 C.isFirerateUpgrade=false;
                 updateLabels();
@@ -3067,7 +3093,7 @@ public class GamePanel extends JPanel implements KeyListener {
             }catch (Exception e){}
             updateAchievements();
         }
-        if(!C.isAchivement4done && C.LEVEL>40) {//ach3 beat 40 lvl
+        if(!C.isAchivement4done && C.LEVEL>40) {//ach4 beat 40 lvl
             System.out.println("Achievement 4: Beat 40 lvl");
             C.achievements[4]=1;
             C.isAchivement4done=true;
@@ -3076,7 +3102,7 @@ public class GamePanel extends JPanel implements KeyListener {
             }catch (Exception e){}
             updateAchievements();
         }
-        if(!C.isAchivement5done && C.LEVEL>50) {//ach3 beat 50 lvl
+        if(!C.isAchivement5done && C.LEVEL>50) {//ach5 beat 50 lvl
             System.out.println("Achievement 5: Beat 50 lvl");
             C.achievements[5]=1;
             C.isAchivement5done=true;
@@ -3085,6 +3111,169 @@ public class GamePanel extends JPanel implements KeyListener {
             }catch (Exception e){}
             updateAchievements();
         }
+        if(!C.isAchivement6done && C.LEVEL==10 && !isPlayerTookHit && isBossDefeated) {//ach6
+            System.out.println("Achievement 6: Beat boss 1 hitless");
+            C.achievements[6]=1;
+            C.isAchivement6done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement7done && C.LEVEL==20 && !isPlayerTookHit && isBossDefeated) {//ach7
+            System.out.println("Achievement 7: Beat boss 2 hitless");
+            C.achievements[7]=1;
+            C.isAchivement7done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement8done && C.LEVEL==30 && !isPlayerTookHit && isBossDefeated) {//ach8
+            System.out.println("Achievement 8: Beat boss 3 hitless");
+            C.achievements[8]=1;
+            C.isAchivement8done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement9done && C.LEVEL==40 && !isPlayerTookHit && isBossDefeated) {//ach9
+            System.out.println("Achievement 9: Beat boss 4 hitless");
+            C.achievements[9]=1;
+            C.isAchivement9done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement10done && C.LEVEL==50 && !isPlayerTookHit && isBossDefeated) {//ach10
+            System.out.println("Achievement 10: Beat boss 5 hitless");
+            C.achievements[10]=1;
+            C.isAchivement10done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement11done && livesEarned>=50) {//ach11
+            System.out.println("Achievement 11: Earn 50 lives");
+            C.achievements[11]=1;
+            C.isAchivement11done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement12done && firerateUpgradeEarned>=50) {//ach12
+            System.out.println("Achievement 12: Earn 50 firerate updgrades");
+            C.achievements[12]=1;
+            C.isAchivement12done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement13done && shieldEarned>=50) {//ach13
+            System.out.println("Achievement 13: Earn 50 shields");
+            C.achievements[13]=1;
+            C.isAchivement13done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement14done && allyAidEarned>=50) {//ach14
+            System.out.println("Achievement 14: Earn 50 ally aid bonuses");
+            C.achievements[14]=1;
+            C.isAchivement14done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement15done && weaponUpgradeEarned>=50) {//ach15
+            System.out.println("Achievement 15: Earn 50 weapon upgrades");
+            C.achievements[15]=1;
+            C.isAchivement15done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement16done && pointBoxEarned>=50) {//ach16
+            System.out.println("Achievement 16: Earn 50 point boxes");
+            C.achievements[16]=1;
+            C.isAchivement16done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement17done && C.totalPoints>=10000) {//ach17
+            System.out.println("Achievement 17: Earn 10k points");
+            C.achievements[17]=1;
+            C.isAchivement17done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement18done && C.totalPoints>=20000) {//ach18
+            System.out.println("Achievement 18: Earn 20k points");
+            C.achievements[18]=1;
+            C.isAchivement18done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement19done && C.totalPoints>=30000) {//ach19
+            System.out.println("Achievement 19: Earn 30k points");
+            C.achievements[19]=1;
+            C.isAchivement19done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement20done && C.totalPoints>=50000) {//ach20
+            System.out.println("Achievement 20: Earn 50k points");
+            C.achievements[20]=1;
+            C.isAchivement20done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement21done && shotsNumber>=7777) {//ach21
+            System.out.println("Achievement 21: Shot 7777 times");
+            C.achievements[21]=1;
+            C.isAchivement21done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement22done && C.gamesPlayed>=5) {//ach22
+            System.out.println("Achievement 22: Play 5 times in one session");
+            C.achievements[22]=1;
+            C.isAchivement22done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+        if(!C.isAchivement23done && C.LEVEL==0 && C.playerLives==0) {//ach23
+            System.out.println("Achievement 23: End game in tutorial level.");
+            C.achievements[23]=1;
+            C.isAchivement23done=true;
+            try{
+                SoundManager.playAchievement();
+            }catch (Exception e){}
+            updateAchievements();
+        }
+
     }
     private static void resetAchievements() {
             C.ARCH_PLAYER_NAME=C.PLAYER_NAME;

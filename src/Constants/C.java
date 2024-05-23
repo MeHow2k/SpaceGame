@@ -48,6 +48,25 @@ public class C {
     public static boolean isAchivement3done = false;//beat 30lvl boss
     public static boolean isAchivement4done = false;//beat 40lvl boss
     public static boolean isAchivement5done = false;//beat 50lvl boss
+    public static boolean isAchivement6done = false;//boss 1 bez straty
+    public static boolean isAchivement7done = false;//boss 2 bez straty
+    public static boolean isAchivement8done = false;//boss 3 bez straty
+    public static boolean isAchivement9done = false;//boss 4 bez straty
+    public static boolean isAchivement10done = false;//boss 5 bez straty
+    public static boolean isAchivement11done = false;//zbierz 50 zyc
+    public static boolean isAchivement12done = false;//zbierz 50 firerate
+    public static boolean isAchivement13done = false;//zbierz 50 tarcz
+    public static boolean isAchivement14done = false;//zbierz 50 przyzwan statku
+    public static boolean isAchivement15done = false;//zbierz 50 ulepszen broni
+    public static boolean isAchivement16done = false;//zbierz 50 bonus pkt
+    public static boolean isAchivement17done = false;//10000pkt
+    public static boolean isAchivement18done = false;//20000pkt
+    public static boolean isAchivement19done = false;//30000pkt
+    public static boolean isAchivement20done = false;//50000pkt
+    public static boolean isAchivement21done = false;//wystrzel 7777 pociskow
+    public static boolean isAchivement22done = false;//zagraj 5 gier podczas jednej sesji
+    public static boolean isAchivement23done = false;//zgin w tutorialu
+
 
     public static int intro_delay=0;
     public static long playtime=0;

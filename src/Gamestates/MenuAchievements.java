@@ -17,24 +17,24 @@ public class MenuAchievements {
     Image imgAch3 = new ImageIcon(getClass().getClassLoader().getResource("ach3.png")).getImage();//30lv
     Image imgAch4 = new ImageIcon(getClass().getClassLoader().getResource("ach4.png")).getImage();//40lv
     Image imgAch5 = new ImageIcon(getClass().getClassLoader().getResource("ach5.png")).getImage();//50lv
-    Image imgAch6 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();//tutaj i niżej nie zaimplementowane
-    Image imgAch7 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch8 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch9 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch10 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch11 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch12 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch13 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch14 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch15 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch16 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch17 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch18 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch19 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch20 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch21 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch22 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
-    Image imgAch23 = new ImageIcon(getClass().getClassLoader().getResource("locked.png")).getImage();
+    Image imgAch6 = new ImageIcon(getClass().getClassLoader().getResource("ach6.png")).getImage();//tutaj i niżej nie zaimplementowane
+    Image imgAch7 = new ImageIcon(getClass().getClassLoader().getResource("ach7.png")).getImage();
+    Image imgAch8 = new ImageIcon(getClass().getClassLoader().getResource("ach8.png")).getImage();
+    Image imgAch9 = new ImageIcon(getClass().getClassLoader().getResource("ach9.png")).getImage();
+    Image imgAch10 = new ImageIcon(getClass().getClassLoader().getResource("ach10.png")).getImage();
+    Image imgAch11 = new ImageIcon(getClass().getClassLoader().getResource("ach11.png")).getImage();
+    Image imgAch12 = new ImageIcon(getClass().getClassLoader().getResource("ach12.png")).getImage();
+    Image imgAch13 = new ImageIcon(getClass().getClassLoader().getResource("ach13.png")).getImage();
+    Image imgAch14 = new ImageIcon(getClass().getClassLoader().getResource("ach14.png")).getImage();
+    Image imgAch15 = new ImageIcon(getClass().getClassLoader().getResource("ach15.png")).getImage();
+    Image imgAch16 = new ImageIcon(getClass().getClassLoader().getResource("ach16.png")).getImage();
+    Image imgAch17 = new ImageIcon(getClass().getClassLoader().getResource("ach17.png")).getImage();
+    Image imgAch18 = new ImageIcon(getClass().getClassLoader().getResource("ach18.png")).getImage();
+    Image imgAch19 = new ImageIcon(getClass().getClassLoader().getResource("ach19.png")).getImage();
+    Image imgAch20 = new ImageIcon(getClass().getClassLoader().getResource("ach20.png")).getImage();
+    Image imgAch21 = new ImageIcon(getClass().getClassLoader().getResource("ach21.png")).getImage();
+    Image imgAch22 = new ImageIcon(getClass().getClassLoader().getResource("ach22.png")).getImage();
+    Image imgAch23 = new ImageIcon(getClass().getClassLoader().getResource("ach23.png")).getImage();
     Color selectedColor = new Color(255, 233, 12);
     Strings gameStrings;
 
@@ -110,26 +110,26 @@ public class MenuAchievements {
             if (C.cursorAchievementsColumn == 4) g.drawString(gameStrings.getString("Ach4opis"), achDescriptionX, achDescriptionY);
             if (C.cursorAchievementsColumn == 5) g.drawString(gameStrings.getString("Ach5opis"), achDescriptionX, achDescriptionY);
         } else if (C.cursorAchievementsRow == 1) {
-            if (C.cursorAchievementsColumn == 0) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 1) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 2) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 3) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 4) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 5) g.drawString("?", achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 0) g.drawString(gameStrings.getString("Ach6opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 1) g.drawString(gameStrings.getString("Ach7opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 2) g.drawString(gameStrings.getString("Ach8opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 3) g.drawString(gameStrings.getString("Ach9opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 4) g.drawString(gameStrings.getString("Ach10opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 5) g.drawString(gameStrings.getString("Ach11opis"), achDescriptionX, achDescriptionY);
         }else if (C.cursorAchievementsRow == 2) {
-            if (C.cursorAchievementsColumn == 0) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 1) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 2) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 3) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 4) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 5) g.drawString("?", achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 0) g.drawString(gameStrings.getString("Ach12opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 1) g.drawString(gameStrings.getString("Ach13opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 2) g.drawString(gameStrings.getString("Ach14opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 3) g.drawString(gameStrings.getString("Ach15opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 4) g.drawString(gameStrings.getString("Ach16opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 5) g.drawString(gameStrings.getString("Ach17opis"), achDescriptionX, achDescriptionY);
         }else if (C.cursorAchievementsRow == 3) {
-            if (C.cursorAchievementsColumn == 0) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 1) g.drawString("? ", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 2) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 3) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 4) g.drawString("?", achDescriptionX, achDescriptionY);
-            if (C.cursorAchievementsColumn == 5) g.drawString("?", achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 0) g.drawString(gameStrings.getString("Ach18opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 1) g.drawString(gameStrings.getString("Ach19opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 2) g.drawString(gameStrings.getString("Ach20opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 3) g.drawString(gameStrings.getString("Ach21opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 4) g.drawString(gameStrings.getString("Ach22opis"), achDescriptionX, achDescriptionY);
+            if (C.cursorAchievementsColumn == 5) g.drawString(gameStrings.getString("Ach23opis"), achDescriptionX, achDescriptionY);
         }
 
         g.setFont(customFont.deriveFont(35f));
@@ -228,6 +228,60 @@ public class MenuAchievements {
         if (!C.isAchivement5done) {
             imgAch5 = convertToLocked(imgAch5);
         }
-        //todo dodaj reszte
+        if (!C.isAchivement6done) {
+            imgAch6 = convertToLocked(imgAch6);
+        }
+        if (!C.isAchivement7done) {
+            imgAch7 = convertToLocked(imgAch7);
+        }
+        if (!C.isAchivement8done) {
+            imgAch8 = convertToLocked(imgAch8);
+        }
+        if (!C.isAchivement9done) {
+            imgAch9 = convertToLocked(imgAch9);
+        }
+        if (!C.isAchivement10done) {
+            imgAch10 = convertToLocked(imgAch10);
+        }
+        if (!C.isAchivement11done) {
+            imgAch11 = convertToLocked(imgAch11);
+        }
+        if (!C.isAchivement12done) {
+            imgAch12 = convertToLocked(imgAch12);
+        }
+        if (!C.isAchivement13done) {
+            imgAch13 = convertToLocked(imgAch13);
+        }
+        if (!C.isAchivement14done) {
+            imgAch14 = convertToLocked(imgAch14);
+        }
+        if (!C.isAchivement15done) {
+            imgAch15 = convertToLocked(imgAch15);
+        }
+        if (!C.isAchivement16done) {
+            imgAch16 = convertToLocked(imgAch16);
+        }
+        if (!C.isAchivement17done) {
+            imgAch17 = convertToLocked(imgAch17);
+        }
+        if (!C.isAchivement18done) {
+            imgAch18 = convertToLocked(imgAch18);
+        }
+        if (!C.isAchivement19done) {
+            imgAch19 = convertToLocked(imgAch19);
+        }
+        if (!C.isAchivement20done) {
+            imgAch20 = convertToLocked(imgAch20);
+        }
+        if (!C.isAchivement21done) {
+            imgAch21 = convertToLocked(imgAch21);
+        }
+        if (!C.isAchivement22done) {
+            imgAch22 = convertToLocked(imgAch22);
+        }
+        if (!C.isAchivement23done) {
+            imgAch23 = convertToLocked(imgAch23);
+        }
+
     }
 }

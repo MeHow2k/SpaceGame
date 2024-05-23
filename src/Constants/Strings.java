@@ -82,9 +82,24 @@ public class Strings {
         enStrings.put("Ach3opis", "Complete 30 level.");
         enStrings.put("Ach4opis", "Complete 40 level.");
         enStrings.put("Ach5opis", "Complete 50 level.");
-
-
-
+        enStrings.put("Ach6opis", "Beat 1 boss hitless.");
+        enStrings.put("Ach7opis", "Beat 2 boss hitless.");
+        enStrings.put("Ach8opis", "Beat 3 boss hitless.");
+        enStrings.put("Ach9opis", "Beat 4 boss hitless.");
+        enStrings.put("Ach10opis", "Beat 5 boss hitless.");
+        enStrings.put("Ach11opis", "Earn 50 additional lives.");
+        enStrings.put("Ach12opis", "Earn 50 firerate upgrades.");
+        enStrings.put("Ach13opis", "Earn 50 bonus shields.");
+        enStrings.put("Ach14opis", "Earn 50 ally aid bonuses.");
+        enStrings.put("Ach15opis", "Earn 50 weapon upgrades.");
+        enStrings.put("Ach16opis", "Earn 50 bonus points boxes.");
+        enStrings.put("Ach17opis", "Earn 10000 points.");
+        enStrings.put("Ach18opis", "Earn 20000 points.");
+        enStrings.put("Ach19opis", "Earn 30000 points.");
+        enStrings.put("Ach20opis", "Earn 50000 points.");
+        enStrings.put("Ach21opis", "Shot 7777 times.");
+        enStrings.put("Ach22opis", "Play 5 games in one session.");
+        enStrings.put("Ach23opis", "Fail on tutorial level.");
 
 
         //POLSKI
@@ -155,6 +170,24 @@ public class Strings {
         plStrings.put("Ach3opis", "Ukończ 30 poziom.");
         plStrings.put("Ach4opis", "Ukończ 40 poziom.");
         plStrings.put("Ach5opis", "Ukończ 50 poziom.");
+        plStrings.put("Ach6opis", "Pokonaj bossa 1 bez utraty HP.");
+        plStrings.put("Ach7opis", "Pokonaj bossa 2 bez utraty HP.");
+        plStrings.put("Ach8opis", "Pokonaj bossa 3 bez utraty HP.");
+        plStrings.put("Ach9opis", "Pokonaj bossa 4 bez utraty HP.");
+        plStrings.put("Ach10opis", "Pokonaj bossa 5 bez utraty HP.");
+        plStrings.put("Ach11opis", "Zbierz 50 dodatkowych żyć.");
+        plStrings.put("Ach12opis", "Zbierz 50 ulepszeń szybkostrzelności.");
+        plStrings.put("Ach13opis", "Zbierz 50 dodatkowych tarcz.");
+        plStrings.put("Ach14opis", "Zbierz 50 przywołań sojusznika.");
+        plStrings.put("Ach15opis", "Zbierz 50 ulepszeń broni.");
+        plStrings.put("Ach16opis", "Zbierz 50 skrzynek z punktami.");
+        plStrings.put("Ach17opis", "Zdobądź 10000 punktów.");
+        plStrings.put("Ach18opis", "Zdobądź 20000 punktów.");
+        plStrings.put("Ach19opis", "Zdobądź 30000 punktów.");
+        plStrings.put("Ach20opis", "Zdobądź 50000 punktów.");
+        plStrings.put("Ach21opis", "Wystrzel 7777 pocisków.");
+        plStrings.put("Ach22opis", "Rozegraj 5 gier w jednej sesji.");
+        plStrings.put("Ach23opis", "Zakończ grę w samouczku.");
 
         // Dodanie tłumaczeń do mapy głównej
         languageMap.put(0, enStrings);
