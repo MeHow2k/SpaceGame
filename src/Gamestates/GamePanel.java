@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements KeyListener {
     JLabel FPSlabel,labelTotalPoints,labelPlayerLives,labelWeaponUpgrade,labelPause,labelRecord,labelLevel;
     Thread gameThread;
     ///do statystyk
-    int livesEarned=0,weaponUpgradeEarned=0,firerateUpgradeEarned=0,shieldEarned=0,pointBoxEarned=0;
+    int livesEarned=0,weaponUpgradeEarned=0,firerateUpgradeEarned=0,shieldEarned=0,pointBoxEarned=0,shotsNumber=0;
 
     GamePanel(){
         super(null);
@@ -170,6 +170,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
                     //glowny watek gry- mechaniki itd.
                     if (C.GAMESTATE==0){
+
                         ///////////////////////////////////////////// etykieta pauzy
 
                         if (C.PAUSE == true) labelPause.setText(gameStrings.getString("Aby odpauzować"));
@@ -208,15 +209,20 @@ public class GamePanel extends JPanel implements KeyListener {
                         //obsługa strzelania gracza
                         if (SHOT_PRESSED == true && C.PAUSE!=true) {
                             isShotOnCooldown = true;
-                            if(C.weaponUpgrade==1) newPlayerShot(player.getX()+20,player.getY());
+                            if(C.weaponUpgrade==1) {
+                                newPlayerShot(player.getX()+20,player.getY());
+                                shotsNumber++;
+                            }
                             if(C.weaponUpgrade==2){
                                 newPlayerShot(player.getX()+40,player.getY());
                                 newPlayerShot(player.getX(),player.getY());
+                                shotsNumber+=2;
                             }
                             if(C.weaponUpgrade==3){
                                 newPlayerShot(player.getX()+40,player.getY());
                                 newPlayerShot(player.getX(),player.getY());
                                 newPlayerShot(player.getX()+22,player.getY());
+                                shotsNumber+=3;
                             }
                             SHOT_PRESSED = false;
                             try {
@@ -1226,7 +1232,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             if(level_delay>300)//po opoznieniu (liczba klatek)
                                 if (tick >100 && C.PAUSE != true && C.isLevelCreated == false) {//co 100 ticków powtórz
                                     newEnemy(-60, 60, 1, 1, 3, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 2);
-                                    newEnemy(-60, -60, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 2);
+                                    newEnemy(-60, -10, 1, 1, 7, C.FRAME_WIDTH / 2 - 25, C.FRAME_HEIGHT / 2 - 200, 200, 2);
                                     tick = 0;
                                     enemyCreated++;
                                     if (C.LEVEL == 26 && enemyCreated == 10) {
@@ -2408,7 +2414,8 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.LEVEL==C.LAST_LEVEL){
                 g.setColor(Color.white);
                 g.setFont(customFont.deriveFont(40f));
-                g.drawString(gameStrings.getString("Gratulacje!")+ gameStrings.getString("Ukończyłeś grę!"), C.FRAME_WIDTH/2 - 200, 200);
+                g.drawString(gameStrings.getString("Gratulacje!"), C.FRAME_WIDTH/2 - 200, 200);
+                g.drawString(gameStrings.getString("Ukończyłeś grę!"), C.FRAME_WIDTH/2 - 200, 250);
                 g.drawString(gameStrings.getString("Wynik końcowy:")+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
             }
             if(C.LEVEL==0){
@@ -2890,14 +2897,14 @@ public class GamePanel extends JPanel implements KeyListener {
         removeObjects();
         resetLevel();
         C.PAUSE= false;
-        livesEarned=0;weaponUpgradeEarned=0;firerateUpgradeEarned=0;shieldEarned=0;pointBoxEarned=0;
+        livesEarned=0;weaponUpgradeEarned=0;firerateUpgradeEarned=0;shieldEarned=0;pointBoxEarned=0;shotsNumber=0;
     }
     public void resetLevel(){//przywrócenie zmiennych dot opóźnień w poziomach do stanu pierwotnego
         tick=0; tickUp=false; level_delay=0;
         level_temp3=0; level_temp3Up=false;
         level_temp2=0; level_temp2Up=false;
         level_temp1=0; level_temp1Up=false;
-        enemyCreated=0; C.isLevelCreated=false;
+        enemyCreated=0; C.isLevelCreated=false;isMusicPlayed=false;
         initialBossHP=0; isBossHpTaken=false;
     }
     public void removeObjects(){//wyczyszczenie zawartosci list obiektów
