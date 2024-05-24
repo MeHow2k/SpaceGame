@@ -92,6 +92,24 @@ public class Frame extends JFrame {
                 if (C.achievements[3]==1) C.isAchivement3done=true;
                 if (C.achievements[4]==1) C.isAchivement4done=true;
                 if (C.achievements[5]==1) C.isAchivement5done=true;
+                if (C.achievements[6]==1) C.isAchivement6done=true;
+                if (C.achievements[7]==1) C.isAchivement7done=true;
+                if (C.achievements[8]==1) C.isAchivement8done=true;
+                if (C.achievements[9]==1) C.isAchivement9done=true;
+                if (C.achievements[10]==1) C.isAchivement10done=true;
+                if (C.achievements[11]==1) C.isAchivement11done=true;
+                if (C.achievements[12]==1) C.isAchivement12done=true;
+                if (C.achievements[13]==1) C.isAchivement13done=true;
+                if (C.achievements[14]==1) C.isAchivement14done=true;
+                if (C.achievements[15]==1) C.isAchivement15done=true;
+                if (C.achievements[16]==1) C.isAchivement16done=true;
+                if (C.achievements[17]==1) C.isAchivement17done=true;
+                if (C.achievements[18]==1) C.isAchivement18done=true;
+                if (C.achievements[19]==1) C.isAchivement19done=true;
+                if (C.achievements[20]==1) C.isAchivement20done=true;
+                if (C.achievements[21]==1) C.isAchivement21done=true;
+                if (C.achievements[22]==1) C.isAchivement22done=true;
+                if (C.achievements[23]==1) C.isAchivement23done=true;
             }else {
                 System.out.println("Incorrect player's achievements... Resetting file");
                 createDefaultData1(data1File);
