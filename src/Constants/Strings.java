@@ -100,7 +100,7 @@ public class Strings {
         enStrings.put("Ach21opis", "Shot 7777 times.");
         enStrings.put("Ach22opis", "Play 5 games in one session.");
         enStrings.put("Ach23opis", "Fail on tutorial level.");
-
+        enStrings.put("Rekordy", "Leaderboards");
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
@@ -161,6 +161,7 @@ public class Strings {
         plStrings.put("Zresetuj wszystko", "Zresetuj cały postęp");
         plStrings.put("Zresetuj wszystko2", "Zresetuj wszystkie wyniki i osiągnięcia");
         plStrings.put("Czy na pewno?", "Czy na pewno?");
+        plStrings.put("Rekordy", "Tabela wyników");
 
         plStrings.put("Osiągnięcia", "Osiągnięcia");
         plStrings.put("Lista osiągnięć", "Lista osiągnięć");

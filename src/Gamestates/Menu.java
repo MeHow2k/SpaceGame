@@ -46,7 +46,10 @@ public class Menu {
         if(C.cursorPosition==3 && C.cursorPositionColumn==0) g.setColor(selectedColor);
         g.drawString(gameStrings.getString("Autorzy"),C.FRAME_WIDTH/2-200,625);
         g.setColor(Color.white);
-        if(C.cursorPositionColumn==1) g.setColor(selectedColor);
+        if(C.cursorPositionColumn==1 && C.cursorPosition==0) g.setColor(selectedColor);
+        g.drawString(gameStrings.getString("Rekordy"), C.FRAME_WIDTH/2+100,425);
+        g.setColor(Color.white);
+        if(C.cursorPositionColumn==1 && C.cursorPosition==1) g.setColor(selectedColor);
         g.drawString(gameStrings.getString("Osiągnięcia"), C.FRAME_WIDTH/2+100,625);
         g.setColor(Color.white);
         if(C.cursorPosition==4 && C.cursorPositionColumn==0) g.setColor(selectedColor);

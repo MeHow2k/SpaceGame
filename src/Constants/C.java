@@ -10,7 +10,7 @@ public class C {
 
     public static int FRAME_HEIGHT=850;
     public static int FRAME_WIDTH=800;
-    public static int GAMESTATE=100; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra, 6-osiagniecia
+    public static int GAMESTATE=7; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra, 6-osiagniecia 7- leaderboards
     // 22-playernameseletion,21-playersettings, , 100 - intro, 99 - wybor jezyka
     public static int LEVEL=0;
     public static int LAST_LEVEL=51;

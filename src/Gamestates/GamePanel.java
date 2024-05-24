@@ -14,6 +14,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -40,6 +42,7 @@ public class GamePanel extends JPanel implements KeyListener {
     Menu menu;MenuCursor menuCursor;MenuSettings menuSettings;MenuHowToPlay menuHowToPlay;MenuAuthors menuAuthors;Intro intro;
     LanguageSelection languageSelection;
     MenuSkinSelection menuSkinSelection; PlayerNameSelection playerNameSelection;MenuPlayerSettings menuPlayerSettings;MenuAchievements menuAchievements;
+    MenuLeaderboard menuLeaderboard;
     //tu będą listy obiektów
     ArrayList<Enemy> listEnemy = new ArrayList(20);//lista wrogow
     ArrayList<EnemyLaser> listEnemyLaser = new ArrayList(20);//lista wrogow z laserem
@@ -1664,6 +1667,11 @@ public class GamePanel extends JPanel implements KeyListener {
                                                 if (enemy.getIsBoss() == 4) {
                                                     if(phase==2) {
                                                         Random random = new Random();
+                                                        try {
+                                                            SoundManager.playLaser();
+                                                        } catch (Exception e) {
+                                                            throw new RuntimeException(e);
+                                                        }
                                                         for(int i=0;i<=5;i++){
                                                             newEnemyLaserShot(-200,random.nextInt(C.FRAME_HEIGHT-40)+30);
                                                             newEnemyLaserShot(C.FRAME_WIDTH-150,random.nextInt(C.FRAME_HEIGHT-40)+30);
@@ -2237,7 +2245,11 @@ public class GamePanel extends JPanel implements KeyListener {
                             menuCursor.setX(C.FRAME_WIDTH / 2 - 300);
                             menuCursor.setY(690);
                         }
-                        if (menu != null && C.cursorPositionColumn==1) {
+                        if (menu != null && C.cursorPositionColumn==1 && C.cursorPosition==0) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2);
+                            menuCursor.setY(390);
+                        }
+                        if (menu != null && C.cursorPositionColumn==1 && C.cursorPosition==1) {
                             menuCursor.setX(C.FRAME_WIDTH / 2);
                             menuCursor.setY(590);
                         }
@@ -2291,6 +2303,14 @@ public class GamePanel extends JPanel implements KeyListener {
                             menuCursor.setX(-300);
                         }
                     }//GAMESTATE 6 osiagniecia
+                    if(C.GAMESTATE==7){
+                        if (menuLeaderboard != null) {
+                            menuCursor.setX(C.FRAME_WIDTH / 2 - 170);
+                            menuCursor.setY(690);
+                        }else {
+                            menuCursor.setX(-300);
+                        }
+                    }//GAMESTATE 7 leaderboard
 
                     if(C.GAMESTATE==22){
                         if(C.hasPlayerName) {
@@ -2578,6 +2598,11 @@ public class GamePanel extends JPanel implements KeyListener {
             menuAchievements.draw(g2D);
             if(C.cursorBeforeGamePosition==5) menuCursor.draw(g2D);
         } //GAMESTATE 6 - osiagniec
+        if (C.GAMESTATE == 7) {//GAMESTATE 7- menu leaderboards
+            menuLeaderboard = new MenuLeaderboard();
+            menuLeaderboard.draw(g2D);
+            menuCursor.draw(g2D);
+        } //GAMESTATE 7 - leaderboadrs
     }
     //////////////////////////////////////////////////////////////////////////////
 
@@ -3513,7 +3538,11 @@ public class GamePanel extends JPanel implements KeyListener {
             LEFT_PRESSED=true;
             //obsługa dla menu
             if (C.GAMESTATE==1){
-                if(C.cursorPositionColumn==1) C.cursorPositionColumn=0;
+                if(C.cursorPositionColumn==1) {
+                    C.cursorPositionColumn=0;
+                    if(C.cursorPosition==0) C.cursorPosition=1;
+                    else if(C.cursorPosition==1) C.cursorPosition=3;
+                }
                 try {
                     SoundManager.playPlayerShot();
                 } catch (Exception ex) {
@@ -3606,7 +3635,11 @@ public class GamePanel extends JPanel implements KeyListener {
             RIGHT_PRESSED=true;
             //obsługa dla menu
             if (C.GAMESTATE==1){
-                if(C.cursorPositionColumn==0) C.cursorPositionColumn=1;
+                if(C.cursorPositionColumn==0) {
+                    C.cursorPositionColumn=1;
+                    if(C.cursorPosition<=2) C.cursorPosition=0;
+                    else C.cursorPosition=1;
+                }
                 try {
                     SoundManager.playPlayerShot();
                 } catch (Exception ex) {
@@ -3705,6 +3738,13 @@ public class GamePanel extends JPanel implements KeyListener {
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);
                 }
+            } else if (C.GAMESTATE==1 && C.cursorPosition!=1 && C.cursorPositionColumn==1) {
+                C.cursorPosition=1;
+                try {
+                    SoundManager.playPlayerShot();
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
             if(C.GAMESTATE==2 && C.cursorSettingsPosition<6){
                 C.cursorSettingsPosition++;
@@ -3766,7 +3806,7 @@ public class GamePanel extends JPanel implements KeyListener {
         if (e.getKeyCode()==38){//s w gore
             UP_PRESSED=true;
             //obsługa dla menu i menu opcje
-            if(C.GAMESTATE==1 && C.cursorPosition>0 && C.cursorPositionColumn!=1){
+            if(C.GAMESTATE==1 && C.cursorPosition>0 ){
                 C.cursorPosition--;
                 try {
                     SoundManager.playPlayerShot();
@@ -3844,7 +3884,8 @@ public class GamePanel extends JPanel implements KeyListener {
                     if (C.cursorPosition == 1 && C.cursorPositionColumn==0) {C.GAMESTATE = 3;deleteEnemyMenu();}//jak grac
                     if (C.cursorPosition == 2 && C.cursorPositionColumn==0) {C.GAMESTATE = 2;}//opcje
                     if (C.cursorPosition == 3 && C.cursorPositionColumn==0) {C.GAMESTATE = 4;}//autorzy
-                    if (C.cursorPositionColumn==1) {C.GAMESTATE = 6;}//menu osiagniec - dodaj cursor position gdy wiecej opcji w 2 kolumnie
+                    if (C.cursorPositionColumn==1 && C.cursorPosition==1) {C.GAMESTATE = 6;}//menu osiagniec
+                    if (C.cursorPositionColumn==1 && C.cursorPosition==0) {C.GAMESTATE = 7;}//menu leaderboards
                     if (C.cursorPosition == 4 && C.cursorPositionColumn==0) System.exit(0);
                     break;
                 case 2: /// obsluga entera w podmenu OPCJE
@@ -3901,6 +3942,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     }
                     break;
                 case 6:
+                case 7:
                     try {
                         SoundManager.playPlayerShot();
                     } catch (Exception ex) {

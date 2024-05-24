@@ -45,7 +45,7 @@ public class MenuAuthors {
             g.drawString("Gra została napisana jako projekt zaliczeniowy przedmiotu:", 30, 330);
             g.drawString("Projekt zespołowy", 30, 360);
             g.drawString("Data rozpoczęcia projektu: 25.10.2023", 30, 390);
-            g.drawString("Data zakończenia projektu: ?", 30, 420);
+            g.drawString("Data zakończenia projektu: 27.05.2024", 30, 420);
             g.drawString("Grafika została wykonana w programie Paint/GIMP/Libresprite", 30, 460);
             g.drawString("Dźwięki wykonane za pomocą: www.beepbox.co, pobrane ze stron (no copyright)", 30, 490);
             g.drawString("Obróbka dźwięków/muzyki: Audacity", 30, 520);
@@ -61,7 +61,7 @@ public class MenuAuthors {
             g.drawString("The game was developed as a course assignment:", 30, 330);
             g.drawString("Team Project", 30, 360);
             g.drawString("Project start date: 25.10.2023", 30, 390);
-            g.drawString("Project completion date: ?", 30, 420);
+            g.drawString("Project completion date: 27.05.2024", 30, 420);
             g.drawString("The graphics were made in the program Paint/GIMP/Libresprite", 30, 460);
             g.drawString("Sounds made with: www.beepbox.co, downloaded from websites (no copyright)", 30, 490);
             g.drawString("Sound/music processing: Audacity", 30, 520);
