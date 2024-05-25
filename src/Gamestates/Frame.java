@@ -70,28 +70,7 @@ public class Frame extends JFrame {
         }catch (Exception e){System.out.println("error loading file: "+dataFile.getName());C.PLAYER_NAME="";C.highscoreLevel=0;C.highscorePoints=0;}
 
         // Wczytanie najlepszych wynikow
-        File scoreFile = new File("data2.dat");
-        if (!scoreFile.exists()) {
-            createDefaultData2(scoreFile);
-        }
-        try {
-            byte[] scoreBytes = readEncryptedFile(scoreFile);
-            String decryptedScore = decrypt(scoreBytes, C.SECRETKEY);
-
-            // Przetworzenie zdekodowanych ustawień
-            String[] scoreLines = decryptedScore.split("\n");
-            for (String line : scoreLines) {
-                String[] parts = line.split(",");
-                if (parts.length == 3) {
-                    String playerName = parts[0];
-                    int totalPoints = Integer.parseInt(parts[1]);
-                    String playTime = parts[2];
-                    C.scoresList.add(new Scores(playerName, totalPoints, playTime));
-                }
-            }
-        }catch (Exception e){
-            System.out.println("error loading file: "+scoreFile.getName());
-        }
+        loadData2();
 
         //wczytanie osiągnięć
         File data1File = new File("data1.dat");
@@ -200,6 +179,31 @@ public class Frame extends JFrame {
             fos.write(encryptedData);
         }catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+    static void loadData2(){
+        // Wczytanie najlepszych wynikow
+        File scoreFile = new File("data2.dat");
+        if (!scoreFile.exists()) {
+            createDefaultData2(scoreFile);
+        }
+        try {
+            byte[] scoreBytes = readEncryptedFile(scoreFile);
+            String decryptedScore = decrypt(scoreBytes, C.SECRETKEY);
+
+            // Przetworzenie zdekodowanych ustawień
+            String[] scoreLines = decryptedScore.split("\n");
+            for (String line : scoreLines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String playerName = parts[0];
+                    int totalPoints = Integer.parseInt(parts[1]);
+                    String playTime = parts[2];
+                    C.scoresList.add(new Scores(playerName, totalPoints, playTime));
+                }
+            }
+        }catch (Exception e){
+            System.out.println("error loading file: "+scoreFile.getName());
         }
     }
 

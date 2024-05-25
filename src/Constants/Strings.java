@@ -32,7 +32,7 @@ public class Strings {
         enStrings.put("Wycisz wszystko:", "Mute All:");
         enStrings.put("TAK", "YES");
         enStrings.put("NIE", "NO");
-        enStrings.put("Zresetuj wynik", "Reset your best score");
+        enStrings.put("Zresetuj wynik", "Reset leaderboard");
         enStrings.put("Nie ma zapisanego", "There is no best score saved.");
         enStrings.put("Czy na pewno zresetować", "Are you sure you want to reset your best score?");
         enStrings.put("Aktualny:", "Current:");
@@ -69,7 +69,7 @@ public class Strings {
         enStrings.put("TarczaOFF", "PROTECTION SHIELD INACTIVE");
         enStrings.put("PokażFPS", "Show FPS:");
         enStrings.put("Zresetuj wszystko", "Reset whole progress");
-        enStrings.put("Zresetuj wszystko2", "Reset all highscores and achievements");
+        enStrings.put("Zresetuj wszystko2", "Reset leaderboard and achievements");
         enStrings.put("Czy na pewno?", "Are you sure?");
         enStrings.put("Rekordy", "Leaderboards");
         enStrings.put("Gracz", "Player");
@@ -126,7 +126,7 @@ public class Strings {
         plStrings.put("Wycisz wszystko:", "Wycisz Wszystko:");
         plStrings.put("TAK", "TAK");
         plStrings.put("NIE", "NIE");
-        plStrings.put("Zresetuj wynik", "Zresetuj najlepszy wynik:");
+        plStrings.put("Zresetuj wynik", "Zresetuj tablicę wyników");
         plStrings.put("Nie ma zapisanego", "Nie ma zapisanego najlepszego wyniku.");
         plStrings.put("Czy na pewno zresetować", "Czy na pewno chcesz zresetować najlepszy wynik?");
         plStrings.put("Aktualny:", "Aktualny:");

@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Random;
 
 import static Gamestates.Frame.createDefaultData2;
+import static Gamestates.Frame.loadData2;
 
 public class GamePanel extends JPanel implements KeyListener {
     static Date startDate;
@@ -3383,6 +3384,24 @@ public class GamePanel extends JPanel implements KeyListener {
                 C.isAchivement3done=false;
                 C.isAchivement4done=false;
                 C.isAchivement5done=false;
+                C.isAchivement6done=false;
+                C.isAchivement7done=false;
+                C.isAchivement8done=false;
+                C.isAchivement9done=false;
+                C.isAchivement10done=false;
+                C.isAchivement11done=false;
+                C.isAchivement12done=false;
+                C.isAchivement13done=false;
+                C.isAchivement14done=false;
+                C.isAchivement15done=false;
+                C.isAchivement16done=false;
+                C.isAchivement17done=false;
+                C.isAchivement18done=false;
+                C.isAchivement19done=false;
+                C.isAchivement20done=false;
+                C.isAchivement21done=false;
+                C.isAchivement22done=false;
+                C.isAchivement23done=false;
             }catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -3440,6 +3459,9 @@ public class GamePanel extends JPanel implements KeyListener {
         }catch (Exception e) {
             throw new RuntimeException(e);
         }
+        createDefaultData2(new File("data2.dat"));
+        C.scoresList.clear();
+        loadData2();
     }
 
     public void sendData(){
@@ -3583,13 +3605,13 @@ public class GamePanel extends JPanel implements KeyListener {
             //newBonusAllyAid(100,-10);
             //newAllyAid(C.FRAME_WIDTH+50,60,1);
              //-10hp kazdemu wrogowi
-            C.isAchivement0done=true;
-            C.isAchivement1done=true;
-            C.isAchivement2done=true;
-            C.isAchivement3done=true;
-            C.isAchivement4done=true;
-            C.isAchivement5done=true;
-
+//            C.isAchivement0done=true;
+//            C.isAchivement1done=true;
+//            C.isAchivement2done=true;
+//            C.isAchivement3done=true;
+//            C.isAchivement4done=true;
+//            C.isAchivement5done=true;
+            C.totalPoints+=5000;
             if (listEnemy != null) {
                 for (int iw = 0; iw < listEnemy.size(); iw++) {
                     Enemy enemy = listEnemy.get(iw);
