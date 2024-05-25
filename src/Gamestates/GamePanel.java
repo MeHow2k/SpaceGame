@@ -2464,8 +2464,8 @@ public class GamePanel extends JPanel implements KeyListener {
             if(C.LEVEL==C.LAST_LEVEL){
                 g.setColor(Color.white);
                 g.setFont(customFont.deriveFont(40f));
-                g.drawString(gameStrings.getString("Gratulacje!"), C.FRAME_WIDTH/2 - 200, 200);
-                g.drawString(gameStrings.getString("Ukończyłeś grę!"), C.FRAME_WIDTH/2 - 200, 250);
+                g.drawString(gameStrings.getString("Gratulacje!")+" "+C.PLAYER_NAME+"!", C.FRAME_WIDTH/2-300, 200);
+                g.drawString(gameStrings.getString("Ukończyłeś grę!"), C.FRAME_WIDTH/2-300, 250);
                 g.drawString(gameStrings.getString("Wynik końcowy:")+C.totalPoints, C.FRAME_WIDTH/2 - 170, C.FRAME_HEIGHT - 200);
             }
             if(C.LEVEL==0){
@@ -4021,7 +4021,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorBeforeGamePosition==5) {//graj
                         C.GAMESTATE=0;
                         resetLevel();
-                        resetVariables();
+                        //resetVariables();
                         startDate= new Date(); //ustawienie daty poczatku gry
                         C.gamesPlayed++;
                         updateSettings();
