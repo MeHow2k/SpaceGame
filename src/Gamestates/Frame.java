@@ -2,6 +2,7 @@
 package Gamestates;
 
 import Constants.C;
+import Constants.Scores;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -67,6 +68,31 @@ public class Frame extends JFrame {
             C.highscoreLevel = Integer.parseInt(dataLines[1]);
             C.PLAYER_NAME = dataLines[2];
         }catch (Exception e){System.out.println("error loading file: "+dataFile.getName());C.PLAYER_NAME="";C.highscoreLevel=0;C.highscorePoints=0;}
+
+        // Wczytanie najlepszych wynikow
+        File scoreFile = new File("data2.dat");
+        if (!scoreFile.exists()) {
+            createDefaultData2(scoreFile);
+        }
+        try {
+            byte[] scoreBytes = readEncryptedFile(scoreFile);
+            String decryptedScore = decrypt(scoreBytes, C.SECRETKEY);
+
+            // Przetworzenie zdekodowanych ustawień
+            String[] scoreLines = decryptedScore.split("\n");
+            for (String line : scoreLines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String playerName = parts[0];
+                    int totalPoints = Integer.parseInt(parts[1]);
+                    String playTime = parts[2];
+                    C.scoresList.add(new Scores(playerName, totalPoints, playTime));
+                }
+            }
+        }catch (Exception e){
+            System.out.println("error loading file: "+scoreFile.getName());
+        }
+
         //wczytanie osiągnięć
         File data1File = new File("data1.dat");
         if (!data1File.exists()) {
@@ -151,6 +177,25 @@ public class Frame extends JFrame {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             // Domyślne wyniki
             String defaultData = C.PLAYER_NAME+"\n000000000000000000000000000000\n";
+            byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
+            fos.write(encryptedData);
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static void createDefaultData2(File file) {
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            // Domyślne wyniki
+            String defaultData = "Canis Majoris,35000,10:30\n" +
+                    "Betelgeuse,32000,09:30\n" +
+                    "Sirius,27000,09:00\n" +
+                    "Jupiter,25000,08:45\n" +
+                    "Saturn,20000,08:30\n" +
+                    "Neptune,17000,08:15\n" +
+                    "Uranus,14000,08:00\n" +
+                    "Venus,10000,07:45\n" +
+                    "Mars,5000,07:30\n" +
+                    "Alpha Centauri,2000,07:00\n";
             byte[] encryptedData = encrypt(defaultData, C.SECRETKEY);
             fos.write(encryptedData);
         }catch (Exception e) {

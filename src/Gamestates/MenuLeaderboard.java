@@ -1,5 +1,6 @@
 package Gamestates;
 import Constants.C;
+import Constants.Scores;
 import Constants.Strings;
 
 import javax.swing.*;
@@ -36,18 +37,24 @@ public class MenuLeaderboard {
             g.drawString(gameStrings.getString("Rekordy"), C.FRAME_WIDTH / 2 - 200, 50);
 
             g.setFont(customFont.deriveFont(33f));
-            g.drawString("PLAYERNAME", initialX, initialY-70);
-            g.drawString("SCORE", initialX+300, initialY-70);
-            g.drawString("Date", initialX+500, initialY-70);
+            g.drawString(gameStrings.getString("Gracz").toUpperCase(), initialX, initialY-70);
+            g.drawString(gameStrings.getString("Punkty").toUpperCase(), initialX+300, initialY-70);
+            g.drawString(gameStrings.getString("Czas gry").toUpperCase(), initialX+500, initialY-70);
 
             g.setFont(customFont.deriveFont(25f));
 
-            for (int i = 0; i < 10; i++){
-                g.drawString("Player "+(i+1), initialX, initialY);
-                g.drawString("SCORE", initialX+300, initialY);
-                g.drawString("date", initialX+500, initialY);
-                initialY+=50;
-            }
+        for (int i = 0; i < C.scoresList.size(); i++) {
+            if(i+1==1) g.setColor(Color.yellow);
+            else if(i+1==2) g.setColor(Color.lightGray);
+            else if(i+1==3) g.setColor(new Color(143, 96, 67, 255));
+            else g.setColor(Color.white);
+            g.drawString(i + 1 +".", initialX-50, initialY);
+            Scores entry = C.scoresList.get(i);
+            g.drawString(entry.getPlayerName(), initialX, initialY);
+            g.drawString(String.valueOf(entry.getTotalPoints()), initialX + 300, initialY);
+            g.drawString(entry.getPlayTime(), initialX + 500, initialY);
+            initialY += 50;
+        }
 
         g.setFont(customFont.deriveFont(40f));
         g.setColor(selectedColor);

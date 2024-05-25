@@ -2,6 +2,9 @@ package Constants;
 
 /// PLIK ZE ZMIENNYMI GLOBALNYMI
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class C {
     public static final String VERSION= "1.0.3dev";//last 1.0.2
     public static int LANGUAGE=999; //0-en 1-pl-
@@ -10,7 +13,7 @@ public class C {
 
     public static int FRAME_HEIGHT=850;
     public static int FRAME_WIDTH=800;
-    public static int GAMESTATE=7; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra, 6-osiagniecia 7- leaderboards
+    public static int GAMESTATE=100; // 0- gra 1-menu glowne 2-menusettings 3-how to play 4- autorzy 5- wybor skinow przed gra, 6-osiagniecia 7- leaderboards
     // 22-playernameseletion,21-playersettings, , 100 - intro, 99 - wybor jezyka
     public static int LEVEL=0;
     public static int LAST_LEVEL=51;
@@ -39,6 +42,9 @@ public class C {
     public static int musicVolume=0;
     public static int soundVolume=0;
     public static boolean canEnterName=false;//do aktywacji wpisywania nazwy
+    /////////////////////////////////obsługa tablicy wynikow////////////////////////////////////////////
+    public static List<Scores> scoresList= new ArrayList<>();
+    public static long currentPlaytime = 0;
     /////////////////////////////////obsługa osiągnięć////////////////////////////////////////////
     public static int[] achievements = new int[30];//tablica osiagniec
     public static String ARCH_PLAYER_NAME="";

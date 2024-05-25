@@ -3,6 +3,7 @@
 package Gamestates;
 
 import Constants.C;
+import Constants.Scores;
 import Constants.Strings;
 import Entities.*;
 import Utils.DataSender;
@@ -14,8 +15,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,13 +23,17 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLOutput;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.Random;
 
+import static Gamestates.Frame.createDefaultData2;
+
 public class GamePanel extends JPanel implements KeyListener {
-    Date startDate;
+    static Date startDate;
 
     Player player;//deklaracja obiektu Gracz
     PlayerShot playerShotUI;
@@ -701,7 +704,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
-
+                            updateLeaderboard();
                             sendData();
 
                             int enddialog = JOptionPane.showConfirmDialog
@@ -2153,6 +2156,7 @@ public class GamePanel extends JPanel implements KeyListener {
                             }
                             removeEnemyObjects();
                             if (tick == 700) {
+                                updateLeaderboard();
                                 sendData();
                                 //okno dialogowe konca gry
                                 int eenddialog = JOptionPane.showConfirmDialog
@@ -3041,20 +3045,84 @@ public class GamePanel extends JPanel implements KeyListener {
 
     public static void updateHighscore() {
         try {
-            C.highscorePoints=C.totalPoints;
-            C.highscoreLevel=C.LEVEL;
+            C.highscorePoints = C.totalPoints;
+            C.highscoreLevel = C.LEVEL;
             // Zapisanie postępów i nicku do pliku
             File highscoreFile = new File("data.dat");
-            String highscoreData = String.format("%d\n%d\n%s\n", C.highscorePoints, C.highscoreLevel,C.PLAYER_NAME);
+            String highscoreData = String.format("%d\n%d\n%s\n", C.highscorePoints, C.highscoreLevel, C.PLAYER_NAME);
             byte[] encryptedHighscore = encrypt(highscoreData, C.SECRETKEY);
             try (FileOutputStream fos = new FileOutputStream(highscoreFile)) {
                 fos.write(encryptedHighscore);
             }
+        }catch (Exception e){
+            System.out.println("Error updating highscore: "+e);
+        }
+
+    }
+
+    public static void updateLeaderboard() {
+        try {
+            // Wczytanie obecnych wyników
+            File scoreFile = new File("data2.dat");
+            if (!scoreFile.exists()) {
+                createDefaultData2(scoreFile);
+            }
+            byte[] scoreBytes = readEncryptedFile(scoreFile);
+            String decryptedScore = decrypt(scoreBytes, C.SECRETKEY);
+            String[] scoreLines = decryptedScore.split("\n");
+            List<Scores> scoreEntries = new ArrayList<>();
+
+            for (String line : scoreLines) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    String playerName = parts[0];
+                    int totalPoints = Integer.parseInt(parts[1]);
+                    String playTime = parts[2];
+                    scoreEntries.add(new Scores(playerName, totalPoints, playTime));
+                }
+            }
+
+            // Ustalenie czasu gry przez porównanie daty startowej i końcowej
+            Date endDate = new Date();
+            long diffInMilliseconds = endDate.getTime() - startDate.getTime();
+            long diffInSeconds = diffInMilliseconds / 1000;
+            C.currentPlaytime = diffInSeconds;
+            long currentPlaytime = C.currentPlaytime;
+            long hours = currentPlaytime / 3600;
+            long minutes = (currentPlaytime % 3600) / 60;
+            long secs = currentPlaytime % 60;
+            String playtimeFormatted="";
+            if(hours>0) playtimeFormatted = String.format("%02d:%02d:%02d", hours, minutes, secs);
+            else playtimeFormatted = String.format("%02d:%02d", minutes, secs);
+
+            // Sprawdzenie, czy nowy wynik kwalifikuje się do top 10
+            Scores newEntry = new Scores(C.PLAYER_NAME, C.totalPoints, playtimeFormatted);
+            scoreEntries.add(newEntry);
+            scoreEntries.sort((a, b) -> Integer.compare(b.getTotalPoints(), a.getTotalPoints())); // Sortowanie malejąco wg punktów
+
+            // Sprawdzenie, czy lista przekracza 10 elementów i zachowanie tylko top 10
+            if (scoreEntries.size() > 10) {
+                scoreEntries = new ArrayList<>(scoreEntries.subList(0, 10));
+            }
+
+            // Aktualizacja listy wyników
+            C.scoresList = scoreEntries;
+
+            // Zapisanie listy wyników do pliku
+            StringBuilder updatedScoreData = new StringBuilder();
+            for (Scores entry : scoreEntries) {
+                updatedScoreData.append(String.format("%s,%d,%s\n", entry.getPlayerName(), entry.getTotalPoints(), entry.getPlayTime()));
+            }
+            byte[] encryptedScore = encrypt(updatedScoreData.toString(), C.SECRETKEY);
+            try (FileOutputStream fos = new FileOutputStream(scoreFile)) {
+                fos.write(encryptedScore);
+            }
         } catch (Exception e) {
-            // Obsługa błędów zapisu najlepszego wyniku
-            e.printStackTrace();
+            System.out.println("Error updating leaderboard: " + e);
         }
     }
+
+
     public static void updateAchievements() {
         //załadowanie osiagniec z wczytanej tablicy
         if (C.achievements[0]==1) C.isAchivement0done=true;
@@ -3462,6 +3530,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
             //powrót do menu po wybraniu tak
             if (enddialog == 0) {
+                updateLeaderboard();
                 sendData();
                 C.GAMESTATE=1;
                 removeObjects();
@@ -3930,6 +3999,7 @@ public class GamePanel extends JPanel implements KeyListener {
                     if(C.cursorBeforeGamePosition==5) {//graj
                         C.GAMESTATE=0;
                         resetLevel();
+                        resetVariables();
                         startDate= new Date(); //ustawienie daty poczatku gry
                         C.gamesPlayed++;
                         updateSettings();

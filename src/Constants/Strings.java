@@ -38,6 +38,7 @@ public class Strings {
         enStrings.put("Aktualny:", "Current:");
         enStrings.put("punktów", "points");
         enStrings.put("Punkty:", "Points:");
+        enStrings.put("Punkty", "Points");
         enStrings.put("poziom", "Level");
         enStrings.put("Aby odpauzować", "To unpause press \"p\"");
         enStrings.put("lvl0_trafiaj", "Hit your opponents while dodging them and their shots.");
@@ -70,7 +71,9 @@ public class Strings {
         enStrings.put("Zresetuj wszystko", "Reset whole progress");
         enStrings.put("Zresetuj wszystko2", "Reset all highscores and achievements");
         enStrings.put("Czy na pewno?", "Are you sure?");
-
+        enStrings.put("Rekordy", "Leaderboards");
+        enStrings.put("Gracz", "Player");
+        enStrings.put("Czas gry", "Playtime");
 
 
 
@@ -100,7 +103,7 @@ public class Strings {
         enStrings.put("Ach21opis", "Shot 7777 times.");
         enStrings.put("Ach22opis", "Play 5 games in one session.");
         enStrings.put("Ach23opis", "Fail on tutorial level.");
-        enStrings.put("Rekordy", "Leaderboards");
+
 
         //POLSKI
         Map<String, String> plStrings = new HashMap<>();
@@ -129,6 +132,7 @@ public class Strings {
         plStrings.put("Aktualny:", "Aktualny:");
         plStrings.put("punktów", "punktów");
         plStrings.put("Punkty:", "Punkty: ");
+        plStrings.put("Punkty", "Punkty");
         plStrings.put("poziom", "Poziom");
         plStrings.put("Aby odpauzować", "Aby odpauzować naciśnij klawisz \"p\"");
         plStrings.put("lvl0_trafiaj", "Trafiaj w przeciwników, unikając ich oraz ich strzałów.");
@@ -162,6 +166,8 @@ public class Strings {
         plStrings.put("Zresetuj wszystko2", "Zresetuj wszystkie wyniki i osiągnięcia");
         plStrings.put("Czy na pewno?", "Czy na pewno?");
         plStrings.put("Rekordy", "Tabela wyników");
+        plStrings.put("Gracz", "Gracz");
+        plStrings.put("Czas gry", "Czas gry");
 
         plStrings.put("Osiągnięcia", "Osiągnięcia");
         plStrings.put("Lista osiągnięć", "Lista osiągnięć");
