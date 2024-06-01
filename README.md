@@ -1,6 +1,8 @@
 A simple shoot 'em up game made as a school project.
+Download site: https://teampdm.itch.io/space-game (installator or jar) Required Java 8+.
 
 ![kuQcxg](https://github.com/MeHow2k/SpaceGame/assets/128099721/9e832af0-2882-48d0-8119-b829cbbf3af2)
+
 It features:
 
 -50 levels
